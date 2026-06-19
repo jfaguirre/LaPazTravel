@@ -1,7 +1,7 @@
 <img src="https://www.itca.edu.sv/wp-content/uploads/2025/01/LogoITCA_Web.png" width="300">
 
 <h1>Sistema de turismo La Paz</h1>
-<p>Sistema de turismo originario del DEpartamento de La Paz; dedicado al turismo y proyeccion cultural de la región.</p>
+<p>Sistema de turismo originario del Departamento de La Paz; dedicado al turismo y proyeccion cultural de la región.</p>
 
 
 <h3>Instalación de recursos para el proyecto</h3>
@@ -15,7 +15,7 @@ https://getcomposer.org/
 ### 2. Clona el repositorio
 
 ```bash
-https://github.com/jfaguirre/PazTravel.git
+git clone https://github.com/jfaguirre/PazTravel.git
 ```
 
 ### 3. Entra al directorio del proyecto local desde la termina:
