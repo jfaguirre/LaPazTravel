@@ -6,10 +6,14 @@
 
 <h3>Instalación de recursos para el proyecto</h3>
 
-### 1. Instala composer en tu PC:
+### 1. Instala composer y node js en tu PC:
 
 ```bash
 https://getcomposer.org/
+
+
+https://nodejs.org/es/download
+
 ```
 
 ### 2. Clona el repositorio
@@ -44,9 +48,9 @@ Abrir el archivo `.env` y configurar la conexión a la base de datos:
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=nombre_bd
-DB_USERNAME=usuario
-DB_PASSWORD=password
+DB_DATABASE=lapaz_db
+DB_USERNAME=root
+DB_PASSWORD=
 ```
 
 ### 7. Generara la clave de la aplicación
