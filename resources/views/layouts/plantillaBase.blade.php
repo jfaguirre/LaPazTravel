@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ asset('assets/css/principal.css') }}">
     <!-- Título dinámico con valor por defecto -->
     <title>@yield('titulo', 'La Paz Travel')</title>
     <!-- Stack para CSS adicional por vista -->
@@ -18,6 +19,8 @@
                 <a href="/" ">Inicio</a>
                 <a href="/about" >Acerca de</a>
                 <a href="/contact" >Contacto</a>
+                <a href="/formulario">probar formulario</a>
+                <a href="/mapa">ver mapa</a>
             </nav>
         </div>
     </header>
@@ -43,77 +46,5 @@
     @stack('scripts')
     
 </body>
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    
-}
 
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #007BFF;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    transition: all 0.3s ease;
-}
-
-/* Header */
-header {
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    padding: 1rem 2rem;
-}
-
-header h1 {
-    color: #333;
-    text-align: center;
-    margin-bottom: 1rem;
-    font-size: 1.8rem;
-}
-
-/* Navegación principal */
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-}
-
-nav a {
-    color: #031b35;
-    text-decoration: none;
-    font-weight: 500;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    transition: background 0.3s, color 0.3s;
-}
-nav a:hover {
-    background: #031b35;
-    color: white;
-}
-.boton {
-    background: #089ab4;
-    color: white;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    border-radius: 4px;
-    padding: 0.5rem 0.5rem;
-}
-.boton:hover {
-    background: #0850b4;
-    color: white;
-    transform: translateY(-2px);
-}
-main {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #f0f2f5;
-    padding: 2rem;
-}
-</style>
 </html>
