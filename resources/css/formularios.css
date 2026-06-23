@@ -1,3 +1,10 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+
 body {
     font-family: Arial;
     background: #f0f2f5;
@@ -10,7 +17,9 @@ a {
     text-decoration: none;  /* Quita el subrayado */
     color: black;           /* Cambia el color (pon el que quieras) */
 }
-
+a:hover {
+    color: #7c88e3;         /* Cambia el color al pasar el mouse */
+}
 .box {
     background: white;
     padding: 30px;

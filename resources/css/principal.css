@@ -1,8 +1,8 @@
-/* Reset básico y estilos globales */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    
 }
 
 body {
@@ -11,11 +11,11 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    transition: all 0.3s ease;
 }
 
 /* Header */
 header {
-    background: white;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     padding: 1rem 2rem;
 }
@@ -37,10 +37,35 @@ nav {
 }
 
 nav a {
-    color: #007BFF;
+    color: #031b35;
     text-decoration: none;
     font-weight: 500;
     padding: 0.5rem 1rem;
     border-radius: 4px;
     transition: background 0.3s, color 0.3s;
+}
+nav a:hover {
+    background: #031b35;
+    color: white;
+}
+.boton {
+    background: #089ab4;
+    color: white;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    border-radius: 4px;
+    padding: 0.5rem 0.5rem;
+}
+.boton:hover {
+    background: #0850b4;
+    color: white;
+    transform: translateY(-2px);
+}
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f0f2f5;
+    padding: 2rem;
 }

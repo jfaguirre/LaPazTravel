@@ -11,6 +11,9 @@ Route::get('/formulario', function () {
     return view('formularioPrueba');
 });
 
+Route::get('/mapa', function () {
+    return view('mapa');
+});
 
 
 Route::get('/dashboard', function () {
