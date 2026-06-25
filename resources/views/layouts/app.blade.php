@@ -27,10 +27,14 @@
                 </header>
             @endisset
 
-            <!-- Page Content -->
+            <!-- Contenido de las paginas -->
             <main>
-                {{ $slot }}
+                @yield('contenido')
             </main>
+
         </div>
     </body>
 </html>
+
+
+
