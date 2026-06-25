@@ -10,8 +10,9 @@
 
 ```bash
 https://getcomposer.org/
+```
 
-
+```bash
 https://nodejs.org/es/download
 
 ```
@@ -82,5 +83,18 @@ npm run dev
 ```bash
 php artisan serve
 ```
-:)
+
+## Recursos instalados
+
+Instalación de Laravel/breeze para la implementación del sistema completo de autenticación de usuarios
+
+```bash
+composer require laravel/breeze --dev
+```
+
+```bash
+php artisan breeze:install
+```
+
+
 
