@@ -1,4 +1,4 @@
-@extends('layouts.plantillaBase')
+@extends('layouts.guests')
 
 @section('titulo', 'Inicio - La Paz Travel')
 
