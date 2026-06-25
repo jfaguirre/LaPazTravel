@@ -27,12 +27,8 @@
     <!-- CUERPO PRINCIPAL para la mayoria del contenido de las vistas -->
     <main >
         <!-- CONTENEDOR principal -->
-        <section>
-            
-            <!-- Sección de contenido principal -->
-            @yield('contenedor_principal')
-            
-        </section>
+        <!-- Sección de contenido principal -->
+        @yield('contenedor_principal')
     </main>
     <!-- FOOTER (común a todas las vistas)         -->
     <footer >
