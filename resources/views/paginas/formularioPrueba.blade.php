@@ -1,4 +1,4 @@
-@extends('layouts.plantillaFormulario')
+@extends('components.formularios')
 
 @section('titulo', 'Formulario de prueba - La Paz Travel')
 

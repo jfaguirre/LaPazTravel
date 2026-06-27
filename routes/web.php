@@ -7,6 +7,15 @@ Route::get('/', function () {
     return view('inicio');
 });
 
+//para la vistas publicas
+//retornar a la vista del formulario de prueba
+Route::get('/formulario', function () {
+    return view('paginas\formularioPrueba');
+});
+// retornar a la vista de mapa
+Route::get('/mapa', function () {
+    return view('paginas\mapa');
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
