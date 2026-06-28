@@ -1,8 +1,8 @@
-@extends('components.formularios')
+@extends('layouts.guest')
 
-@section('titulo', 'Formulario de prueba - La Paz Travel')
+@section('title', 'Formulario de prueba - La Paz Travel')
 
-@section('contenedor_formulario')
+@section('contenido')
 <div class="form-container">
             <h2>iniciar sesion</h2>
             <form action="#" method="POST">
