@@ -2,11 +2,10 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: #007BFF;
     min-height: 100vh;
     display: flex;
@@ -16,6 +15,8 @@ body {
 
 /* Header */
 header {
+    display: flex;
+    flex-direction: column;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     padding: 1rem 2rem;
 }
@@ -28,26 +29,35 @@ header h1 {
 }
 
 /* Navegación principal */
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
+.menu {
+    width: 100%;
+    padding: 10px 20px;
+    min-width: 200px; 
+    flex: 1;
+}
+.menu .item {
+    display: inline-block;
+    padding: 10px 20px;
+    text-decoration: none;
+    list-style: none;
+    font-size: 20px;
+}
+.item{
+    font-size: 20px;
+    color:aliceblue;
+    padding: 0;           
+    margin: 0;
+    font-weight: 700;
 }
 
-nav a {
-    color: #031b35;
-    text-decoration: none;
-    font-weight: 500;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    transition: background 0.3s, color 0.3s;
+a.item:hover{
+    background-color: #061a77f2;
+    color:aliceblue;
+    transform: scale(1.1);
+    transition: 0.3s;
+    border-radius: 3px;
 }
-nav a:hover {
-    background: #031b35;
-    color: white;
-}
+
 .boton {
     background: #089ab4;
     color: white;
@@ -69,4 +79,47 @@ main {
     align-items: center;
     background: #f0f2f5;
     
+}
+
+/* el menu de hamburguesa por defecto esta desactivado */
+.burgerMenu{
+    display: none;
+    color: rgb(19, 20, 13);
+    font-size: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+/* menu de amburguesa para las pantallas mas pequeñas*/
+@media (max-width: 768px) {
+    .burgerMenu{
+        display: flex;
+        width: 50px;
+        height: 50px;
+        z-index: 100;
+        align-items: center;
+    }
+    .menu{
+        display: none;
+    }
+    .menu.active{
+        display: flex;
+        flex-direction: column;
+        position:absolute;
+        top: 15%;
+        left: 0;
+        width: auto;
+        /* semi-transparente */
+        background: #007BFFf2; 
+        box-shadow: 2px 0 8px #000000f2;
+        z-index: 10;
+    }
+    .burgerMenu:hover{
+        color:aliceblue;
+        transition: 0.3s;
+        background: #034183;
+    }
+    header{
+        padding-bottom: 40px;
+    }
 }
