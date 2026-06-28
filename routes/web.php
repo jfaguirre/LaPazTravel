@@ -7,6 +7,14 @@ Route::get('/', function () {
     return view('inicio');
 });
 
+Route::get('/formulario', function () {
+    return view('paginas.formularioPrueba');
+})->name('formulario');
+
+Route::get('/mapa', function () {
+    return view('paginas.mapa');
+})->name('mapa');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

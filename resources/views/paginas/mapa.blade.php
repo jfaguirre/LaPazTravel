@@ -1,8 +1,8 @@
-@extends('layouts.plantillaBase')
+@extends('layouts.guest')
 
-@section('titulo', 'Mapa - La Paz Travel')
+@section('title', 'Mapa - La Paz Travel')
 
-@section('contenedor_principal')
+@section('contenido')
     <h2>Mapa de La Paz Travel</h2>
     <p>Explora los mejores destinos turísticos, encuentra ofertas exclusivas y planifica tu próxima aventura con nosotros.</p>
     <br>
