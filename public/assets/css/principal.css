@@ -6,7 +6,7 @@
 }
 
 body {
-    background: #007BFF;
+    background: #437E8C;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -77,7 +77,7 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: #f0f2f5;
+    background: #FFF6C2;
     
 }
 

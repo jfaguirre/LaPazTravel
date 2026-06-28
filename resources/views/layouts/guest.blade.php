@@ -17,11 +17,11 @@
                 <h1>logo La Paz Travel</h1>
                 <div class ="burgerMenu">☰</div>
                 <nav class = "menu" id="menu">
-                    <a class="item" href="/" ">Inicio</a>
-                    <a class="item" href="/about" >Acerca de</a>
-                    <a class="item" href="/contact" >Contacto</a>
-                    <a class="item" href="/formulario">probar formulario</a>
-                    <a class="item" href="/">ver mapa</a><!-- no funciona aun -->
+                    <a class="item" href="{{ route('index')}}" ">Inicio</a>
+                    <a class="item" href="{{ route('about')}}" >Acerca de</a>
+                    <a class="item" href="{{ route('index')}}" >Contacto</a>
+                    <a class="item" href="{{ route('formularioPrueba')}}">probar formulario</a>
+                    <a class="item" href="{{ route('index')}}">ver mapa</a><!-- no funciona aun -->
                 </nav>
             </div>
         </header>

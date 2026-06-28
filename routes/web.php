@@ -3,19 +3,24 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('inicio');
-});
+Route::get('/', function () 
+{return view('inicio');
+})->name('index');
 
 //para la vistas publicas
 //retornar a la vista del formulario de prueba
 Route::get('/formulario', function () {
     return view('paginas\formularioPrueba');
-});
+})->name('formularioPrueba');
 // retornar a la vista de mapa
 Route::get('/mapa', function () {
     return view('paginas\mapa');
-});
+})->name('mapa');
+
+Route::get('/acercaDe', function () {
+    return view('paginas\nosotros');
+})->name('about');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
