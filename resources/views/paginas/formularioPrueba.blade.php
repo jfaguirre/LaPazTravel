@@ -4,15 +4,16 @@
 
 @section('contenedor_formulario')
 <div class="form-container">
-            <h2>iniciar sesion</h2>
+            <h2>formulario de pruebas</h2>
             <form action="#" method="POST">
                 <label>Correo:</label>
                 <input type="email" name="correo" required>
                 <label>Contraseña:</label>
                 <input type="password" name="password" required>
-                <input type="submit" value="verificar">
+                <input class="btnAceptar" type="submit" value="verificar">
             </form>
-            <a type="back" href="{{route('index')}}">regresar</a>
+            <br>
+            <a class="back" href="{{route('index')}}">regresar</a>
 </div>  
 
 @endsection

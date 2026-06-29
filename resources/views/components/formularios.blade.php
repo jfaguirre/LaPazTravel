@@ -16,10 +16,8 @@
     <main  >
         <!-- CONTENEDOR principal -->
         <section class="box">
-            
             <!-- Sección de contenido principal -->
             @yield('contenedor_formulario')
-            
         </section>
     </main>
 
