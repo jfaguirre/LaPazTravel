@@ -1,7 +1,7 @@
 
     <header >
         <h1>logo La Paz Travel</h1>
-        <div class ="nav-contianer">
+        <div class ="nav-container">
             <!--boton del menu desplegable -->
             <div class="burgerMenu" id="bm">☰</div>
             <!--  barra de busqueda -->

@@ -1,8 +1,8 @@
 :root{
-    --color-primary:#437E8C;
-    --color-primary-transparent:#438c8cf2;
-    --color-secondary:#FFF6C2;
-    --color-button:#089ab4;
+    --color-primary:#1d2d88;
+    --color-primary-transparent:#4274D9f2;
+    --color-secondary:#9eccda;
+    --color-button:#4274D9;
     --color-button-hover:#0850b4;
     --color-item:#2d429e;
     --color-item-hover:#061a77f2;
@@ -33,7 +33,7 @@ header {
 }
 
 header h1 {
-    color: #333;
+    color: var(--color-text-white);
     text-align: center;
     margin-bottom: 1rem;
     font-size: 1.8rem;
@@ -44,8 +44,11 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: var(--color-primary-transparent);
+    background: var(--color-secondary);
     
+}
+footer{
+    color: var(--color-text-white)
 }
 .boton {
     background: var(--color-button);
@@ -69,7 +72,7 @@ main {
 .nav-container {
     display: flex;
     align-items: center;      /* Centra verticalmente */
-    padding: 10px 20px;
+    padding: 0px 0px;
     gap: 15px;                /* Espacio entre botón y búsqueda */
     position: relative;       /* Para posicionar el menú desplegable */
 }
@@ -81,11 +84,11 @@ main {
 }
 
 .menu.active {
-    display: block;
+    display: inline-block;
     position: absolute;
-    top: 20%;               /* Justo debajo del nav-container */
-    left: 0;
-    width: 250px;
+    top: 100%;               /* Justo debajo del nav-container */
+    left: -1%;
+    width: auto;
     height: 80vh;
     background: var(--color-primary);
     padding: 10px 0;
