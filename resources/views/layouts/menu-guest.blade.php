@@ -1,4 +1,4 @@
- {{--Menu guest --}}
+{{--Menu guest --}}
 <nav class="menu-guest">
     <section class="logo">
         <img src="" alt="La Paz Travel">
@@ -12,9 +12,9 @@
         <a href="{{ route('mapa') }}">ver mapa</a>
         @if (Route::has('login'))    
             @auth
-                <a href="{{ url('/dashboard') }}">Dashboard</a>
+                <a class="btnLogin" href="{{ url('/dashboard') }}">Dashboard</a>
             @else
-                <a href="{{ route('login') }}">Log in</a>           
+                <a class="btnLogin" href="{{ route('login') }}">Log in</a>           
             @endauth        
         @endif
     </section>    

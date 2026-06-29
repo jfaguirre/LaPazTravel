@@ -54,6 +54,7 @@ Route::middleware('auth')->group(function () {
 
     Route::put('password', [PasswordController::class, 'update'])->name('password.update');
 
-    Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
-        ->name('logout');
+    Route::get('logout', [AuthenticatedSessionController::class, 'destroy'])
+        ->name('logout'); // me marcaba un error de tipo The POST method is not supported for route /. Supported methods: GET asi que cambie
+        //Route::post a Route::get para poder aplicar correctamente el logout y aparentemente funciono
 });

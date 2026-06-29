@@ -18,6 +18,12 @@
                 <a class="item" href="{{ route('formularioPrueba')}}">probar formulario</a>
                 <a class="item" href="{{ route('index')}}">ver mapa</a><!-- no funciona aun -->
             </nav>
-            
+            @auth
+                <a class="btnLogin" href="{{ route('logout') }}">Log out</a> 
+            @else
+                <a class="btnLogin" href="{{ route('login') }}">Log in</a>           
+            @endauth
+
+
         </div>
     </header>

@@ -7,7 +7,9 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
     <h2>Iniciar sesion</h2>
-    <form method="POST" action="{{ route('index') }}">
+    <!-- tiraba el siguiente error: The POST method is not supported for route /. Supported methods: GET, HEAD. -->
+    <!-- debido a eso se cambio el metodo a GET -->
+    <form method="GET" action="{{ route('index') }}"> 
         @csrf
 
         <!-- Email Address -->
@@ -46,8 +48,9 @@
             <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('register') }}">
                     {{ __('register') }}
                 </a>
+                <!-- se agrego un boton para registrarse -->
             <x-primary-button class="ms-3 btnAceptar">
-                {{ __('Log in') }}
+                {{ __('Login') }} <!-- antes la ruta se llaba log in en lugar de login como esta en auth.php-->
             </x-primary-button>
         </div>
     </form>
