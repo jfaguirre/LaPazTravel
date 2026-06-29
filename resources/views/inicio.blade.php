@@ -8,7 +8,6 @@
         @endauth
     </nav>
 @endif
-
 <h1>Aqui tu contenido de la pagina de inicio</h1>
 
 @section('contenedor_principal')

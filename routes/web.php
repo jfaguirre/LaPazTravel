@@ -7,14 +7,6 @@ Route::get('/', function ()
 {return view('inicio');
 })->name('index');
 
-Route::get('/formulario', function () {
-    return view('paginas.formularioPrueba');
-})->name('formulario');
-
-Route::get('/mapa', function () {
-    return view('paginas.mapa');
-})->name('mapa');
-
 //para la vistas publicas
 //retornar a la vista del formulario de prueba
 Route::get('/formulario', function () {
