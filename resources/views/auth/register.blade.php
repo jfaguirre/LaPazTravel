@@ -1,4 +1,8 @@
-<x-guest-layout>
+@extends('components.formularios')
+
+@section('title', 'Login de usuario')
+    
+@section('contenedor_formulario')
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
@@ -44,9 +48,9 @@
                 {{ __('Already registered?') }}
             </a>
 
-            <x-primary-button class="ms-4">
+            <x-primary-button class="ms-4 btnAceptar">
                 {{ __('Register') }}
             </x-primary-button>
         </div>
     </form>
-</x-guest-layout>
+@endsection
