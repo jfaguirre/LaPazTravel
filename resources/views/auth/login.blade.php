@@ -9,7 +9,7 @@
     <h2>Iniciar sesion</h2>
     <!-- tiraba el siguiente error: The POST method is not supported for route /. Supported methods: GET, HEAD. -->
     <!-- debido a eso se cambio el metodo a GET -->
-    <form method="GET" action="{{ route('index') }}"> 
+    <form method="POST" action="{{ route('login') }}" class="formulario">
         @csrf
 
         <!-- Email Address -->

@@ -3,38 +3,30 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-        <link rel="stylesheet" href="{{ asset('assets/css/principal.css') }}">
-    
-        <title>
-            @hasSection('title')
-                @yield('title')
-            @else
-                @yield('titulo', 'La Paz Travel')
-            @endif
-        </title>
+        <meta name="csrf-token" content="{{ csrf_token() }}">            
+        <title> @yield('title')</title>
+        
         <!-- Scripts -->
         @vite([
+            'resources/css/app.css',,
+            'resources/css/main.css',
+            'resources/css/inicio.css',            
             'resources/js/menu.js'
         ])
 
     </head>
     <body>
-        <!-- NAVBAR -->
+
         @include('layouts._partials.menu')
-        <!-- CUERPO PRINCIPAL para la mayoria del contenido de las vistas -->
-        <main >
-            <!-- CONTENEDOR principal -->
-            @yield('contenedor_principal')
+        
+        <main >        
+            @yield('contenido')
         </main>
-        <!-- FOOTER (común a todas las vistas)         -->
+        
+
         <footer >
             <p>&copy; {{ date('Y') }} La Paz Travel. Todos los derechos reservados.</p>
         </footer>
-
-
-        <!-- Stack para scripts adicionales por vista -->
-        @stack('scripts')
-
+        
     </body>
 </html>

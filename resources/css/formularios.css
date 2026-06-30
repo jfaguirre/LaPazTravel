@@ -1,21 +1,3 @@
-:root{
-    --color-primary:#0c164d;
-    --color-primary-transparent:#3a66bef2;
-    --color-secondary:#48afce;
-    --color-button:#4274D9;
-    --color-button-hover:#0850b4;
-    --color-item:#000000;
-    --color-item-hover:#061a77f2;
-    --color-text-white:aliceblue;
-    --color-text-black:black;
-}
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
 body {
     background: var(--color-primary);
     min-height: 100vh;

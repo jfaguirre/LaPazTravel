@@ -28,7 +28,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('index')); // se cambio la ruta de dashboard a index
+        return redirect()->intended(route('dashboard')); 
     }
 
     /**
@@ -37,12 +37,9 @@ class AuthenticatedSessionController extends Controller
     public function destroy(Request $request): RedirectResponse
     {
         Auth::guard('web')->logout();
-
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
-
-        return redirect()->intended(route('index', absolute: false)); //se cambio  return redirect('/') por return redirect()->intended(route('index', absolute: false))
-        //para que al hacer logout redirija al index en lugar de al dashboard
+        
+        return redirect('/');        
     }
 }

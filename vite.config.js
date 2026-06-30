@@ -6,9 +6,12 @@ export default defineConfig({
         laravel({
             input: 
             [
-                'resources/css/app.css', 
+                'resources/css/app.css',
+                'resources/css/main.css',
+                'resources/css/inicio.css',
+                
                 'resources/js/app.js',
-                'resources/js/menu.js' //agregado para trabajar el script en un documento a parte de la vista
+                'resources/js/menu.js' 
             ],
             refresh: true,
         }),

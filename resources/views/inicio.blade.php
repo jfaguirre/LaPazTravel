@@ -1,22 +1,33 @@
+        @if (Route::has('login'))
+        <nav class="-mx-3 flex flex-1 justify-end">
+            @auth
+                <a
+                    href="{{ url('/dashboard') }}"
+                    class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                >
+                    Dashboard
+                </a>
+            @else
+                <a
+                    href="{{ route('login') }}"
+                    class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                >
+                    Log in
+                </a>
 
-@if (Route::has('login'))
-    <nav class="flex items-center justify-end gap-4">
-        @auth
-            @extends('layouts.guest')
-            @section('titulo', 'principal - La Paz Travel')
-            @section('contenedor_principal')
-                <h2>Bienvenido a La Paz Travel</h2>
-                <p>Explora los mejores destinos turísticos, encuentra ofertas exclusivas y planifica tu próxima aventura con nosotros.</p>
-                <br>
-                <a class="boton" href="{{ route('formularioPrueba')}}">probar formulario</a>
-                <!-- <a  class="boton" href="/">ver mapa</a>--> <!-- no funciona aun -->
-            @endsection
-        @else      
-            <p> no estas autenticado</p>  
-        @endauth
-    </nav>
-@endif
+                @if (Route::has('register'))
+                    <a
+                        href="{{ route('register') }}"
+                        class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                    >
+                        Register
+                    </a>
+                @endif
+            @endauth
+        </nav>
+    @endif
 
+    <h1>Aqui el contenido de la pagina de inicio</h1>
 
 
 
