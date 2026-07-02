@@ -96,5 +96,19 @@ composer require laravel/breeze --dev
 php artisan breeze:install
 ```
 
+Instalación de spatie/laravel-permission para gestionar roles y permisos de usuarios en la base de datos
+
+```bash
+composer require spatie/laravel-permission
+```
+
+```bash
+php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
+```
+
+```bash
+php artisan migrate
+```
+
 
 
