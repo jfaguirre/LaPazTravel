@@ -13,3 +13,4 @@ class Sitio extends Model
         'id_user'
     ];
 }
+

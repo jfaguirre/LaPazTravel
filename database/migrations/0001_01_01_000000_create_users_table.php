@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id()->primary();            
+            $table->id()->primary();
             $table->string('name');
             $table->string('lastName');
             $table->string('email')->unique();
@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('foto_perfil')->nullable();
             $table->timestamp('ultimo_login')->nullable();
-            $table->enum('estado', ['ACTIVO', 'INACTIVO', 'SUSPENDIDO'])->default('ACTIVO');                        
+            $table->enum('estado', ['ACTIVO', 'INACTIVO', 'SUSPENDIDO'])->default('ACTIVO');
             $table->rememberToken();
             $table->timestamps();
         });
