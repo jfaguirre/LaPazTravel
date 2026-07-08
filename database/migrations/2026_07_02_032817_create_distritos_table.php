@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('distritos', function (Blueprint $table) {
-            $table->id()->primary();
+            $table->id();
             $table->string('distrito', 50)->unique();
             $table->enum('estado',['ACTIVO', 'INACTIVO'])->default('INACTIVO');
             $table->foreignId('id_departamento')->constrained('departamentos');

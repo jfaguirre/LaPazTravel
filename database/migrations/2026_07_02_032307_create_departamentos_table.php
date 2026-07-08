@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('departamentos', function (Blueprint $table) {
-            $table->id()->primary();             
+            $table->id();             
             $table->string('departamento', 50)->unique();
             $table->enum('estado',['ACTIVO', 'INACTIVO'])->default('INACTIVO');
             $table->timestamps();

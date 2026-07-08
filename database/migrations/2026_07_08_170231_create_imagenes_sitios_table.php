@@ -11,20 +11,22 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('municipios', function (Blueprint $table) {
+        Schema::create('imagenes_sitios', function (Blueprint $table) {
             $table->id();
-            $table->string('municipio', 50)->unique();
-            $table->enum('estado',['ACTIVO', 'INACTIVO'])->default('INACTIVO');       
-            $table->foreignId('id_distrito')->constrained('distritos');
+            $table->string('url', 255);
+            $table->string('titulo', 150)->nullable();
+            $table->boolean('principal')->default(false);
+            $table->integer('orden')->default(1);
+            $table->foreignId('sitio_id')->constrained('sitios')->cascadeOnDelete();
             $table->timestamps();
         });
-    }
+    }    
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('municipios');
+        Schema::dropIfExists('imagenes_sitios');
     }
 };

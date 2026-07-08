@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('municipios', function (Blueprint $table) {
+        Schema::create('servicios', function (Blueprint $table) {
             $table->id();
-            $table->string('municipio', 50)->unique();
-            $table->enum('estado',['ACTIVO', 'INACTIVO'])->default('INACTIVO');       
-            $table->foreignId('id_distrito')->constrained('distritos');
+            $table->string('servicio', 50)->unique();
+            $table->string('icono', 100);
+            $table->enum('estado', ['ACTIVO', 'INACTIVO'])->default('INACTIVO');
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('municipios');
+        Schema::dropIfExists('servicios');
     }
 };
