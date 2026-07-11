@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('sitio_categoria', function (Blueprint $table) {            
-            $table->foreignId('sitioPerfil_id')->constrained('sitio_perfils')->cascadeOnDelete();
+            $table->foreignId('sitioPerfil_id')->constrained('sitio_perfil')->cascadeOnDelete();
             $table->foreignId('categoria_id')->constrained('categorias')->cascadeOnDelete();
             $table->unique(['sitioPerfil_id', 'categoria_id']);
             $table->timestamps();

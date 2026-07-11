@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sitio_perfils', function (Blueprint $table) {
+        Schema::create('sitio_perfil', function (Blueprint $table) {
             // Datos principales
             $table->id();            
             $table->string('identificador', 10)->unique();
@@ -42,28 +42,12 @@ return new class extends Migration
         });
     }
 
-
-    
-   
-    
-    
-    // created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    // updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    // FOREIGN KEY(id_sitio) REFERENCES sitios(id) ON DELETE CASCADE,
-    // FOREIGN KEY(id_departamento) REFERENCES departamentos(id),
-    // FOREIGN KEY(id_distrito) REFERENCES distritos(id),
-    // FOREIGN KEY(id_municipio) REFERENCES municipios(id)
-
-
-
-
-
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('sitio_perfils');
+        Schema::dropIfExists('sitio_perfil');
     }
 };
 
