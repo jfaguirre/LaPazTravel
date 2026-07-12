@@ -53,9 +53,15 @@ class User extends Authenticatable
     // _______________________________________________________________________
     
     // Traer los sitios que tiene el usuario.
-    public function sitios():HasMany
+    public function sitios(): HasMany
     {
-        return $this->hasMany(Sitio::class);
+        return $this->hasMany(Sitio::class, 'id_user');
+    }
+
+    // Traer las publicaciones que ha realizado el usuario.
+    public function publicaciones(): HasMany
+    {
+        return $this->hasMany(Publicacion::class, 'user_id');
     }
 
 }
