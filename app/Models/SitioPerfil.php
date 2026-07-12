@@ -37,41 +37,41 @@ class SitioPerfil extends Model
 
     public function sitio(): BelongsTo
     {
-        return $this->belongsTo(Sitio::class, 'sitio_id');
+        return $this->belongsTo(Sitio::class, 'id_sitio');
     }
 
     public function departamento(): BelongsTo
     {
-        return $this->belongsTo(Departamento::class, 'departamento_id');
+        return $this->belongsTo(Departamento::class, 'id_departamento');
     }
 
     public function distrito(): BelongsTo
     {
-        return $this->belongsTo(Distrito::class, 'distrito_id');
+        return $this->belongsTo(Distrito::class, 'id_distrito');
     }
 
     public function municipio(): BelongsTo
     {
-        return $this->belongsTo(Municipio::class, 'municipio_id');
+        return $this->belongsTo(Municipio::class, 'id_municipio');
     }
 
     public function precios(): HasMany
     {
-        return $this->hasMany(Precio::class, 'sitioPerfil_id');
+        return $this->hasMany(Precio::class, 'id_sitioPerfil');
     }
 
     public function categorias(): BelongsToMany
     {
-        return $this->belongsToMany(Categoria::class, 'sitio_categoria', 'sitioPerfil_id', 'categoria_id');
+        return $this->belongsToMany(Categoria::class, 'sitio_categoria', 'id_sitioPerfil', 'id_categoria');
     }
 
     public function reglas(): BelongsToMany
     {
-        return $this->belongsToMany(Regla::class, 'sitio_regla', 'sitioPerfil_id', 'regla_id');
+        return $this->belongsToMany(Regla::class, 'sitio_regla', 'id_sitioPerfil', 'id_regla');
     }
 
     public function servicios(): BelongsToMany
     {
-        return $this->belongsToMany(Servicio::class, 'sitio_servicio', 'sitioPerfil_id', 'servicio_id');
+        return $this->belongsToMany(Servicio::class, 'sitio_servicio', 'id_sitioPerfil', 'id_servicio');
     }
 }

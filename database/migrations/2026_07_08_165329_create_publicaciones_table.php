@@ -17,8 +17,8 @@ return new class extends Migration
             $table->text('contenido');
             $table->string('imagen_portada', 255)->nullable();
             $table->enum('estado', ['BORRADOR', 'PUBLICADO', 'OCULTO'])->default('BORRADOR');
-            $table->foreignId('sitio_id')->constrained('sitios');
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('id_sitio')->constrained('sitios');
+            $table->foreignId('id_user')->constrained('users');
             $table->timestamps();
         });
     }

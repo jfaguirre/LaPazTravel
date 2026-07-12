@@ -23,11 +23,11 @@ class Publicacion extends Model
 
     public function sitio(): BelongsTo
     {
-        return $this->belongsTo(Sitio::class, 'sitio_id');
+        return $this->belongsTo(Sitio::class, 'id_sitio');
     }
 
     public function usuario(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'id_user');
     }
 }

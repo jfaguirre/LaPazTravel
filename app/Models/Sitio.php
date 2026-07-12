@@ -28,19 +28,19 @@ class Sitio extends Model
     // Traer el perfil asociado al sitio.
     public function perfil(): HasOne
     {
-        return $this->hasOne(SitioPerfil::class, 'sitio_id');
+        return $this->hasOne(SitioPerfil::class, 'id_sitio');
     }
 
     // Traer las imágenes del sitio.
     public function imagenes(): HasMany
     {
-        return $this->hasMany(ImagenesSitio::class, 'sitio_id');
+        return $this->hasMany(ImagenesSitio::class, 'id_sitio');
     }
 
     // Traer las publicaciones del sitio.
     public function publicaciones(): HasMany
     {
-        return $this->hasMany(Publicacion::class, 'sitio_id');
+        return $this->hasMany(Publicacion::class, 'id_sitio');
     }
 
 

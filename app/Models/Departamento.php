@@ -21,6 +21,6 @@ class Departamento extends Model
 
     public function sitioPerfiles(): HasMany
     {
-        return $this->hasMany(SitioPerfil::class, 'departamento_id');
+        return $this->hasMany(SitioPerfil::class, 'id_departamento');
     }
 }

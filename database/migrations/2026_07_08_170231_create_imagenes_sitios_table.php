@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('titulo', 150)->nullable();
             $table->boolean('principal')->default(false);
             $table->integer('orden')->default(1);
-            $table->foreignId('sitio_id')->constrained('sitios')->cascadeOnDelete();
+            $table->foreignId('id_sitio')->constrained('sitios')->cascadeOnDelete();
             $table->timestamps();
         });
     }    

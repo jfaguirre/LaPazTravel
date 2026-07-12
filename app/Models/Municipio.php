@@ -23,6 +23,6 @@ class Municipio extends Model
 
     public function sitioPerfiles(): HasMany
     {
-        return $this->hasMany(SitioPerfil::class, 'municipio_id');
+        return $this->hasMany(SitioPerfil::class, 'id_municipio');
     }
 }

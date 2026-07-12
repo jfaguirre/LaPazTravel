@@ -18,6 +18,6 @@ class Servicio extends Model
 
     public function sitioPerfiles(): BelongsToMany
     {
-        return $this->belongsToMany(SitioPerfil::class, 'sitio_servicio', 'servicio_id', 'sitioPerfil_id');
+        return $this->belongsToMany(SitioPerfil::class, 'sitio_servicio', 'id_servicio', 'id_sitioPerfil');
     }
 }

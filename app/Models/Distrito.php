@@ -28,6 +28,6 @@ class Distrito extends Model
 
     public function sitioPerfiles(): HasMany
     {
-        return $this->hasMany(SitioPerfil::class, 'distrito_id');
+        return $this->hasMany(SitioPerfil::class, 'id_distrito');
     }
 }

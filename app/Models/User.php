@@ -22,8 +22,7 @@ class User extends Authenticatable
         'name',
         'lastName',
         'email',              
-        'password',
-        'estado'
+        'password',        
     ];
     /**
      * The attributes that should be hidden for serialization.
@@ -61,7 +60,7 @@ class User extends Authenticatable
     // Traer las publicaciones que ha realizado el usuario.
     public function publicaciones(): HasMany
     {
-        return $this->hasMany(Publicacion::class, 'user_id');
+        return $this->hasMany(Publicacion::class, 'id_user');
     }
 
 }

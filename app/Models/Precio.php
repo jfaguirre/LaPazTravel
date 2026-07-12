@@ -19,6 +19,6 @@ class Precio extends Model
 
     public function sitioPerfil(): BelongsTo
     {
-        return $this->belongsTo(SitioPerfil::class, 'sitioPerfil_id');
+        return $this->belongsTo(SitioPerfil::class, 'id_sitioPerfil');
     }
 }

@@ -32,10 +32,10 @@ return new class extends Migration
             $table->decimal('latitud', 10, 8)->nullable();
             $table->decimal('longitud', 11, 8)->nullable();
             // Relaciones | Llaves foraneas            
-            $table->foreignId('sitio_id')->nullable()->constrained('sitios')->onDelete('set null');
-            $table->foreignId('departamento_id')->nullable()->constrained('departamentos')->onDelete('set null');
-            $table->foreignId('distrito_id')->nullable()->constrained('distritos')->onDelete('set null');
-            $table->foreignId('municipio_id')->nullable()->constrained('municipios')->onDelete('set null');            
+            $table->foreignId('id_sitio')->nullable()->constrained('sitios')->onDelete('set null');
+            $table->foreignId('id_departamento')->nullable()->constrained('departamentos')->onDelete('set null');
+            $table->foreignId('id_distrito')->nullable()->constrained('distritos')->onDelete('set null');
+            $table->foreignId('id_municipio')->nullable()->constrained('municipios')->onDelete('set null');            
             // Fecha de registro
             $table->timestamps();
             

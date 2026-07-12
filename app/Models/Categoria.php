@@ -19,6 +19,6 @@ class Categoria extends Model
 
     public function sitioPerfiles(): BelongsToMany
     {
-        return $this->belongsToMany(SitioPerfil::class, 'sitio_categoria', 'categoria_id', 'sitioPerfil_id');
+        return $this->belongsToMany(SitioPerfil::class, 'sitio_categoria', 'id_categoria', 'id_sitioPerfil');
     }
 }

@@ -18,6 +18,6 @@ class Regla extends Model
 
     public function sitioPerfiles(): BelongsToMany
     {
-        return $this->belongsToMany(SitioPerfil::class, 'sitio_regla', 'regla_id', 'sitioPerfil_id');
+        return $this->belongsToMany(SitioPerfil::class, 'sitio_regla', 'id_regla', 'id_sitioPerfil');
     }
 }

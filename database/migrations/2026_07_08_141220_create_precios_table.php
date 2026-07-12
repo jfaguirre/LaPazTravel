@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('categoria', 50);
             $table->decimal('precioEntrada', 8, 2);
             $table->string('descripcion', 100)->nullable();
-            $table->foreignId('sitioPerfil_id')->constrained('sitio_perfil')->cascadeOnDelete();
+            $table->foreignId('id_sitioPerfil')->constrained('sitio_perfil')->cascadeOnDelete();
             $table->timestamps();
         });
     }

@@ -6,12 +6,12 @@ export default defineConfig({
         laravel({
             input: 
             [
+                'resources/js/app.js',
+                'resources/js/menu.js',
                 'resources/css/app.css',
                 'resources/css/main.css',
-                'resources/css/inicio.css',
-                
-                'resources/js/app.js',
-                'resources/js/menu.js' 
+                'resources/css/inicio.css',                                 
+                'resources/css/dashboard_sitio.css',                                 
             ],
             refresh: true,
         }),
