@@ -110,5 +110,17 @@ php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvid
 php artisan migrate
 ```
 
+Instalación de Bootstrap y Bootstrap-icons
+```bash
+npm install bootstrap bootstrap-icons
+```
+
+Luego lo importamos desde resources/css/app.css
+```bash
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+```
+
+
 
 
