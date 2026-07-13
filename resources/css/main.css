@@ -23,6 +23,7 @@
     --bg-app:         #F8FAFC;
         
     --error:          #DC2626;
+    --warning:          #f85555;
     --error-bg:       #FEF2F2;
     --success:        #16A34A;
     --success-bg:     #F0FDF4;
@@ -40,6 +41,14 @@
 }
 
 /* Urbanist */
+
+@font-face {
+    font-family: 'Urbanist';
+    src: url('../fonts/Urbanist/Urbanist-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
 @font-face {
     font-family: 'Urbanist';
     src: url('../fonts/Urbanist/Urbanist-Regular.ttf') format('truetype');
@@ -67,3 +76,5 @@
     font-weight: 700;
     font-style: normal;
 }
+
+

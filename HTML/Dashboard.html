@@ -1,0 +1,185 @@
+
+ <!-- Formularios de inicio / datos basicos -->
+<div id="page-form-basico" class="page">
+    <div class="form-container">
+        <div class="form-header">
+            <h1>Información del sitio turístico</h1>
+            <p>Completa los datos básicos para crear la ficha de tu destino</p>
+        </div>
+
+        <form id="form-datos-basicos" class="form-card">
+            <div class="form-section-title">
+                <span class="step-badge">1</span>
+                Datos generales
+            </div>
+
+            <div class="form-group">
+                <label for="nombre">
+                    Nombre del sitio <span class="required">*</span>
+                </label>
+                <p class="hint">Ingresa el nombre oficial o más conocido del destino turístico</p>
+                <input 
+                    type="text" 
+                    id="nombre" 
+                    name="nombre" 
+                    maxlength="50" 
+                    placeholder="Ej: Cascada El Salto" 
+                    required
+                    oninput="updateSlug(this.value); updateCounter(this, 'counter-nombre')"                    
+                >
+                <div class="char-counter" id="counter-nombre">0 / 50</div>
+            </div>
+
+            <div class="form-group">
+                <label for="slug">
+                    Slug <span class="required">*</span>
+                </label>
+                <p class="hint">Identificador único en URL. Se genera automáticamente desde el nombre.</p>
+                <input 
+                    type="text" 
+                    id="slug" 
+                    name="slug" 
+                    maxlength="150" 
+                    placeholder="cascada-el-salto" 
+                    required
+                    disabled
+                    oninput="updateCounter(this, 'counter-slug')"
+                >
+                <div class="slug-preview" id="slug-preview">
+                    <i class="bi bi-globe2"></i> https://lapaztravel.com/<span id="slug-text"></span>
+                </div>
+                <div class="char-counter" id="counter-slug">0 / 150</div>
+            </div>
+
+            <div class="form-group">
+                <label for="descripcion_corta">
+                    Descripción corta <span class="required">*</span>
+                </label>
+                <p class="hint">Un resumen atractivo de 1 a 3 oraciones sobre el destino</p>
+                <textarea 
+                    id="descripcion_corta" 
+                    name="descripcion_corta" 
+                    placeholder="Describe brevemente qué hace especial a este lugar, qué pueden esperar los visitantes..."
+                    required
+                    oninput="updateCounter(this, 'counter-desc')"
+                ></textarea>
+                <div class="char-counter" id="counter-desc">0 caracteres</div>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="btn-back" onclick="showPage('dashboard')">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Volver
+                </button>
+                <button type="button" class="btn btn-primary" onclick="showPage('form-categoria')">
+                    Continuar
+                    <i class="bi bi-arrow-right-circle"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+{{-- Formulario para las categorias--}}
+<div id="page-form-categoria" class="page">
+    <div class="form-container">
+        <div class="form-header">
+            <h1>Categorias</h1>
+            <p>Seleciona las categorias que mas describen a tu sitio.</p>
+        </div>
+
+        <form id="form-datos-categoria" class="form-card">
+            <div class="form-section-title">
+                <span class="step-badge">1</span>
+                Seleciona tus categorías
+            </div>
+
+            <div class="form-group">
+                <label for="nombre">
+                    Nombre del sitio <span class="required">*</span>
+                </label>
+                <p class="hint">Ingresa el nombre oficial o más conocido del destino turístico</p>
+                <input 
+                    type="text" 
+                    id="nombre" 
+                    name="nombre" 
+                    maxlength="50" 
+                    placeholder="Ej: Cascada El Salto" 
+                    required                    
+                >
+                <div class="char-counter" id="counter-nombre">0 / 50</div>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="btn-back" onclick="showPage('form-basico')">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Volver
+                </button>
+                <button type="submit" class="btn-submit">
+                    Continuar
+                    <svg viewBox="0 0 18 18" fill="none">
+                        <path d="M4 9h10M10 5l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+   
+@endsection
+    
+
+@push('scripts')
+<script>
+     function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById('page-' + pageId).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function updateCounter(el, counterId) {
+            const counter = document.getElementById(counterId);
+            const max = el.maxLength;
+            const current = el.value.length;
+            counter.textContent = current + ' / ' + max;
+            
+            counter.classList.remove('warning', 'danger');
+            if (current >= max) {
+                counter.classList.add('danger');
+            } else if (current >= max * 0.85) {
+                counter.classList.add('warning');
+            }
+        }
+
+        function updateSlug(value) {
+            const slugInput = document.getElementById('slug');
+            const preview = document.getElementById('slug-preview');
+            const slugText = document.getElementById('slug-text');
+            
+            // generacion del slug a partir del nombre
+            let slug = value
+                .toLowerCase()
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .replace(/[^a-z0-9\s-]/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/-+/g, '-')
+                .substring(0, 200);
+            
+            slugInput.value = slug;
+            updateCounter(slugInput, 'counter-slug');
+            
+            if (slug.length > 0) {
+                preview.classList.add('visible');
+                slugText.textContent = slug;
+            } else {
+                preview.classList.remove('visible');
+            }
+        }
+
+    </script>
