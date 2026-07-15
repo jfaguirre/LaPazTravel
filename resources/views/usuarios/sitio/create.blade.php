@@ -9,7 +9,8 @@
 
 <div class="pagina">
     <div class="form-container">      
-        <form id="form-datos-basicos" class="form-card">
+        <form id="form-datos-basicos" class="form-card" action="{{ route('sitio.store') }}" method="POST">
+            @csrf
             <div class="form-section-title">                
                 Datos generales
             </div>
@@ -73,7 +74,7 @@
                     <i class="bi bi-arrow-left-circle m-0 p-0"></i>
                     Regresar
                 </a>
-                <a class="btn btn-primary btn-sm" href="">Guardar datos</a>                               
+                <button type="submit" class="btn btn-primary btn-sm">Guardar datos</button>                               
             </div>
         </form>
     </div>
