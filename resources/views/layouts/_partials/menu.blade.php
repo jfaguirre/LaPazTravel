@@ -12,6 +12,7 @@
             <!-- <a class="boton" href="#">publicar un sitio</a>-->
             @auth
                 <a class="btnLogin" href="{{ route('logout') }}">Log out</a> 
+                <a class="btnLogin" href="{{ route('dashboard')}}">ir al dashboard</a>
             @else
                 <a class="btnLogin" href="{{ route('login') }}">Log in</a>           
             @endauth
