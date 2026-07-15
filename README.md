@@ -123,4 +123,7 @@ Luego lo importamos desde resources/css/app.css
 
 
 
+```bash
+npm install bootstrap @popperjs/core
+```
 
