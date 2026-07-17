@@ -1,5 +1,6 @@
+@import 'main.css';
 body {
-    background: var(--color-primary);
+    background: var(--primario-oscuro);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -11,15 +12,14 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: var(--color-primary);
+    background: var(--primario-oscuro);
     
 }
 
 .box {
-    background: var(--color-secondary);
+    background: var(--primario-claro);
     padding: 30px;
     border-radius: 10px;
-    width: 400px;
     box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
 }
 
@@ -33,8 +33,7 @@ label {
     margin-top: 10px;
     font-size: 16px;
     font-weight: 100;
-    font-style: var(--color-item);
-    color: var(--color-text-black);
+    color: var(--neutro-900);
 }
 
 input, select {
@@ -45,17 +44,17 @@ input, select {
     border-radius: 25px;
     font-size: 16px;
     min-width: 0;
-    color: var(--color-text-black);
+    color: var(--neutro-900);
     box-shadow: inset;
 }
 input:hover, select:hover{
-    border-color: var(--color-item);
-    outline-color: var(--color-primary-transparent);
+    border-color: var(--primario);
+    outline-color: var(--border-focus);
     outline-style:solid;
 }
 input:focus, select:focus{
-    border-color: var(--color-item);
-    outline-color: var(--color-primary-transparent);
+    border-color: var(--primario);
+    outline-color: var(--border-focus);
     outline-style:solid;
 }
 
@@ -65,14 +64,14 @@ input:focus, select:focus{
     margin-top: 15px;
     width: 100%;
     padding: 12px;
-    background: var(--color-button);
-    color: var(--color-text-white);
+    background: var(--primario-claro);
+    color: var(--blanco);
     font-size: 16px;
     cursor: pointer;
 }
 
 .btnAceptar:hover {
-    background: var(--color-button-hover);
+    background: var(--primario-oscuro);
 }
 
 .back{
@@ -80,9 +79,9 @@ input:focus, select:focus{
     padding: 10px;
     border-radius: 20px;
     text-decoration: none;
-    background: var(--color-button-hover);
-    color: var(--color-text-white);
+    background: var(--primario-claro);
+    color: var(--blanco);
 }
 .back:hover{
-    background: var(--color-button-hover) ;
+    background: var(--primario-oscuro) ;
 }

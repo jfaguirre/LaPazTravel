@@ -8,9 +8,10 @@
         
         <!-- Scripts -->
         @vite([
-            'resources/js/app.js'
-            'resources/css/app.css',,
-            'resources/css/main.css',            
+            'resources/css/app.css',
+            'resources/css/main.css',
+            'resources/css/inicio.css',            
+            'resources/js/menu.js'
         ])
 
     </head>
