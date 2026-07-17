@@ -7,6 +7,8 @@ use App\Http\Controllers\Regla\ReglaControlador;
 use App\Http\Controllers\Servicio\ServicioControlador;
 use Illuminate\Support\Facades\Route;
 
+use App\Models\User;
+use App\Models\Sitio;
 // Rutas publicas
 Route::view('/', 'inicio')->name('inicio');
 
@@ -17,8 +19,36 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         $user = auth()->user();
         
+
+            if ($user->hasRole('admin')) {
+                $totalUsuarios = User::count();
+                $sitiosPendientesCount = Sitio::where('estado', 'PENDIENTE')->count();
+                $totalSitiosActivos = Sitio::where('estado', 'APROBADO')->count();
+                $totalVisitas = Sitio::sum('visitas');
+
+                $sitiosPendientes = Sitio::with('usuario')
+                    ->where('estado', 'PENDIENTE')
+                    ->latest()
+                    ->take(5)
+                    ->get();
+
+                $ultimosUsuarios = User::latest()
+                    ->take(5)
+                    ->get();
+
+                return view('admin.dashboard', compact(
+                    'totalUsuarios', 
+                    'sitiosPendientesCount', 
+                    'totalSitiosActivos', 
+                    'totalVisitas', 
+                    'sitiosPendientes',
+                    'ultimosUsuarios'
+                )); 
+        }
+
+
         // Verificar si existe el Sitio del usuario
-        $sitio = \App\Models\Sitio::where('id_user', $user->id)->first();
+        $sitio = Sitio::where('id_user', $user->id)->first();
         $hasSitio = $sitio !== null;
         
         // Verificar si el SitioPerfil tiene categorias, reglas y servicios asociados
