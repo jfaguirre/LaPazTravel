@@ -24,7 +24,7 @@
 
         <div class="dashboard-grid">
             <div class="dashboard-left">
-                <h1>Crea la ficha de tu sitio turístico</h1>
+                <h1>Crea la ficha de tu sitio turístico</h1><x-icons.volcan class="text-danger" width="40"/>
                 <p>Registra la información principal de tu destino para que pueda ser explorado por miles de visitantes. Completa cada sección con datos precisos y reales. Una vez completada cada sección, podrás enviar la solicitud para que pueda ser revisada y aprobada.</p>
                 
                 @if(!$hasSitio)
