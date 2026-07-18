@@ -2,7 +2,7 @@
 
 @extends('layouts.guest')
 
-@section('title', 'Mapa - La Paz Travel')
+@section('title', 'inicio - La Paz Travel')
 
 @section('contenido')
     <nav aria-label="breadcrumb">
@@ -111,10 +111,56 @@
             </div>
         </div>
     </div>
-    
-    <div>
-        
+    <!-- Panel de información -->
+    <div class="info-panel" id="infoPanel">
+        <div>
+            <h3>Explora el Mapa</h3>
+            <p>Pasa el cursor sobre una región para ver información</p>
+        </div>
     </div>
+
+    <!-- Tooltip  de momento es mas un indicador visual que otra cosa-->
+    <div class="tooltip" id="tooltip">
+        <div class="region-name" id="tooltipName"></div>
+        <div class="region-info" id="tooltipInfo"></div>
+    </div>
+    <div class="map-wrapper">
+        <div class="map-container">
+            <!-- Región Oeste -->
+            <div class="region region-oeste" data-name="Región Oeste" data-info="Capital: Ciudad del Oeste | Población: 2.8M">
+                <img src="{{ asset('..\assets\images\mapa-la-paz-oeste.png') }}" alt="Región Oeste">
+            </div>
+
+            <!-- Región Centro -->
+            <div class="region region-centro" data-name="Región Centro" data-info="Capital: Ciudad Central | Población: 5.2M">
+                <img src="{{ asset('..\assets\images\mapa-la-paz-centro.png') }}" alt="Región Centro">
+            </div>
+
+            <!-- Región Este -->
+            <div class="region region-este" data-name="Región Este" data-info="Capital: Ciudad del Este | Población: 3.5M">
+                <img src="{{ asset('..\assets\images\mapa-la-paz-este.png') }}" alt="Región Este">
+            </div>
+        </div>
+    </div>
+
+    <!-- Leyenda -->
+    <div class="legend">
+        <div class="legend-item" data-region="oeste">
+            <div class="legend-color oeste"></div>
+            <span class="legend-label">Oeste</span>
+        </div>
+        <div class="legend-item" data-region="centro">
+            <div class="legend-color centro"></div>
+            <span class="legend-label">Centro</span>
+        </div>
+        <div class="legend-item" data-region="este">
+            <div class="legend-color este"></div>
+            <span class="legend-label">Este</span>
+        </div>
+    </div>
+
+    
+
 @endsection
 
 

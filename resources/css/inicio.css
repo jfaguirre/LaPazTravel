@@ -244,3 +244,215 @@ footer{
     transition: all 0.3s ease;
     border-radius: 15px;
 }
+
+/* prueba de mapa interactivo*/
+
+.map-wrapper {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 25px;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    /*box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4);*/
+    position: relative;
+}
+
+.map-container {
+    position: relative;
+    width: 900px;
+    height: 700px;
+}
+
+/* Estilo base para las regiones con imágenes */
+.region {
+    position: absolute;
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    /*filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));*/
+    overflow: visible;
+}
+
+.region img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Región Oeste - Izquierda */
+.region-oeste {
+    left: 111px;
+    top: -12px;
+    width: 360px;
+    height: 648px;
+}
+.region-oeste:hover {
+    transform: translate(-25px, -15px) scale(1.05);
+    filter: drop-shadow(0 25px 50px rgba(231, 76, 60, 0.6))
+            drop-shadow(0 0 30px rgba(231, 76, 60, 0.5));
+    z-index: 100;
+}
+
+/* Región Centro - Medio */
+.region-centro {
+    left: 300px;
+    top: 5px;
+    width: 391px;
+    height: 619px;
+    z-index: 50; /* Asegura que esté por encima de las otras regiones */
+}
+.region-centro:hover {
+    transform: translate(0, -30px) scale(1.05);
+    
+    filter: drop-shadow(0 25px 50px rgba(46, 204, 113, 0.6))
+            drop-shadow(0 0 30px rgba(46, 204, 113, 0.5));
+    z-index: 100;
+}
+
+/* Región Este - Derecha */
+.region-este {
+    left: 457px;
+    top: -12px;
+    width: 360px;
+    height: 648px;
+}
+.region-este:hover {
+    transform: translate(25px, -15px) scale(1.05);
+    filter: drop-shadow(0 30px 55px rgba(52, 152, 219, 0.6))
+            drop-shadow(0 0 30px rgba(52, 152, 219, 0.5));
+    z-index: 100;
+}
+
+/* Tooltip */
+.tooltip {
+    position: fixed;
+    background: linear-gradient(135deg, rgba(0,0,0,0.95), rgba(30,30,50,0.95));
+    color: white;
+    padding: 18px 28px;
+    border-radius: 15px;
+    font-size: 1rem;
+    pointer-events: none;
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    backdrop-filter: blur(15px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+}
+
+.tooltip.visible {
+    opacity: 1;
+    transform: translate(-50%, -120%);
+}
+
+.tooltip .region-name {
+    font-weight: bold;
+    font-size: 1.3rem;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+}
+
+.tooltip .region-info {
+    opacity: 0.9;
+    font-size: 0.95rem;
+}
+
+/* Leyenda */
+.legend {
+    display: flex;
+    justify-content: center;
+    gap: 35px;
+    margin-top: 40px;
+    flex-wrap: wrap;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 30px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.legend-item:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-5px);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.legend-color {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.legend-color.oeste { background: #e74c3c; }
+.legend-color.este { background: #3498db; }
+.legend-color.centro { background: #2ecc71; }
+
+.legend-label {
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+/* Panel de información */
+.info-panel {
+    margin-top: 35px;
+    padding: 30px 40px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    text-align: center;
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s ease;
+    max-width: 600px;
+    width: 100%;
+}
+
+.info-panel.active {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: scale(1.02);
+}
+
+.info-panel h3 {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+}
+
+.info-panel p {
+    opacity: 0.9;
+    font-size: 1.05rem;
+}
+
+/* Animaciones */
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.map-wrapper {
+    animation: slideIn 1s ease-out;
+}
+
+/* Responsive */
+@media (max-width: 968px) {
+    .map-container { 
+        width: 100%; 
+        max-width: 600px;
+        height: auto;
+    }
+    .region-oeste { width: 200px; height: 400px; left: 0; }
+    .region-centro { width: 200px; height: 467px; left: 200px; }
+    .region-este { width: 200px; height: 400px; left: 400px; }
+    header h1 { font-size: 2rem; }
+    .map-wrapper { padding: 30px; }
+}
