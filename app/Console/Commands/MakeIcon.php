@@ -57,20 +57,40 @@ class MakeIcon extends Command
 
         try {
 
-            $this->synchronizer->sync(
+            $result = $this->synchronizer->sync(
                 $svgPath,
                 $this->option('profile')
             );
 
-            $this->info(
-                "✔ " . pathinfo(
-                    $svgPath,
-                    PATHINFO_FILENAME
-                )
-            );
+            if ($result['blade_exists']) {
+
+                $this->line(
+                    '↻ Componente Blade actualizado'
+                );
+
+            } else {
+
+                $this->info(
+                    '✔ Componente Blade creado'
+                );
+            }
+
+            if ($result['database_exists'] === true) {
+
+                $this->warn(
+                    '⚠ Registro ya existente en la base de datos'
+                );
+
+            } elseif ($result['database_exists'] === false) {
+
+                $this->info(
+                    '✔ Registro creado en la base de datos'
+                );
+            }
 
             return self::SUCCESS;
 
+        
         } catch (\InvalidArgumentException $e) {
 
             $this->error($e->getMessage());

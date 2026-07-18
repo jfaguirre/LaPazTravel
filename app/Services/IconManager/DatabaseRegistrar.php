@@ -6,8 +6,12 @@ use Illuminate\Support\Facades\DB;
 
 class DatabaseRegistrar
 {
-    public function register(array $profile, string $name, string $icon): bool
-    {
+    public function registerIfNotExists(
+        array $profile,
+        string $name,
+        string $icon
+    ): bool {
+
         $table = $profile['table'];
 
         $nameColumn = $profile['name_column'];
@@ -20,6 +24,7 @@ class DatabaseRegistrar
             ->exists();
 
         if ($exists) {
+
             return false;
         }
 

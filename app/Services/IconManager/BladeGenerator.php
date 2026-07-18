@@ -9,10 +9,13 @@ class BladeGenerator
     public function generate(
         string $iconName,
         string $content
-    ): void {
+    ): bool {
+
         $destination = resource_path(
             "views/components/icons/{$iconName}.blade.php"
         );
+
+        $exists = File::exists($destination);
 
         File::ensureDirectoryExists(
             dirname($destination)
@@ -22,5 +25,7 @@ class BladeGenerator
             $destination,
             $content
         );
+
+        return $exists;
     }
 }

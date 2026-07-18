@@ -6,21 +6,20 @@ use Illuminate\Support\Facades\File;
 
 class IconSynchronizer
 {
-    
     public function __construct(
         protected SvgCleaner $cleaner,
         protected NameFormatter $nameFormatter,
         protected ProfileResolver $profileResolver,
         protected DatabaseRegistrar $databaseRegistrar,
         protected BladeGenerator $bladeGenerator
-        
     ) {
     }
 
     public function sync(
         string $svgPath,
         ?string $profileName = null
-    ): bool {
+    ): array {
+
         $nombreIcono = pathinfo(
             $svgPath,
             PATHINFO_FILENAME
@@ -43,24 +42,35 @@ class IconSynchronizer
             $profile = $this->profileResolver->resolve(
                 $profileName
             );
-
         }
 
-        $this->bladeGenerator->generate(
+        $bladeExists = $this->bladeGenerator->generate(
             $nombreIcono,
             $contenido
         );
-       
+
+        $databaseExists = null;
+
         if ($profile) {
 
-            $this->databaseRegistrar->register(
-                $profile,
-                $nombre,
-                $nombreIcono
-            );
-
+            $databaseExists =
+                ! $this->databaseRegistrar->registerIfNotExists(
+                    $profile,
+                    $nombre,
+                    $nombreIcono
+                );
         }
 
-        return true;
+        return [
+
+            'name' => $nombre,
+
+            'icon' => $nombreIcono,
+
+            'blade_exists' => $bladeExists,
+
+            'database_exists' => $databaseExists,
+
+        ];
     }
 }
