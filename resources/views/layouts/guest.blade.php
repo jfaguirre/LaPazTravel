@@ -11,9 +11,10 @@
             'resources/css/app.css',
             'resources/css/main.css',
             'resources/css/inicio.css',            
-            'resources/js/menu.js'
+            'resources/js/menu.js',
+            'resources/js/guest.js',
         ])
-
+        @stack('styles')
     </head>
     <body>
 
@@ -27,6 +28,6 @@
         <footer >
             <p>&copy; {{ date('Y') }} La Paz Travel. Todos los derechos reservados.</p>
         </footer>
-        
+        @stack('scripts')
     </body>
 </html>
