@@ -8,7 +8,7 @@ return [
 
             'table' => 'categorias',
 
-            'name_column' => 'categoria',
+            'name_column' => 'nombre',
 
             'icon_column' => 'icono',
 

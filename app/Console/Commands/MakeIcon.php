@@ -5,27 +5,49 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use App\Services\IconManager\SvgCleaner;
+use App\Services\IconManager\ProfileResolver;
+use App\Services\IconManager\DatabaseRegistrar;
 
 class MakeIcon extends Command
 {
     
     protected SvgCleaner $cleaner;
+    protected ProfileResolver $profileResolver;
+    protected DatabaseRegistrar $databaseRegistrar;
 
     public function __construct()
     {
-        parent::__construct();
+         parent::__construct();
 
         $this->cleaner = new SvgCleaner();
+        $this->profileResolver = new ProfileResolver();
+
+        $this->databaseRegistrar = new DatabaseRegistrar();
     }
 
-    protected $signature = 'icon:import
-                        {path : Archivo SVG o carpeta}';
+    protected $signature = 'icons:import
+                        {path : Archivo SVG o carpeta}
+                        {--profile= : Perfil de configuración}';
 
     protected $description = 'Crear un componente Blade desde un SVG';
       
     public function handle(): int
     {
         $path = $this->argument('path');
+
+        $profileName = $this->option('profile');
+
+        $profile = null;
+
+        if ($profileName) {
+            try {
+                $profile = $this->profileResolver->resolve($profileName);
+            } catch (\InvalidArgumentException $e) {
+                $this->error($e->getMessage());
+
+                return self::FAILURE;
+            }
+        }
 
         if (! File::exists($path)) {
 
@@ -37,16 +59,17 @@ class MakeIcon extends Command
 
         if (File::isDirectory($path)) {
 
-            return $this->importarCarpeta($path);
+            return $this->importarCarpeta($path, $profile);
 
         }
 
-        return $this->importarArchivo($path);
+        return $this->importarArchivo($path, $profile);
     }
 
 
-    protected function importarArchivo(string $svgPath): int
+    protected function importarArchivo(string $svgPath, ?array $profile = null): int
     {
+        
         $this->info("Importando:");
 
         $this->line($svgPath);
@@ -79,12 +102,23 @@ class MakeIcon extends Command
 
         File::put($destino, $contenido);
 
+        if ($profile) {
+
+            $this->databaseRegistrar->register(
+                $profile,
+                $nombre,
+                $nombre
+            );
+
+        }
+
         $this->info("✔ {$nombre}");
 
         return self::SUCCESS;
+
     }
 
-    protected function importarCarpeta(string $folder): int
+    protected function importarCarpeta(string $folder, ?array $profile = null): int
     {
         $this->info("Buscando SVG...");
 
@@ -100,7 +134,7 @@ class MakeIcon extends Command
 
             }
 
-            $this->importarArchivo($archivo->getRealPath());
+            $this->importarArchivo($archivo->getRealPath(), $profile);
 
             $contador++;
 
