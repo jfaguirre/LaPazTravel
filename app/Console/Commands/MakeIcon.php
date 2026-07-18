@@ -4,18 +4,25 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
+use App\Services\IconManager\SvgCleaner;
 
 class MakeIcon extends Command
 {
-    /**
-     * php artisan make:icon volcan resources/icons/volcan.svg
-     */
+    
+    protected SvgCleaner $cleaner;
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->cleaner = new SvgCleaner();
+    }
+
     protected $signature = 'icon:import
                         {path : Archivo SVG o carpeta}';
 
     protected $description = 'Crear un componente Blade desde un SVG';
-
-  
+      
     public function handle(): int
     {
         $path = $this->argument('path');
@@ -36,7 +43,7 @@ class MakeIcon extends Command
 
         return $this->importarArchivo($path);
     }
-    
+
 
     protected function importarArchivo(string $svgPath): int
     {
@@ -48,7 +55,9 @@ class MakeIcon extends Command
 
         $contenido = File::get($svgPath);
 
-        $contenido = $this->procesarSvg($contenido);
+        
+        $contenido = $this->cleaner->clean($contenido);
+        
 
         $destino = resource_path(
             "views/components/icons/{$nombre}.blade.php"
@@ -103,48 +112,5 @@ class MakeIcon extends Command
 
         return self::SUCCESS;
     }
-
-    protected function procesarSvg(string $svg): string
-{
-
-    // Eliminar metadata
-    $svg = preg_replace('/<metadata>.*?<\/metadata>\s*/is', '', $svg);
-
-    // Eliminar declaración XML
-    $svg = preg_replace('/<\?xml.*?\?>\s*/is', '', $svg);
-
-    // Eliminar DOCTYPE
-    $svg = preg_replace('/<!DOCTYPE[^>]*>\s*/is', '', $svg);
-
-    // Eliminar width
-    $svg = preg_replace('/\swidth="[^"]*"/i', '', $svg);
-
-    // Eliminar height
-    $svg = preg_replace('/\sheight="[^"]*"/i', '', $svg);
-
-    // Reemplazar fill
-    $svg = preg_replace(
-        '/fill="(?!none)[^"]*"/i',
-        'fill="currentColor"',
-        $svg
-    );
-
-    // Reemplazar stroke
-    $svg = preg_replace(
-        '/stroke="(?!none)[^"]*"/i',
-        'stroke="currentColor"',
-        $svg
-    );
-
-    // Agregar atributos Blade
-    $svg = preg_replace(
-        '/<svg\b([^>]*)>/i',
-        '<svg$1 {{ $attributes }}>',
-        $svg,
-        1
-    );
-
-    return $svg;
-}
     
 }
