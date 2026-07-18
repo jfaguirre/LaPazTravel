@@ -2,7 +2,7 @@
 
 @extends('layouts.guest')
 
-@section('title', 'inicio - La Paz Travel')
+@section('title', 'La Paz Este - La Paz Travel')
 
 @section('contenido')
     <nav aria-label="breadcrumb">
@@ -16,7 +16,7 @@
     <div class="box">
         <!-- un mensaje cualquiera -->
         <p class ="box-content">
-            parrafo de ejemplo de la paz, una tierra rica en cultura y naturaleza....
+            PARRAFO DE DE LA PAZ CENTRO
             <br>
             El departamento de La Paz, en El Salvador, es un destino que cautiva 
             por su impresionante contraste de ecosistemas, 
@@ -36,37 +36,14 @@
     <!--  la clase deck contendra las tarjetas que tendran que ser 
         editadas para que muestren la información correctamente segun lo establecido en la base de datos -->
     <div class="muestras">
-        <div class="distritos">
-            <div class="distrito">
-                <a class="solo" href="#">
-                    <div class="distrito-content">
-                        <p>todos</p>
-                    </div>
-                </a>
-            </div>
-            <div class="distrito">
-                <a class="solo" href="{{ route('la-paz-este') }}">
-                    <div class="distrito-content">
-                        <p>La paz este</p>
-                    </div>
-                </a>
-            </div>
-            <div class="distrito">
-                <a class="solo" href="{{ route('la-paz-centro') }}">
-                    <div class="distrito-content">
-                        <p>La paz centro</p>
-                    </div>
-                </a>
-            </div>
-        </div>
         <div class="deck">
             <div class= "card">
                 <a class="solo" href="https://www.google.com/maps/place/Parque+Recreativo+Costa+del+Sol/@13.5833333,-88.1833333,15z/data=!4m6!3m5!1s0x8f633b7e9c8f8f8f:0x8f633b7e9c8f8f8f!8m2!3d13.5833333!4d-88.1833333!16s%2Fg%2F11c5v5v5v5?entry=ttu" target="_blank">
                     
                     <div class="card-content">
-                        <h2>Costa del Sol</h2>
-                        <img src="{{ asset('images/costa_del_sol.jpg') }}" alt="Imagen de costa del sol"><br>
-                        <p class="">La Costa del Sol, en el departamento de La Paz, 
+                        <h2>Isla Espíritu Santo</h2>
+                        <img src="{{ asset('images/islá-espiritú-santo.jpg') }}" alt="Imagen de Isla Espíritu Santo"><br>
+                        <p class="">Isla Espíritu Santo, en el departamento de La Paz, 
                             se ha consolidado como un destino turístico familiar gracias a la reciente renovación de su parque recreativo, 
                             que ahora ofrece modernas piscinas, palapas frente al mar y áreas de descanso para toda la familia. 
                             Con una inversión que supera los 8 millones de dólares, el espacio ha sido transformado para brindar 
@@ -115,7 +92,7 @@
     <!-- Panel de información -->
     <div class="info-panel" id="infoPanel">
         <div>
-            <h3>Explora el Mapa</h3>
+            <h3>mapa de referencia</h3>
             <p>Pasa el cursor sobre una región para ver información</p>
         </div>
     </div>
@@ -128,14 +105,6 @@
     
     <!-- Leyenda -->
     <div class="legend">
-        <div class="legend-item" data-region="oeste">
-            <div class="legend-color oeste"></div>
-            <span class="legend-label">Oeste</span>
-        </div>
-        <div class="legend-item" data-region="centro">
-            <div class="legend-color centro"></div>
-            <span class="legend-label">Centro</span>
-        </div>
         <div class="legend-item" data-region="este">
             <div class="legend-color este"></div>
             <span class="legend-label">Este</span>
@@ -143,16 +112,6 @@
     </div>
     <div class="map-wrapper">
         <div class="map-container">
-            <!-- Región Oeste -->
-            <div class="region region-oeste" data-name="Región Oeste" data-info="Insertar informacion caracteristica de La Paz Oeste">
-                <img src="{{ asset('..\assets\images\mapa-la-paz-oeste.png') }}" alt="Región Oeste">
-            </div>
-
-            <!-- Región Centro -->
-            <div class="region region-centro" data-name="Región Centro" data-info="Insertar informacion caracteristica de La Paz Centro">
-                <img src="{{ asset('..\assets\images\mapa-la-paz-centro.png') }}" alt="Región Centro">
-            </div>
-
             <!-- Región Este -->
             <div class="region region-este" data-name="Región Este" data-info="Insertar informacion caracteristica de La Paz Este">
                 <img src="{{ asset('..\assets\images\mapa-la-paz-este.png') }}" alt="Región Este">

@@ -5,11 +5,13 @@ use App\Http\Controllers\Sitio\SitioControlador;
 use App\Http\Controllers\Categoria\CategoriaControlador;
 use App\Http\Controllers\Regla\ReglaControlador;
 use App\Http\Controllers\Servicio\ServicioControlador;
+
 use Illuminate\Support\Facades\Route;
 
 // Rutas publicas
 Route::view('/', 'inicio')->name('inicio');
-
+Route::view('/la-paz-centro', '../paginas/regiones/LaPazCentro')->name('la-paz-centro');
+Route::view('/la-paz-este', '../paginas/regiones/LaPazEste')->name('la-paz-este');
 
 // Grupo para rutas protegidas
 Route::middleware(['auth', 'verified'])->group(function () {
