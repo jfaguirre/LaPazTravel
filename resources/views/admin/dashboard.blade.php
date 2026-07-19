@@ -27,7 +27,7 @@
         </div>
     </div>
 
-    <!-- Fila de Tarjetas de Resumen (KPIs) -->
+    <!-- Fila de Tarjetas de Resumen -->
     <div class="row g-4 mb-5">
         <!-- Sitios Pendientes -->
         <div class="col-12 col-md-6 col-lg-3">
@@ -118,7 +118,7 @@
                                             <i class="bi bi-person me-1"></i> {{ $sitio->usuario->name }}
                                         </td>
                                         <td class="px-4 py-3 text-end">
-                                            <a href="#" class="btn btn-sm btn-outline-dark">
+                                            <a href="{{ route('admin.sitios.revisar', $sitio->id) }}" class="btn btn-sm btn-outline-dark">
                                                 <i class="bi bi-eye-fill"></i> Revisar
                                             </a>
                                         </td>

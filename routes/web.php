@@ -5,6 +5,7 @@ use App\Http\Controllers\Sitio\SitioControlador;
 use App\Http\Controllers\Categoria\CategoriaControlador;
 use App\Http\Controllers\Regla\ReglaControlador;
 use App\Http\Controllers\Servicio\ServicioControlador;
+use App\Http\Controllers\Admin\AdminController;
 use Illuminate\Support\Facades\Route;
 
 use App\Models\User;
@@ -19,8 +20,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         $user = auth()->user();
         
-
-            if ($user->hasRole('admin')) {
+            // Verificar si el usuario tiene el rol de administrador
+            if ($user->hasRole('su')) {
                 $totalUsuarios = User::count();
                 $sitiosPendientesCount = Sitio::where('estado', 'PENDIENTE')->count();
                 $totalSitiosActivos = Sitio::where('estado', 'APROBADO')->count();
@@ -97,6 +98,25 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Registro de Servicios
     Route::get('/dashboard/servicio', [ServicioControlador::class, 'create'])->name('servicio.create');
     Route::post('/dashboard/servicio', [ServicioControlador::class, 'store'])->name('servicio.store');
+
+
+    //Panel de Administración (Solo accesibles para autenticados)
+    Route::prefix('admin')->name('admin.')->group(function () {
+
+        Route::get('/sitios', [AdminController::class, 'sitiosIndex'])->name('sitios.index');
+
+        // Pantalla de revisión individual
+        Route::get('/sitios/{id}/revisar', [AdminController::class, 'revisar'])->name('sitios.revisar');
+        
+        // Acciones para cambiar el estado de la solicitud
+        Route::patch('/sitios/{id}/aprobar', [AdminController::class, 'aprobar'])->name('sitios.aprobar');
+        Route::patch('/sitios/{id}/rechazar', [AdminController::class, 'rechazar'])->name('sitios.rechazar');
+        Route::patch('/sitios/{id}/suspender', [AdminController::class, 'suspender'])->name('sitios.suspender');
+        Route::patch('/sitios/{id}/pendiente', [AdminController::class, 'pendiente'])->name('sitios.pendiente');
+
+        Route::get('/usuarios', [AdminController::class, 'usuariosIndex'])->name('usuarios.index');
+
+    });
 
 });
 
