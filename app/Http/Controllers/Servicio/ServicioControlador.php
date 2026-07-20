@@ -11,41 +11,48 @@ class ServicioControlador extends Controller
 {
     public function create()
     {
-        $user = auth()->user();
-        $sitio = Sitio::where('id_user', $user->id)->first();
+        $servicios = Servicio::all();
 
-        if (!$sitio) {
-            return redirect()->route('dashboard')->with('error', 'Primero debes completar los Datos generales de tu sitio.');
-        }
-
-        return view('usuarios.servicio.create');
+        return view('usuarios.servicio.create', compact('servicios'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
             'servicio' => 'required|string|max:50|unique:servicios,servicio',
-            'icono' => 'required|string|max:100',
+            'icono' => 'required_without:icono_file|nullable|string|max:100',
+            'icono_file' => 'nullable|file|mimetypes:image/svg+xml,image/svg,text/xml|max:100',
             'estado' => 'required|in:ACTIVO,INACTIVO',
         ]);
 
-        $user = auth()->user();
-        $sitio = Sitio::where('id_user', $user->id)->first();
+        $iconoPath = $request->icono;
 
-        if (!$sitio || !$sitio->perfil) {
-            return redirect()->route('dashboard')->with('error', 'Primero debes completar los Datos generales de tu sitio.');
+        // Si se subió un archivo SVG
+        if ($request->hasFile('icono_file')) {
+            $file = $request->file('icono_file');
+            if (strtolower($file->getClientOriginalExtension()) === 'svg') {
+                $fileName = time() . '_' . uniqid() . '.svg';
+                $file->move(public_path('uploads/icons/servicios'), $fileName);
+                $iconoPath = 'uploads/icons/servicios/' . $fileName;
+            } else {
+                return back()->withErrors(['icono_file' => 'El archivo debe ser una imagen SVG válida.'])->withInput();
+            }
         }
 
         // Crear el Servicio
         $servicio = Servicio::create([
             'servicio' => $request->servicio,
-            'icono' => $request->icono,
+            'icono' => $iconoPath,
             'estado' => $request->estado,
         ]);
 
-        // Asociar el servicio con el perfil del sitio
-        $sitio->perfil->servicios()->attach($servicio->id);
+        // Asociar el servicio con el perfil del sitio si existe
+        $user = auth()->user();
+        $sitio = Sitio::where('id_user', $user->id)->first();
+        if ($sitio && $sitio->perfil) {
+            $sitio->perfil->servicios()->attach($servicio->id);
+        }
 
-        return redirect()->route('dashboard')->with('success', 'Servicio registrado y asociado correctamente.');
+        return redirect()->route('dashboard')->with('success', 'Servicio registrado correctamente.');
     }
 }

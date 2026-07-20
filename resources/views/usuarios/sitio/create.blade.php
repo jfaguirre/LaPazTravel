@@ -69,13 +69,18 @@
                 <div class="char-counter" id="counter-desc">0 caracteres</div>
             </div>
 
-            <div class="d-grid gap-2 d-md-block">
-                <a class="btn btn-dark btn-sm" href="{{ route('dashboard') }}">
-                    <i class="bi bi-arrow-left-circle m-0 p-0"></i>
+
+            <!-- Botones -->
+            <div class="btn-actions">
+                <a class="btn btn-dark" href="{{ route('dashboard') }}">
+                    <i class="bi bi-arrow-left-circle"></i>
                     Regresar
                 </a>
-                <button type="submit" class="btn btn-primary btn-sm">Guardar datos</button>                               
+                <button type="submit" class="btn btn-primary">
+                    Guardar Servicio
+                </button>                               
             </div>
+
         </form>
     </div>
 </div>

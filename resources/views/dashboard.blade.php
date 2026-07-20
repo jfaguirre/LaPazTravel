@@ -1,3 +1,20 @@
+@php
+    $user = auth()->user();
+    $sitio = \App\Models\Sitio::where('id_user', $user->id)->first();
+    $hasSitio = $sitio !== null;
+    $hasCategoria = false;
+    $hasRegla = false;
+    $hasServicio = false;
+    
+    if ($hasSitio) {
+        $perfil = $sitio->perfil;
+        if ($perfil) {
+            $hasCategoria = $perfil->categorias()->exists();
+            $hasRegla = $perfil->reglas()->exists();
+            $hasServicio = $perfil->servicios()->exists();
+        }
+    }
+@endphp
 @extends('layouts.app')
 @section('title', 'Dashboard')
 
@@ -37,14 +54,10 @@
             </div>
 
             <div class="dashboard-right">
-                <!-- Sección de Avance -->
+                <!-- Gestión de Secciones -->
                 <div class="dashboard-progress-section">
                     <div class="progress-header">
-                        <h3>Avance del Sitio</h3>
-                        <span class="progress-percentage">{{ round($percentage) }}% completado</span>
-                    </div>
-                    <div class="progress-bar-container">
-                        <div class="progress-bar-fill" style="width: {{ $percentage }}%;"></div>
+                        <h3>Gestión del Sitio</h3>
                     </div>
 
                     <div class="steps-list">
@@ -68,85 +81,7 @@
                                     <a href="{{ route('sitio.create') }}" class="step-link">Completar <i class="bi bi-arrow-right-short"></i></a>
                                 @endif
                             </div>
-                        </div>
-
-                        <!-- Paso 2: Categoría -->
-                        <div class="step-item">
-                            <div class="step-info">
-                                <div class="step-icon">
-                                    <i class="bi bi-tag"></i>
-                                </div>
-                                <div class="step-details">
-                                    <h4>Categoría</h4>
-                                    <p>Categorización de la atracción</p>
-                                </div>
-                            </div>
-                            <div class="step-actions">
-                                @if($hasCategoria)
-                                    <span class="badge badge-completed">Completado</span>
-                                    <a href="{{ route('categoria.create') }}" class="step-link">Editar/Añadir <i class="bi bi-pencil-square"></i></a>
-                                @else
-                                    <span class="badge badge-pending">Pendiente</span>
-                                    @if($hasSitio)
-                                        <a href="{{ route('categoria.create') }}" class="step-link">Completar <i class="bi bi-arrow-right-short"></i></a>
-                                    @else
-                                        <span style="font-size: 13px; color: var(--neutro-500);"><i class="bi bi-lock-fill"></i> Bloqueado</span>
-                                    @endif
-                                @endif
-                            </div>
-                        </div>
-
-                        <!-- Paso 3: Regla -->
-                        <div class="step-item">
-                            <div class="step-info">
-                                <div class="step-icon">
-                                    <i class="bi bi-shield-fill-exclamation"></i>
-                                </div>
-                                <div class="step-details">
-                                    <h4>Reglas de Convivencia</h4>
-                                    <p>Normas para visitantes</p>
-                                </div>
-                            </div>
-                            <div class="step-actions">
-                                @if($hasRegla)
-                                    <span class="badge badge-completed">Completado</span>
-                                    <a href="{{ route('regla.create') }}" class="step-link">Editar/Añadir <i class="bi bi-pencil-square"></i></a>
-                                @else
-                                    <span class="badge badge-pending">Pendiente</span>
-                                    @if($hasSitio)
-                                        <a href="{{ route('regla.create') }}" class="step-link">Completar <i class="bi bi-arrow-right-short"></i></a>
-                                    @else
-                                        <span style="font-size: 13px; color: var(--neutro-500);"><i class="bi bi-lock-fill"></i> Bloqueado</span>
-                                    @endif
-                                @endif
-                            </div>
-                        </div>
-
-                        <!-- Paso 4: Servicio -->
-                        <div class="step-item">
-                            <div class="step-info">
-                                <div class="step-icon">
-                                    <i class="bi bi-briefcase-fill"></i>
-                                </div>
-                                <div class="step-details">
-                                    <h4>Servicios Disponibles</h4>
-                                    <p>Comodidades y facilidades</p>
-                                </div>
-                            </div>
-                            <div class="step-actions">
-                                @if($hasServicio)
-                                    <span class="badge badge-completed">Completado</span>
-                                    <a href="{{ route('servicio.create') }}" class="step-link">Editar/Añadir <i class="bi bi-pencil-square"></i></a>
-                                @else
-                                    <span class="badge badge-pending">Pendiente</span>
-                                    @if($hasSitio)
-                                        <a href="{{ route('servicio.create') }}" class="step-link">Completar <i class="bi bi-arrow-right-short"></i></a>
-                                    @else
-                                        <span style="font-size: 13px; color: var(--neutro-500);"><i class="bi bi-lock-fill"></i> Bloqueado</span>
-                                    @endif
-                                @endif
-                            </div>
-                        </div>
+                        </div>                        
                     </div>
                 </div>
             </div>
