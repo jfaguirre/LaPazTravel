@@ -4,6 +4,22 @@ return [
 
     'profiles' => [
 
+        'reglas' => [
+
+            'table' => 'reglas',
+
+            'name_column' => 'regla',
+
+            'icon_column' => 'icono',
+
+            'defaults' => [
+
+                'estado' => 'ACTIVO',
+
+            ],
+
+        ],
+
         'categorias' => [
 
             'table' => 'categorias',

@@ -3,6 +3,7 @@
 namespace App\Services\IconManager;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class DatabaseRegistrar
 {
@@ -33,6 +34,18 @@ class DatabaseRegistrar
         $data[$nameColumn] = $name;
 
         $data[$iconColumn] = $icon;
+
+        if (
+            Schema::hasColumn($table, 'created_at')
+        ) {
+            $data['created_at'] = now();
+            }
+
+        if (
+            Schema::hasColumn($table, 'updated_at')
+        ) {
+            $data['updated_at'] = now();
+        }
 
         DB::table($table)->insert($data);
 
