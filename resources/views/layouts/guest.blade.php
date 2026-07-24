@@ -4,28 +4,27 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">            
-        <title> @yield('title')</title>
         
-        <!-- Scripts -->
+        <!-- Bootstrap Icon (SOLO los iconos, vía CDN está bien) -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+        
+        <!-- Scripts (esto carga Bootstrap CSS + JS + tus CSS) -->
         @vite([
-            'resources/css/app.css',
             'resources/css/main.css',
             'resources/css/inicio.css',            
-            'resources/js/menu.js',
             'resources/js/guest.js',
         ])
         @stack('styles')
+        <title> @yield('title')</title>
     </head>
     <body>
-
+        <!-- el navbar esta en un archivo separado -->
         @include('layouts._partials.menu')
         
-        <main >        
+        <main>        
             @yield('contenido')
         </main>
-        
-
-        <footer >
+        <footer>
             <p>&copy; {{ date('Y') }} La Paz Travel. Todos los derechos reservados.</p>
         </footer>
         @stack('scripts')

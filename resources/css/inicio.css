@@ -1,178 +1,12 @@
 @import 'main.css';
 
-body {
-    background: var(--primario-claro);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    transition: all 0.3s ease;
-}
 
-/* Header */
-header {
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    padding: 10px 0 0 0;
-}
 
-header h1 {
-    color: var(--blanco);
-    text-align: center;
-    margin-bottom: 1rem;
-    font-size: 1.8rem;
-}
 
-main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: var(--primario-50);
-    width: 100%;
-}
-
-footer {
-    padding: 1.5vh;
-    color: var(--blanco);
-}
-
-.boton {
-    margin-top: 15px;
-    padding: 0.5rem 1rem;
-    background: var(--primario-claro);
-    color: var(--blanco);
-    transition: all 0.3s ease;
-    text-decoration: none;
-    border-radius: 20px;
-}
-.boton:hover {
-    background: var(--primario-alternativo);
-    color: var(--success-bg);
-    transform: translateY(-2px);
-}
-.inactive { display: none; }
-
-/* ===== Navegación ===== */
-.nav-container {
-    display: flex;
-    align-items: center;
-    padding: 10px 20px 10px 0;
-    gap: 15px;
-    position: relative;
-    width: 100%;
-}
-
-.menu { display: none; }
-
-.menu.active {
-    display: inline-block;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 250px;
-    max-height: 80vh;           
-    overflow-y: auto;           /* ✅ Scroll si el contenido es largo */
-    background: var(--primario-claro);
-    padding: 10px 0;
-    margin: 0;
-    list-style: none;
-    z-index: 10;
-}
-
-.menu .item {
-    display: block;
-    padding: 12px 25px;
-    color: var(--blanco);
-    text-decoration: none;
-    font-size: 18px;
-    font-weight: 700;
-    transition: all 0.3s ease;
-}
-.menu .item:hover {
-    background: var(--primario-alternativo);
-    color: var(--blanco);
-    border-radius: 3px;
-}
-
-.burgerMenu {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 50px;
-    height: 50px;
-    min-width: 50px;
-    margin-left: 20px;
-    color: var(--blanco);
-    border: none;
-    border-radius: 50px;
-    font-size: 24px;
-    cursor: pointer;
-    z-index: 100;
-    transition: all 0.3s ease;
-    flex-shrink: 0;
-}
-.burgerMenu:hover {
-    background: var(--primario-claro);
-    color: var(--blanco);
-    transform: scale(1.05);
-}
-
-/* ===== Búsqueda ===== */
-.search {
-    display: flex;
-    align-items: center;
-    flex: 1;
-    background: var(--blanco);
-    border-radius: 25px;
-    padding: 2px;
-    width: 100%;                
-    max-width: device-width;            
-}
-.search input {
-    flex: 1;
-    padding: 10px 15px;
-    border: none;
-    outline: none;
-    border-radius: 25px 0 0 25px;
-    font-size: 16px;
-    min-width: 0;
-}
-.search button {
-    padding: 10px 18px;
-    background: var(--primario);
-    color: var(--blanco);
-    border: none;
-    border-radius: 0 25px 25px 0;
-    cursor: pointer;
-    font-size: 18px;
-    transition: all 0.3s ease;
-    white-space: nowrap;
-    flex-shrink: 0;
-}
-.search button:hover { background: var(--primario-claro); }
-
-.btnLogin {
-    outline: none;
-    text-decoration: none;
-    margin-top: 15px;
-    padding: 12px;
-    background: var(--primario);
-    color: var(--blanco);
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 25px;
-}
-.btnLogin:hover {
-    background: var(--primario-alternativo);
-    transition: all 0.3s ease;
-    transform: scale(1.05);
-}
 
 /* ===== Box ===== */
 .box {
-    background: var(--primario-claro);
+    background: var(--primario);
     padding: 30px;
     border-radius: 10px;
     width: 95%;                /* ✅ Antes: device-width (inválido) */
@@ -199,11 +33,11 @@ footer {
     flex-wrap: wrap;            /* ✅ Permite que las cards bajen si no caben */
     gap: 20px;
 }
-.card {
+.cart {
     background: var(--primario-50);
     color: var(--neutro-900);
     padding: 30px;
-    margin: 0;                  /* ✅ Antes: margin: 10px (usamos gap) */
+    margin: 0;                  
     border-radius: 10px;
     width: 300px;
     height: 400px;
@@ -211,7 +45,7 @@ footer {
     box-shadow: var(--sombra-card);
     text-decoration: none;
 }
-.card:hover {
+.cart:hover {
     transform: scale(1.05);
     transition: all 0.3s ease;
 }
@@ -463,7 +297,7 @@ footer {
         padding: 10px;
         margin: 10px;
     }
-    .card {
+    .cart {
         width: 100%;
         max-width: 320px;
         height: auto;
@@ -546,7 +380,7 @@ footer {
         right: 0;
     }
 
-    .card {
+    .cart {
         padding: 15px;
         min-height: 260px;
     }
@@ -573,4 +407,12 @@ footer {
         font-size: 0.9rem;
     }
     .tooltip .region-name { font-size: 1.1rem; }
+}
+
+.guia-iconos{
+    display: flex;
+    padding: 10px;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
 }

@@ -5,12 +5,6 @@
 @section('title', 'La Paz Centro - La Paz Travel')
 
 @section('contenido')
-    <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ route('inicio') }}">inicio</a></li>
-
-    </ol>
-    </nav>
     <h1>La paz centro</h1>
     <br>
     <div class="box">
@@ -37,7 +31,7 @@
         editadas para que muestren la información correctamente segun lo establecido en la base de datos -->
     <div class="muestras">
         <div class="deck">
-            <div class= "card">
+            <div class= "cart">
                 <a class="solo" href="https://www.google.com/maps/place/Parque+Recreativo+Costa+del+Sol/@13.5833333,-88.1833333,15z/data=!4m6!3m5!1s0x8f633b7e9c8f8f8f:0x8f633b7e9c8f8f8f!8m2!3d13.5833333!4d-88.1833333!16s%2Fg%2F11c5v5v5v5?entry=ttu" target="_blank">
                     
                     <div class="card-content">
@@ -53,7 +47,7 @@
                     
                 </a>
             </div>
-            <div class= "card">
+            <div class= "cart">
                 <a class="solo" href="https://www.google.com/maps/place/Parque+Recreativo+Ichanmichen/@13.5833333,-88.1833333,15z/data=!4m6!3m5!1s0x8f633b7e9c8f8f8f:0x8f633b7e9c8f8f8f!8m2!3d13.5833333!4d-88.1833333!16s%2Fg%2F11c5v5v5v5?entry=ttu" target="_blank">
                     
                     <div class="card-content">
@@ -71,40 +65,7 @@
             </div>
         </div>
     </div>
-    <!-- Mapa interactivo -->
-    <!-- Panel de información -->
-    <div class="info-panel" id="infoPanel">
-        <div>
-            <h3>mapa de referencia</h3>
-            <p>Pasa el cursor sobre una región para ver información</p>
-        </div>
-    </div>
-
-    <!-- Tooltip  de momento es mas un indicador visual que otra cosa-->
-    <div class="tooltip" id="tooltip">
-        <div class="region-name" id="tooltipName"></div>
-        <div class="region-info" id="tooltipInfo"></div>
-    </div>
     
-    <!-- Leyenda -->
-    <div class="legend">
-
-        <div class="legend-item" data-region="centro">
-            <div class="legend-color centro"></div>
-            <span class="legend-label">Centro</span>
-        </div>
-
-    </div>
-    <div class="map-wrapper">
-        <div class="map-container">
-            <!-- Región Centro -->
-            <div class="region region-centro" data-name="Región Centro" data-info="Insertar informacion caracteristica de La Paz Centro">
-                <img src="{{ asset('..\assets\images\mapa-la-paz-centro.png') }}" alt="Región Centro">
-            </div>
-        </div>
-    </div>
-<!--  -->
-
     
 
 @endsection

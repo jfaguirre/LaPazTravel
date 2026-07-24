@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\Route;
 
 // Rutas publicas
 Route::view('/', 'inicio')->name('inicio');
-Route::view('/la-paz-centro', '../paginas/regiones/LaPazCentro')->name('la-paz-centro');
-Route::view('/la-paz-este', '../paginas/regiones/LaPazEste')->name('la-paz-este');
+Route::view('/lapaz/centro', 'paginas.regiones.LaPazCentro')->name('la-paz-centro');
+Route::view('/lapaz/este', 'paginas.regiones.LaPazEste')->name('la-paz-este');
 
 // Grupo para rutas protegidas
 Route::middleware(['auth', 'verified'])->group(function () {

@@ -12,6 +12,5 @@
         
     </p>
     <a class="boton" href="">probar formulario</a>
-    <!-- <a  class="boton" href="/">ver mapa</a>--> <!-- no funciona aun -->
 @endsection
 
