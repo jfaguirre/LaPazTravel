@@ -13,7 +13,8 @@ class Sitio extends Model
         'nombre',
         'slug',
         'descripcion_corta',
-        'id_user'
+        'id_user',
+        'estado'
     ];
 
 

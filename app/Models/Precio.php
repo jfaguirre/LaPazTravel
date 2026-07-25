@@ -11,7 +11,7 @@ class Precio extends Model
         'categoria',
         'precioEntrada',
         'descripcion',
-        'sitioPerfil_id'
+        'id_sitioPerfil'
     ];
 
     // RELACIONES

@@ -14,7 +14,7 @@
             'resources/css/main.css'
         ])
 
-        @stack('styles')
+        @stack('styles')        
         
     </head>
     <body>

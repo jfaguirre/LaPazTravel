@@ -26,10 +26,10 @@ class SitioPerfil extends Model
         'foto_portada',
         'latitud',
         'longitud',
-        'sitio_id',
-        'departamento_id',
-        'distrito_id',
-        'municipio_id'
+        'id_sitio',
+        'id_departamento',
+        'id_distrito',
+        'id_municipio'
     ];
 
     // RELACIONES

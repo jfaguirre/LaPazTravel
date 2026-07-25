@@ -4,29 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{{ asset('assets/css/formularios.css') }}">
-    <!-- Título dinámico con valor por defecto -->
-    <title>@yield('titulo', 'Formulario - La Paz Travel')</title> 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>@yield('title', 'Formulario - La Paz Travel')</title>
+    
+    <!-- Scripts & Styles -->
+    @vite([
+        'resources/css/app.css',
+        'resources/css/main.css',
+        'resources/css/inicio.css',
+        'resources/js/app.js'
+    ])
+    
     <!-- Stack para CSS adicional por vista -->
     @stack('styles')
 </head>
-<body>
-    </header>
+<body class="form-body">
     <!-- CUERPO PRINCIPAL para la mayoria del contenido de las vistas -->
-    <main  >
+    <main class="form-main">
         <!-- CONTENEDOR principal -->
-        <section class="box">
+        <section class="box-form">
             <!-- Sección de contenido principal -->
             @yield('contenedor_formulario')
         </section>
     </main>
-
-    <!-- Scripts principales -->
-    <script src="{{ asset('js/app.js') }}"></script>
     
     <!-- Stack para scripts adicionales por vista -->
     @stack('scripts')
-    
 </body>
-
 </html>

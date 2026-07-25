@@ -121,6 +121,12 @@ Luego lo importamos desde resources/css/app.css
 @import 'bootstrap-icons/font/bootstrap-icons.css';
 ```
 
+Instalación de Livewire para componentes reactivos
+```bash
+composer require livewire/livewire
+```
+
+
 
 
 ```bash

@@ -2,15 +2,9 @@
 
 @extends('layouts.guest')
 
-@section('title', 'Mapa - La Paz Travel')
+@section('title', 'inicio - La Paz Travel')
 
 @section('contenido')
-    <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ route('inicio') }}">inicio</a></li>
-
-    </ol>
-    </nav>
     <h1>Bienvenido a La Paz Travel</h1>
     <br>
     <div class="box">
@@ -32,6 +26,64 @@
         </p>
     </div>
     <br>
+    @guest
+    <div class="cta-register">
+        <div class="cta-content">
+            <h3>¿Listo para explorar la belleza de La Paz?</h3>
+            <p>Regístrate hoy para acceder a guías personalizadas, guardar tus destinos favoritos y planificar el viaje perfecto.</p>
+            <a href="{{ route('register') }}" class="btn-cta">Crear una cuenta gratis</a>
+        </div>
+    </div>
+    <br>
+    @endguest
+    <!-- Mapa interactivo -->
+    <!-- Panel de información -->
+    <div class="info-panel" id="infoPanel">
+        <div>
+            <h3>Explora el Mapa</h3>
+            <p>Pasa el cursor sobre una región para ver información</p>
+        </div>
+    </div>
+
+    <!-- Tooltip  de momento es mas un indicador visual que otra cosa-->
+    <div class="tooltip" id="tooltip">
+        <div class="region-name" id="tooltipName"></div>
+        <div class="region-info" id="tooltipInfo"></div>
+    </div>
+    
+    <!-- Leyenda -->
+    <div class="legend">
+        <div class="legend-item" data-region="oeste">
+            <div class="legend-color oeste"></div>
+            <span class="legend-label">Oeste</span>
+        </div>
+        <div class="legend-item" data-region="centro">
+            <div class="legend-color centro"></div>
+            <span class="legend-label">Centro</span>
+        </div>
+        <div class="legend-item" data-region="este">
+            <div class="legend-color este"></div>
+            <span class="legend-label">Este</span>
+        </div>
+    </div>
+    <div class="map-wrapper">
+        <div class="map-container">
+            <!-- Región Oeste -->
+            <div class="region region-oeste" data-name="Región Oeste" data-info="Insertar informacion caracteristica de La Paz Oeste">
+                <img src="{{ asset('..\assets\images\mapa-la-paz-oeste.png') }}" alt="Región Oeste">
+            </div>
+
+            <!-- Región Centro -->
+            <div class="region region-centro" data-name="Región Centro" data-info="Insertar informacion caracteristica de La Paz Centro">
+                <img src="{{ asset('..\assets\images\mapa-la-paz-centro.png') }}" alt="Región Centro">
+            </div>
+
+            <!-- Región Este -->
+            <div class="region region-este" data-name="Región Este" data-info="Insertar informacion caracteristica de La Paz Este">
+                <img src="{{ asset('..\assets\images\mapa-la-paz-este.png') }}" alt="Región Este">
+            </div>
+        </div>
+    </div>
     <!-- Tarjetas de lugares turísticos -->
     <!--  la clase deck contendra las tarjetas que tendran que ser 
         editadas para que muestren la información correctamente segun lo establecido en la base de datos -->
@@ -45,14 +97,14 @@
                 </a>
             </div>
             <div class="distrito">
-                <a class="solo" href="#">
+                <a class="solo" href="{{ route('la-paz-este') }}">
                     <div class="distrito-content">
                         <p>La paz este</p>
                     </div>
                 </a>
             </div>
             <div class="distrito">
-                <a class="solo" href="#">
+                <a class="solo" href="{{ route('la-paz-centro') }}">
                     <div class="distrito-content">
                         <p>La paz centro</p>
                     </div>
@@ -60,7 +112,7 @@
             </div>
         </div>
         <div class="deck">
-            <div class= "card">
+            <div class= "cart">
                 <a class="solo" href="https://www.google.com/maps/place/Parque+Recreativo+Costa+del+Sol/@13.5833333,-88.1833333,15z/data=!4m6!3m5!1s0x8f633b7e9c8f8f8f:0x8f633b7e9c8f8f8f!8m2!3d13.5833333!4d-88.1833333!16s%2Fg%2F11c5v5v5v5?entry=ttu" target="_blank">
                     
                     <div class="card-content">
@@ -77,7 +129,7 @@
                 </a>
             </div>
 
-            <div class= "card">
+            <div class= "cart">
                 <a class="solo" href="https://www.google.com/maps/place/Parque+Recreativo+Ichanmichen/@13.5833333,-88.1833333,15z/data=!4m6!3m5!1s0x8f633b7e9c8f8f8f:0x8f633b7e9c8f8f8f!8m2!3d13.5833333!4d-88.1833333!16s%2Fg%2F11c5v5v5v5?entry=ttu" target="_blank">
                     
                     <div class="card-content">
@@ -93,7 +145,7 @@
                     </div>
                 </a>
             </div>
-            <div class= "card">
+            <div class= "cart">
                 <a class="solo" href="https://www.google.com/maps/place/Parque+Recreativo+Ichanmichen/@13.5833333,-88.1833333,15z/data=!4m6!3m5!1s0x8f633b7e9c8f8f8f:0x8f633b7e9c8f8f8f!8m2!3d13.5833333!4d-88.1833333!16s%2Fg%2F11c5v5v5v5?entry=ttu" target="_blank">
                     
                     <div class="card-content">
@@ -111,10 +163,45 @@
             </div>
         </div>
     </div>
-    
-    <div>
+<!--  -->
+    <h2>Guía de Iconos</h2>
+    <div class="guia-iconos">
         
+        
+        <div class="card" style="width: 18rem;">
+            <div class="card-header">
+                lugares de interés
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><i class="bi bi-backpack fs-2"></i> camping</li>
+                <li class="list-group-item"><i class="bi bi-binoculars fs-2"></i> mirador</li>
+                <li class="list-group-item"><i class="bi bi-bank fs-2"></i> museo</li>
+            </ul>
+        </div>
+
+        <div class="card" style="width: 18rem;">
+            <div class="card-header">
+                servicios
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><i class="bi bi-bullseye fs-2"></i> camping</li>
+                <li class="list-group-item"><i class="bi bi-binoculars fs-2"></i> mirador</li>
+                <li class="list-group-item"><i class="bi bi-bank fs-2"></i>museo</li>
+            </ul>
+        </div>
+        <div class="card" style="width: 18rem;">
+            <div class="card-header">
+                actividades
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><i class="bi bi-backpack fs-2"></i> camping</li>
+                <li class="list-group-item"><i class="bi bi-cake2 fs-2"></i> mirador</li>
+                <li class="list-group-item"><i class="bi bi-bank fs-2"></i> museo</li>
+            </ul>
+        </div>
     </div>
+    
+
 @endsection
 
 

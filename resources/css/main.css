@@ -1,5 +1,5 @@
-@import '../lapaztravel/node_modules/bootstrap/dist/css/bootstrap.min.css';
-
+/*importar Bootstrap */
+@import 'bootstrap/dist/css/bootstrap.min.css';
 * {
     padding: 0;
     margin: 0;
@@ -47,3 +47,59 @@
     --radius-xl:      24px;
 
 }
+
+
+/* ===== Estilos generales ===== */
+body {
+    background: var(--primario-claro);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+}
+
+/* Header */
+header {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 10px 0 0 0;
+}
+
+header h1 {
+    color: var(--blanco);
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: var(--primario-50);
+    width: 100%;
+}
+
+footer {
+    padding: 1.5vh;
+    color: var(--blanco);
+}
+
+.boton {
+    margin-top: 15px;
+    padding: 0.5rem 1rem;
+    background: var(--primario-claro);
+    color: var(--blanco);
+    transition: all 0.3s ease;
+    text-decoration: none;
+    border-radius: 20px;
+}
+.boton:hover {
+    background: var(--primario-alternativo);
+    color: var(--success-bg);
+    transform: translateY(-2px);
+}
+.inactive { display: none; }
