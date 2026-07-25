@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('slug', 200)->unique();
             $table->text('descripcion_corta');
             $table->integer('visitas')->default(0);
-            $table->enum('estado',['PENDIENTE', 'APROBADO', 'RECHAZADO', 'SUSPENDIDO'])->default('PENDIENTE');    
+            $table->enum('estado',['BORRADOR', 'PENDIENTE', 'APROBADO', 'RECHAZADO', 'SUSPENDIDO'])->default('BORRADOR');    
             $table->foreignId('id_user')->constrained('users');
             $table->timestamps();
         });

@@ -13,7 +13,8 @@
             @auth 
                 <a class="btnLogin" href="{{ route('dashboard')}}">ir al dashboard</a>
             @else
-                <a class="btnLogin" href="{{ route('login') }}">Log in</a>           
+                <a class="btnLogin" href="{{ route('login') }}">Iniciar Sesión</a>
+                <a class="btnRegister" href="{{ route('register') }}">Registrarse</a>
             @endauth
             
 

@@ -14,7 +14,7 @@ class ImagenesSitio extends Model
         'titulo',
         'principal',
         'orden',
-        'sitio_id'
+        'id_sitio'
     ];
 
     // RELACIONES

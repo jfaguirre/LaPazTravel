@@ -1,25 +1,26 @@
 <?php
 
-namespace App\Http\Controllers\Servicio;
+namespace App\Http\Controllers\Sitio\Regla;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Servicio;
+use App\Models\Regla;
 use App\Models\Sitio;
+use Illuminate\Support\Facades\Auth;
 
-class ServicioControlador extends Controller
+class ReglaControlador extends Controller
 {
     public function create()
     {
-        $servicios = Servicio::all();
+        $reglas = Regla::all();
 
-        return view('usuarios.servicio.create', compact('servicios'));
+        return view('admin.sitio.regla.create', compact('reglas'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'servicio' => 'required|string|max:50|unique:servicios,servicio',
+            'regla' => 'required|string|max:20|unique:reglas,regla',
             'icono' => 'required_without:icono_file|nullable|string|max:100',
             'icono_file' => 'nullable|file|mimetypes:image/svg+xml,image/svg,text/xml|max:100',
             'estado' => 'required|in:ACTIVO,INACTIVO',
@@ -32,27 +33,27 @@ class ServicioControlador extends Controller
             $file = $request->file('icono_file');
             if (strtolower($file->getClientOriginalExtension()) === 'svg') {
                 $fileName = time() . '_' . uniqid() . '.svg';
-                $file->move(public_path('uploads/icons/servicios'), $fileName);
-                $iconoPath = 'uploads/icons/servicios/' . $fileName;
+                $file->move(public_path('uploads/icons/reglas'), $fileName);
+                $iconoPath = 'uploads/icons/reglas/' . $fileName;
             } else {
                 return back()->withErrors(['icono_file' => 'El archivo debe ser una imagen SVG válida.'])->withInput();
             }
         }
 
-        // Crear el Servicio
-        $servicio = Servicio::create([
-            'servicio' => $request->servicio,
+        // Crear la Regla
+        $regla = Regla::create([
+            'regla' => $request->regla,
             'icono' => $iconoPath,
             'estado' => $request->estado,
         ]);
 
-        // Asociar el servicio con el perfil del sitio si existe
-        $user = auth()->user();
+        // Asociar la regla con el perfil del sitio si existe
+        $user = Auth::user();
         $sitio = Sitio::where('id_user', $user->id)->first();
         if ($sitio && $sitio->perfil) {
-            $sitio->perfil->servicios()->attach($servicio->id);
+            $sitio->perfil->reglas()->attach($regla->id);
         }
 
-        return redirect()->route('dashboard')->with('success', 'Servicio registrado correctamente.');
+        return redirect()->route('dashboard')->with('success', 'Regla registrada correctamente.');
     }
 }

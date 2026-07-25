@@ -72,7 +72,7 @@
 
             <!-- Botones -->
             <div class="btn-actions">
-                <a class="btn btn-dark" href="{{ route('dashboard') }}">
+                <a class="btn btn-dark" href="{{ route('perfil.create') }}">
                     <i class="bi bi-arrow-left-circle"></i>
                     Regresar
                 </a>

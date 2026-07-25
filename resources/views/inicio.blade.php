@@ -32,6 +32,16 @@
         </p>
     </div>
     <br>
+    @guest
+    <div class="cta-register">
+        <div class="cta-content">
+            <h3>¿Listo para explorar la belleza de La Paz?</h3>
+            <p>Regístrate hoy para acceder a guías personalizadas, guardar tus destinos favoritos y planificar el viaje perfecto.</p>
+            <a href="{{ route('register') }}" class="btn-cta">Crear una cuenta gratis</a>
+        </div>
+    </div>
+    <br>
+    @endguest
     <!-- Tarjetas de lugares turísticos -->
     <!--  la clase deck contendra las tarjetas que tendran que ser 
         editadas para que muestren la información correctamente segun lo establecido en la base de datos -->

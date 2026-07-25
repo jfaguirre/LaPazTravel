@@ -14,6 +14,7 @@
             'resources/js/menu.js',
             'resources/js/guest.js',
         ])
+        
         @stack('styles')
     </head>
     <body>

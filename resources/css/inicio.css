@@ -1,5 +1,3 @@
-@import 'main.css';
-
 body {
     background: var(--primario-claro);
     min-height: 100vh;
@@ -153,22 +151,46 @@ footer {
 }
 .search button:hover { background: var(--primario-claro); }
 
-.btnLogin {
+.btnLogin, .btnRegister {
     outline: none;
     text-decoration: none;
     margin-top: 15px;
-    padding: 12px;
-    background: var(--primario);
-    color: var(--blanco);
-    font-size: 16px;
+    padding: 10px 20px;
+    font-size: 15px;
+    font-weight: 600;
     cursor: pointer;
     border-radius: 25px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+.btnLogin {
+    background: transparent;
+    color: var(--blanco);
+    border: 2px solid rgba(255, 255, 255, 0.4);
 }
 .btnLogin:hover {
-    background: var(--primario-alternativo);
-    transition: all 0.3s ease;
-    transform: scale(1.05);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--blanco);
+    color: var(--blanco);
+    transform: translateY(-1px);
 }
+.btnRegister {
+    background: var(--blanco);
+    color: var(--primario);
+    border: 2px solid var(--blanco);
+    margin-left: 10px;
+    box-shadow: var(--sombra-sm);
+}
+.btnRegister:hover {
+    background: var(--primario-50);
+    border-color: var(--primario-50);
+    color: var(--primario-oscuro);
+    transform: translateY(-1px);
+    box-shadow: var(--sombra-md);
+}
+
 
 /* ===== Box ===== */
 .box {
@@ -573,4 +595,263 @@ footer {
         font-size: 0.9rem;
     }
     .tooltip .region-name { font-size: 1.1rem; }
+}
+
+/* =========================================================
+   ESTILOS DE FORMULARIOS Y LLAMADAS A LA ACCIÓN (CTAs)
+   ========================================================= */
+
+/* ===== CTA Register Banner ===== */
+.cta-register {
+    background: linear-gradient(135deg, var(--primario) 0%, var(--primario-oscuro) 100%);
+    color: var(--blanco);
+    padding: 40px;
+    border-radius: var(--radius-lg);
+    width: 95%;
+    max-width: 940px;
+    margin: 20px auto;
+    box-shadow: var(--sombra-card);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+.cta-register::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -30%;
+    width: 80%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 60%);
+    pointer-events: none;
+}
+.cta-content {
+    position: relative;
+    z-index: 2;
+}
+.cta-register h3 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+}
+.cta-register p {
+    font-size: 16px;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto 24px auto;
+    line-height: 1.6;
+}
+.btn-cta {
+    display: inline-block;
+    background: var(--blanco);
+    color: var(--primario);
+    text-decoration: none;
+    padding: 12px 32px;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 30px;
+    box-shadow: var(--sombra-md);
+    transition: all 0.3s ease;
+}
+.btn-cta:hover {
+    background: var(--primario-50);
+    color: var(--primario-oscuro);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* ===== Formulario Layout & Pages ===== */
+.form-body {
+    background: radial-gradient(circle at 10% 20%, var(--primario-50) 0%, var(--blanco) 90.2%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Figtree', system-ui, -apple-system, sans-serif;
+    padding: 40px 20px;
+}
+.form-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 480px;
+    margin: auto;
+}
+.box-form {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: var(--radius-xl);
+    padding: 40px;
+    width: 100%;
+    box-shadow: 0 20px 40px -15px rgba(15, 82, 186, 0.15), 
+                0 1px 3px rgba(0, 0, 0, 0.05);
+    animation: formFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes formFadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+.form-logo {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--primario);
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+    transition: color 0.3s ease;
+}
+.form-logo:hover {
+    color: var(--primario-oscuro);
+}
+.form-header h2 {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--neutro-900);
+    margin-bottom: 6px;
+}
+.form-subtitle {
+    font-size: 14px;
+    color: var(--neutro-500);
+}
+
+.formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+.form-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--neutro-800);
+}
+.form-input {
+    width: 100%;
+    padding: 12px 18px;
+    border: 1.5px solid var(--border);
+    background: var(--blanco);
+    border-radius: var(--radius-md);
+    font-size: 15px;
+    color: var(--neutro-900);
+    outline: none;
+    transition: all 0.2s ease;
+    box-shadow: var(--sombra-sm);
+}
+.form-input:focus {
+    border-color: var(--primario);
+    box-shadow: 0 0 0 4px rgba(15, 82, 186, 0.15);
+    background: var(--blanco);
+}
+.form-error {
+    font-size: 12px;
+    color: var(--error);
+    margin-top: 4px;
+}
+
+.form-remember {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+.remember-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
+}
+.remember-checkbox {
+    width: 18px;
+    height: 18px;
+    border-radius: var(--radius-sm);
+    border: 1.5px solid var(--border);
+    cursor: pointer;
+    accent-color: var(--primario);
+}
+.remember-text {
+    font-size: 14px;
+    color: var(--neutro-700);
+}
+
+.form-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 24px;
+    width: 100%;
+}
+.action-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+}
+.btn-submit {
+    flex: 1;
+    background: linear-gradient(135deg, var(--primario) 0%, var(--primario-oscuro) 100%) !important;
+    color: var(--blanco) !important;
+    border: none !important;
+    padding: 12px 24px !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    border-radius: var(--radius-md) !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 4px 10px rgba(15, 82, 186, 0.2) !important;
+}
+.btn-submit:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 15px rgba(15, 82, 186, 0.3) !important;
+    opacity: 0.95;
+}
+.btn-submit:active {
+    transform: translateY(0) !important;
+}
+.form-link {
+    color: var(--primario);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: color 0.2s ease;
+}
+.form-link:hover {
+    color: var(--primario-oscuro);
+    text-decoration: underline;
+}
+.form-link-secondary {
+    color: var(--neutro-700);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    padding: 12px 18px;
+    border-radius: var(--radius-md);
+    border: 1.5px solid var(--border);
+    text-align: center;
+    flex: 1;
+}
+.form-link-secondary:hover {
+    background: var(--neutro-100);
+    color: var(--neutro-900);
 }

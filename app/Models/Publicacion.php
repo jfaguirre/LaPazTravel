@@ -14,8 +14,8 @@ class Publicacion extends Model
         'contenido',
         'imagen_portada',
         'estado',
-        'sitio_id',
-        'user_id'
+        'id_sitio',
+        'id_user'
     ];
 
     // RELACIONES

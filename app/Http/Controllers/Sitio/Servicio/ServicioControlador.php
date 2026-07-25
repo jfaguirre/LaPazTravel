@@ -1,28 +1,28 @@
 <?php
 
-namespace App\Http\Controllers\Categoria;
+namespace App\Http\Controllers\Sitio\Servicio;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Categoria;
+use App\Models\Servicio;
 use App\Models\Sitio;
+use Illuminate\Support\Facades\Auth;
 
-class CategoriaControlador extends Controller
+class ServicioControlador extends Controller
 {
     public function create()
     {
-        $categorias = Categoria::all();
+        $servicios = Servicio::all();
 
-        return view('usuarios.categoria.create', compact('categorias'));
+        return view('admin.sitio.servicio.create', compact('servicios'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'nombre' => 'required|string|max:100',
+            'servicio' => 'required|string|max:50|unique:servicios,servicio',
             'icono' => 'required_without:icono_file|nullable|string|max:100',
             'icono_file' => 'nullable|file|mimetypes:image/svg+xml,image/svg,text/xml|max:100',
-            'color' => 'nullable|string|max:20',
             'estado' => 'required|in:ACTIVO,INACTIVO',
         ]);
 
@@ -33,28 +33,27 @@ class CategoriaControlador extends Controller
             $file = $request->file('icono_file');
             if (strtolower($file->getClientOriginalExtension()) === 'svg') {
                 $fileName = time() . '_' . uniqid() . '.svg';
-                $file->move(public_path('uploads/icons/categorias'), $fileName);
-                $iconoPath = 'uploads/icons/categorias/' . $fileName;
+                $file->move(public_path('uploads/icons/servicios'), $fileName);
+                $iconoPath = 'uploads/icons/servicios/' . $fileName;
             } else {
                 return back()->withErrors(['icono_file' => 'El archivo debe ser una imagen SVG válida.'])->withInput();
             }
         }
 
-        // Crear la Categoría
-        $categoria = Categoria::create([
-            'nombre' => $request->nombre,
+        // Crear el Servicio
+        $servicio = Servicio::create([
+            'servicio' => $request->servicio,
             'icono' => $iconoPath,
-            'color' => $request->color,
             'estado' => $request->estado,
         ]);
 
-        // Asociar la categoría con el perfil del sitio si existe
-        $user = auth()->user();
+        // Asociar el servicio con el perfil del sitio si existe
+        $user = Auth::user();
         $sitio = Sitio::where('id_user', $user->id)->first();
         if ($sitio && $sitio->perfil) {
-            $sitio->perfil->categorias()->attach($categoria->id);
+            $sitio->perfil->servicios()->attach($servicio->id);
         }
 
-        return redirect()->route('dashboard')->with('success', 'Categoría registrada correctamente.');
+        return redirect()->route('dashboard')->with('success', 'Servicio registrado correctamente.');
     }
 }
