@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-@import 'bootstrap/dist/css/bootstrap.min.css';
-
-=======
 /*importar Bootstrap */
 @import 'bootstrap/dist/css/bootstrap.min.css';
->>>>>>> eb1b4970e0a274efd7ed62762ffd04837097c4dd
 * {
     padding: 0;
     margin: 0;

@@ -23,7 +23,6 @@ Route::view('/lapaz/este', 'paginas.regiones.LaPazEste')->name('la-paz-este');
             Route::get('/dashboard', [DashboardControlador::class, 'dashboard'])->name('dashboard');     
             
             // Rutas del Perfil del Sitio (Categorías, Reglas, Servicios para el sitio del Usuario)
-
             // Crear el sitio del usuario    
             Route::get('/dashboard/sitio/create', [SitioControlador::class, 'create'])->name('sitio.create');
             Route::post('/dashboard/sitio/create', [SitioControlador::class, 'store'])->name('sitio.store');

@@ -74,18 +74,7 @@
                         <i class="bi bi-box-arrow-in-right me-1"></i> Log in
                     </a>
                 @endauth
-            </div>
-<<<<<<< HEAD
-            <!-- <a class="boton" href="#">publicar un sitio</a>-->
-            @auth 
-                <a class="btnLogin" href="{{ route('dashboard')}}">ir al dashboard</a>
-            @else
-                <a class="btnLogin" href="{{ route('login') }}">Iniciar Sesión</a>
-                <a class="btnRegister" href="{{ route('register') }}">Registrarse</a>
-            @endauth
-            
-=======
->>>>>>> eb1b4970e0a274efd7ed62762ffd04837097c4dd
+
 
         </div>
     </div>

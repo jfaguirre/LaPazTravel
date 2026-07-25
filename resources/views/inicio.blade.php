@@ -26,7 +26,6 @@
         </p>
     </div>
     <br>
-<<<<<<< HEAD
     @guest
     <div class="cta-register">
         <div class="cta-content">
@@ -37,87 +36,6 @@
     </div>
     <br>
     @endguest
-    <!-- Tarjetas de lugares turísticos -->
-    <!--  la clase deck contendra las tarjetas que tendran que ser 
-        editadas para que muestren la información correctamente segun lo establecido en la base de datos -->
-    <div class="muestras">
-        <div class="distritos">
-            <div class="distrito">
-                <a class="solo" href="#">
-                    <div class="distrito-content">
-                        <p>todos</p>
-                    </div>
-                </a>
-            </div>
-            <div class="distrito">
-                <a class="solo" href="{{ route('la-paz-este') }}">
-                    <div class="distrito-content">
-                        <p>La paz este</p>
-                    </div>
-                </a>
-            </div>
-            <div class="distrito">
-                <a class="solo" href="{{ route('la-paz-centro') }}">
-                    <div class="distrito-content">
-                        <p>La paz centro</p>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="deck">
-            <div class= "card">
-                <a class="solo" href="https://www.google.com/maps/place/Parque+Recreativo+Costa+del+Sol/@13.5833333,-88.1833333,15z/data=!4m6!3m5!1s0x8f633b7e9c8f8f8f:0x8f633b7e9c8f8f8f!8m2!3d13.5833333!4d-88.1833333!16s%2Fg%2F11c5v5v5v5?entry=ttu" target="_blank">
-                    
-                    <div class="card-content">
-                        <h2>Costa del Sol</h2>
-                        <img src="{{ asset('images/costa_del_sol.jpg') }}" alt="Imagen de costa del sol"><br>
-                        <p class="">La Costa del Sol, en el departamento de La Paz, 
-                            se ha consolidado como un destino turístico familiar gracias a la reciente renovación de su parque recreativo, 
-                            que ahora ofrece modernas piscinas, palapas frente al mar y áreas de descanso para toda la familia. 
-                            Con una inversión que supera los 8 millones de dólares, el espacio ha sido transformado para brindar 
-                            un ambiente seguro y ordenado, 
-                            obteniendo además la certificación "Family Friendly"</p>
-                    </div>
-                    
-                </a>
-            </div>
-
-            <div class= "card">
-                <a class="solo" href="https://www.google.com/maps/place/Parque+Recreativo+Ichanmichen/@13.5833333,-88.1833333,15z/data=!4m6!3m5!1s0x8f633b7e9c8f8f8f:0x8f633b7e9c8f8f8f!8m2!3d13.5833333!4d-88.1833333!16s%2Fg%2F11c5v5v5v5?entry=ttu" target="_blank">
-                    
-                    <div class="card-content">
-                        <h2>ichanmichen</h2>
-                        <img src="{{ asset('images/ichanmichen.jpg') }}" alt="Imagen de ichanmichen"><br>
-                        <p class="">ICHANMICHEN, en el departamento de La Paz, 
-                            se ha consolidado como un destino turístico familiar gracias a la reciente renovación de su parque recreativo, 
-                            que ahora ofrece modernas piscinas, palapas frente al mar y áreas de descanso para toda la familia. 
-                            Con una inversión que supera los 8 millones de dólares, el espacio ha sido transformado para brindar 
-                            un ambiente seguro y ordenado, 
-                            obteniendo además la certificación "Family Friendly"</p>
-                        
-                    </div>
-                </a>
-            </div>
-            <div class= "card">
-                <a class="solo" href="https://www.google.com/maps/place/Parque+Recreativo+Ichanmichen/@13.5833333,-88.1833333,15z/data=!4m6!3m5!1s0x8f633b7e9c8f8f8f:0x8f633b7e9c8f8f8f!8m2!3d13.5833333!4d-88.1833333!16s%2Fg%2F11c5v5v5v5?entry=ttu" target="_blank">
-                    
-                    <div class="card-content">
-                        <h2>laguna de nahualapa</h2>
-                        <img src="{{ asset('images/laguna-nahualapa.jpg') }}" alt="Imagen de laguna de nahualapa"><br>
-                        <p class="">LAGUNA DE NAHUALAPA, en el departamento de La Paz, 
-                            se ha consolidado como un destino turístico familiar gracias a la reciente renovación de su parque recreativo, 
-                            que ahora ofrece modernas piscinas, palapas frente al mar y áreas de descanso para toda la familia. 
-                            Con una inversión que supera los 8 millones de dólares, el espacio ha sido transformado para brindar 
-                            un ambiente seguro y ordenado, 
-                            obteniendo además la certificación "Family Friendly"</p>
-                        
-                    </div>
-                </a>
-            </div>
-        </div>
-    </div>
-=======
->>>>>>> eb1b4970e0a274efd7ed62762ffd04837097c4dd
     <!-- Mapa interactivo -->
     <!-- Panel de información -->
     <div class="info-panel" id="infoPanel">
