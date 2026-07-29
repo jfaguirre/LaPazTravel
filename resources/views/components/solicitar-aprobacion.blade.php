@@ -7,6 +7,7 @@ new class extends Component
 {
     public ?Sitio $sitio = null;
     public bool $hasSitio = false;
+    public bool $hasUbicacion = false;
     public bool $hasCategoria = false;
     public bool $hasRegla = false;
     public bool $hasServicio = false;
@@ -14,9 +15,17 @@ new class extends Component
     public function mount()
     {
         $user = Auth::user();
-        $this->sitio = Sitio::where('id_user', $user->id)->first();
+        $sitioId = session('id_sitio');
+        if ($sitioId) {
+            $this->sitio = Sitio::find($sitioId);
+        } else {
+            $this->sitio = Sitio::where('id_user', $user->id)->first();
+        }
 
         $this->hasSitio = $this->sitio !== null;
+        $this->hasUbicacion = (bool) ($this->sitio?->perfil?->id_departamento !== null &&
+                                      $this->sitio?->perfil?->id_municipio !== null &&
+                                      $this->sitio?->perfil?->id_distrito !== null);
         $this->hasCategoria = (bool) $this->sitio?->perfil?->categorias()->exists();
         $this->hasRegla = (bool) $this->sitio?->perfil?->reglas()->exists();
         $this->hasServicio = (bool) $this->sitio?->perfil?->servicios()->exists();
@@ -35,11 +44,15 @@ new class extends Component
         $hasCategoria = (bool) $perfil?->categorias()->exists();
         $hasRegla = (bool) $perfil?->reglas()->exists();
         $hasServicio = (bool) $perfil?->servicios()->exists();
+        $hasUbicacion = (bool) ($perfil?->id_departamento !== null &&
+                                $perfil?->id_municipio !== null &&
+                                $perfil?->id_distrito !== null);
 
         if (
             !$hasCategoria ||
             !$hasRegla ||
-            !$hasServicio
+            !$hasServicio ||
+            !$hasUbicacion
         ) {
             return;
         }
@@ -67,7 +80,7 @@ new class extends Component
 
 <div>
     <div class="solicitud">
-        @if ($hasSitio && $hasCategoria && $hasRegla && $hasServicio)
+        @if ($hasSitio && $hasCategoria && $hasRegla && $hasServicio && $hasUbicacion)
             @if ($sitio->estado == 'BORRADOR')
                 <button type="button" class="btn btn-primary" wire:click="enviarSolicitud">
                     Enviar solicitud
