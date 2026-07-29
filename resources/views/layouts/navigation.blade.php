@@ -5,24 +5,29 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ Auth::user()->hasRole('su') ? route('su.dashboard') : route('dashboard') }}">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
 
                     @if(Auth::user()->hasRole('su'))
-                        <x-nav-link :href="route('admin.sitios.index')" :active="request()->routeIs('admin.sitios.*')">
+                        <x-nav-link :href="route('su.dashboard')" :active="request()->routeIs('su.dashboard')">
+                            {{ __('Dashboard') }}
+                        </x-nav-link>
+
+                        <x-nav-link :href="route('su.sitios.index')" :active="request()->routeIs('su.sitios.*')">
                             {{ __('Control de Sitios') }}
                         </x-nav-link>
 
-                        <x-nav-link :href="route('admin.usuarios.index')" :active="request()->routeIs('admin.usuarios.*')">
+                        <x-nav-link :href="route('su.usuarios.index')" :active="request()->routeIs('su.usuarios.*')">
                             {{ __('Control de Usuarios') }}
+                        </x-nav-link>
+                    @else
+                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                            {{ __('Dashboard') }}
                         </x-nav-link>
                     @endif
                 </div>
@@ -77,13 +82,21 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
-
             @if(Auth::user()->hasRole('su'))
-                <x-responsive-nav-link :href="route('admin.usuarios.index')" :active="request()->routeIs('admin.usuarios.*')">
+                <x-responsive-nav-link :href="route('su.dashboard')" :active="request()->routeIs('su.dashboard')">
+                    {{ __('Dashboard') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('su.sitios.index')" :active="request()->routeIs('su.sitios.*')">
+                    {{ __('Control de Sitios') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('su.usuarios.index')" :active="request()->routeIs('su.usuarios.*')">
                     {{ __('Control de Usuarios') }}
+                </x-responsive-nav-link>
+            @else
+                <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    {{ __('Dashboard') }}
                 </x-responsive-nav-link>
             @endif
         </div>

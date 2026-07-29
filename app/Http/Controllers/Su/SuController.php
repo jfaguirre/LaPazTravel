@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Su;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -9,7 +9,7 @@ use App\Models\User;
 use Spatie\Permission\Models\Role;
 use App\Models\Departamento;
 
-class AdminController extends Controller
+class SuController extends Controller
 {
     // lista, busqueda y filtrado de todos los sitios de la plataforma
     public function sitiosIndex(Request $request)
@@ -47,7 +47,35 @@ class AdminController extends Controller
         $departamentos = Departamento::orderBy('departamento', 'asc')->get();
 
         // Retornamos la vista que creamos
-        return view('admin.sitios.index', compact('sitios', 'departamentos'));
+        return view('su.sitios.index', compact('sitios', 'departamentos'));
+    }
+
+
+    public function dashboard()
+    {
+        $totalUsuarios = User::count();
+        $sitiosPendientesCount = Sitio::where('estado', 'PENDIENTE')->count();
+        $totalSitiosActivos = Sitio::where('estado', 'APROBADO')->count();
+        $totalVisitas = Sitio::sum('visitas');
+
+        $sitiosPendientes = Sitio::with('usuario')
+            ->where('estado', 'PENDIENTE')
+            ->latest()
+            ->take(5)
+            ->get();
+
+        $ultimosUsuarios = User::latest()
+            ->take(5)
+            ->get();
+
+        return view('su.dashboard', compact(
+            'totalUsuarios',
+            'sitiosPendientesCount',
+            'totalSitiosActivos',
+            'totalVisitas',
+            'sitiosPendientes',
+            'ultimosUsuarios'
+        ));
     }
 
     // pantalla de revisión de un sitio específico, mostrando todos sus detalles y relaciones
@@ -70,7 +98,7 @@ class AdminController extends Controller
             }
         ])->findOrFail($id);
 
-        return view('admin.sitios.show', compact('sitio'));
+        return view('su.sitios.show', compact('sitio'));
     }
 
     // Accion para aprobar el sitio
@@ -81,7 +109,7 @@ class AdminController extends Controller
         $sitio->save();
 
         // redirigir al listado de sitios con el mensaje de exito
-        return redirect()->route('admin.sitios.index')
+        return redirect()->route('su.sitios.index')
             ->with('success', "El sitio '{$sitio->nombre}' ha sido aprobado y publicado con éxito.");
     }
 
@@ -100,7 +128,7 @@ class AdminController extends Controller
         //$sitio->motivo_rechazo = $request->motivo; $sitio->save();
 
 
-        return redirect()->route('admin.sitios.index')
+        return redirect()->route('su.sitios.index')
             ->with('success', "El sitio '{$sitio->nombre}' ha sido rechazado. Razón: " . $request->motivo);
     }
 
@@ -118,7 +146,7 @@ class AdminController extends Controller
         $sitio->estado = 'SUSPENDIDO'; 
         $sitio->save();
 
-        return redirect()->route('admin.sitios.index')
+        return redirect()->route('su.sitios.index')
             ->with('success', "El sitio '{$sitio->nombre}' ha sido suspendido con éxito.");
     }
 
@@ -129,7 +157,7 @@ class AdminController extends Controller
         $sitio->estado = 'PENDIENTE';
         $sitio->save();
 
-        return redirect()->route('admin.sitios.index')
+        return redirect()->route('su.sitios.index')
             ->with('success', "El sitio '{$sitio->nombre}' ha sido devuelto a revisión pendiente.");
     }
 
@@ -161,7 +189,7 @@ class AdminController extends Controller
         // Jalamos los roles directamente desde la tabla de Spatie para que el select sea dinámico
         $roles = Role::all();
 
-        return view('admin.usuarios.index', compact('usuarios', 'roles'));
+        return view('su.usuarios.index', compact('usuarios', 'roles'));
     }
 
 
