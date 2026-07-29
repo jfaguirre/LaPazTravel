@@ -11,21 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('departamentos', function (Blueprint $table) {
+        Schema::create('municipios', function (Blueprint $table) {
             $table->id();
-            $table->string('departamento', 50)->unique();
+            $table->string('municipio', 50)->unique();
             $table->enum('estado',['ACTIVO', 'INACTIVO'])->default('INACTIVO');
-            $table->foreignId('id_pais')->constrained('paises');
+            $table->foreignId('id_departamento')->constrained('departamentos');
             $table->timestamps();
         });
     }
-
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('departamentos');
+        Schema::dropIfExists('municipios');
     }
 };

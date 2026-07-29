@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('distritos', function (Blueprint $table) {
             $table->id();
-            $table->string('distrito', 50)->unique();
+            $table->string('distrito', 50);
             $table->enum('estado',['ACTIVO', 'INACTIVO'])->default('INACTIVO');
-            $table->foreignId('id_departamento')->constrained('departamentos');
+            $table->foreignId('id_municipio')->constrained('municipios');
             $table->timestamps();
         });
     }

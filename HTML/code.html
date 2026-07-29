@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary": "#895100",
+                    "on-surface-variant": "#3e494a",
+                    "surface": "#f9f9fc",
+                    "on-primary-fixed-variant": "#004f56",
+                    "on-secondary-fixed": "#2c1700",
+                    "surface-bright": "#f9f9fc",
+                    "background": "#f9f9fc",
+                    "surface-variant": "#e2e2e5",
+                    "outline-variant": "#bdc9ca",
+                    "inverse-primary": "#7ad4df",
+                    "on-primary-container": "#d5faff",
+                    "tertiary-fixed-dim": "#c2c7c8",
+                    "tertiary-container": "#6a7070",
+                    "primary-container": "#007b85",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-container": "#eff4f4",
+                    "surface-container-high": "#e8e8ea",
+                    "on-tertiary-fixed-variant": "#424848",
+                    "surface-container-highest": "#e2e2e5",
+                    "inverse-on-surface": "#f0f0f3",
+                    "secondary-container": "#fd9d1a",
+                    "error": "#ba1a1a",
+                    "error-container": "#ffdad6",
+                    "secondary-fixed": "#ffdcbc",
+                    "on-error-container": "#93000a",
+                    "on-error": "#ffffff",
+                    "surface-container-low": "#f3f3f6",
+                    "primary-fixed": "#96f1fc",
+                    "surface-tint": "#006971",
+                    "on-background": "#1a1c1e",
+                    "outline": "#6e797a",
+                    "inverse-surface": "#2f3133",
+                    "primary": "#006068",
+                    "surface-dim": "#dadadc",
+                    "tertiary-fixed": "#dee3e3",
+                    "tertiary": "#525858",
+                    "on-tertiary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "surface-container": "#eeeef0",
+                    "on-secondary-fixed-variant": "#683d00",
+                    "on-secondary-container": "#663b00",
+                    "on-primary-fixed": "#001f23",
+                    "secondary-fixed-dim": "#ffb86b",
+                    "on-surface": "#1a1c1e",
+                    "primary-fixed-dim": "#7ad4df",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary-fixed": "#171d1d"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "2xl": "1rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-margin-desktop": "80px",
+                    "stack-lg": "48px",
+                    "stack-sm": "12px",
+                    "container-margin-mobile": "20px",
+                    "gutter": "24px",
+                    "unit": "8px",
+                    "stack-md": "24px"
+            },
+            "fontFamily": {
+                    "display-lg-mobile": ["Plus Jakarta Sans"],
+                    "label-sm-caps": ["Inter"],
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-sm": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "display-lg": ["Plus Jakarta Sans"],
+                    "label-md": ["Inter"]
+            },
+            "fontSize": {
+                    "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-sm-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-overlay {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .text-shadow-elegant {
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-xl shadow-sm">
+<div class="flex justify-between items-center px-container-margin-mobile md:px-container-margin-desktop py-4 w-full max-w-7xl mx-auto">
+<div class="font-display-lg-mobile text-display-lg-mobile tracking-tight text-primary dark:text-primary-fixed">VoyagerElite</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-primary dark:text-primary-fixed border-b-2 border-primary dark:border-primary-fixed pb-1 font-label-md text-label-md" href="#">Destinations</a>
+<a class="text-on-surface-variant dark:text-on-tertiary-container hover:text-primary transition-colors font-label-md text-label-md" href="#">Bookings</a>
+<a class="text-on-surface-variant dark:text-on-tertiary-container hover:text-primary transition-colors font-label-md text-label-md" href="#">Reports</a>
+<a class="text-on-surface-variant dark:text-on-tertiary-container hover:text-primary transition-colors font-label-md text-label-md" href="#">Settings</a>
+</div>
+<button class="bg-primary text-on-primary px-6 py-2.5 rounded-full font-label-md text-label-md active:scale-95 duration-200 transition-all hover:bg-surface-tint">
+                New Site
+            </button>
+</div>
+</nav>
+<main class="pt-32 pb-24 px-container-margin-mobile md:px-container-margin-desktop max-w-7xl mx-auto">
+<!-- Section Header -->
+<div class="mb-stack-lg">
+<h2 class="font-display-lg text-display-lg text-on-background mb-2">Destinos Destacados</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Gestione sus locaciones de lujo y explore las nuevas incorporaciones a nuestra colección élite.</p>
+</div>
+<!-- Tourist Site Card -->
+<div class="relative w-full max-w-4xl mx-auto overflow-hidden rounded-2xl shadow-2xl group aspect-[16/9] md:aspect-[21/9]">
+<!-- Full-cover background image -->
+<div class="absolute inset-0 w-full h-full">
+<img alt="Cumbres Nevadas" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHomtsiXhGUAfe2UpmlVb0UPBHDZ2mNB1LwOrL56BECtvHfaiw3mAo4Hu2tN1rDhZ09tofnhm1zHzmf9bL1uYQdAV6_D5jeueG4lNb6NBHYgsiEyTzMEdofhkERFiGLHTUeKhLBQVwvZAYrII_upz2n-uU1B7_ZJVv7zZHSZD3gePi5AODWb4xVdPrV7LiFtTl1mmKPVKvZe-rnGPAdzLeH8sZSCwFoy71Qav69QcqMnhxh0uMwYdQ-QyL3QpG5z7QJkfIAQtfCfQ"/>
+<!-- Elegant Dark Overlay for Readability -->
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+</div>
+<!-- Top Controls -->
+<div class="absolute top-6 left-6 right-6 flex justify-between items-start z-10">
+<!-- Status Badge -->
+<div class="bg-secondary-container px-3 py-1 rounded-lg">
+<span class="font-label-sm-caps text-label-sm-caps text-on-secondary-container">BORRADOR</span>
+</div>
+<!-- Verified Icon -->
+<div class="bg-primary w-10 h-10 rounded-full flex items-center justify-center shadow-lg border-2 border-white/20 backdrop-blur-sm">
+<span class="material-symbols-outlined text-white text-[20px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+<!-- Content Area (Bottom) -->
+<div class="absolute bottom-0 left-0 right-0 p-8 md:p-12 flex flex-col md:flex-row md:items-end justify-between gap-6 z-10">
+<div class="flex-1">
+<div class="flex items-center gap-3 mb-2">
+<h1 class="font-display-lg text-display-lg text-white text-shadow-elegant">Cumbres Nevadas</h1>
+</div>
+<p class="font-body-lg text-body-lg text-white/90 max-w-xl text-shadow-elegant leading-relaxed">
+                        Explora la majestuosidad de los picos más altos bajo la luz dorada del atardecer.
+                    </p>
+</div>
+<div class="flex items-center gap-4">
+<button class="bg-white text-primary px-8 py-4 rounded-xl font-label-md text-label-md flex items-center gap-2 transition-all hover:bg-primary-container hover:text-on-primary-container active:scale-95 shadow-xl">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+                        Editar
+                    </button>
+<button class="glass-overlay text-white px-6 py-4 rounded-xl font-label-md text-label-md hover:bg-white/20 transition-all active:scale-95">
+                        Vista previa
+                    </button>
+</div>
+</div>
+</div>
+<!-- Support Info Bento Grid -->
+<div class="mt-stack-lg grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="bg-surface-container p-8 rounded-2xl border border-outline-variant/30 transition-all hover:shadow-md">
+<span class="material-symbols-outlined text-primary mb-4 text-[32px]">analytics</span>
+<h3 class="font-headline-sm text-headline-sm mb-2">Métricas de Alcance</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Este borrador tiene una proyección de alcance de 2.4k visitantes mensuales una vez publicado.</p>
+</div>
+<div class="bg-surface-container p-8 rounded-2xl border border-outline-variant/30 transition-all hover:shadow-md">
+<span class="material-symbols-outlined text-primary mb-4 text-[32px]">photo_camera</span>
+<h3 class="font-headline-sm text-headline-sm mb-2">Calidad Visual</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Las imágenes han sido verificadas en resolución 4K. El contraste cumple con los estándares élite.</p>
+</div>
+<div class="bg-surface-container p-8 rounded-2xl border border-outline-variant/30 transition-all hover:shadow-md">
+<span class="material-symbols-outlined text-primary mb-4 text-[32px]">description</span>
+<h3 class="font-headline-sm text-headline-sm mb-2">Estado Editorial</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Pendiente de revisión por el equipo de curaduría. Última edición hace 12 minutos.</p>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile only) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 md:hidden bg-surface dark:bg-surface-container-lowest shadow-lg rounded-t-xl">
+<button class="flex flex-col items-center justify-center bg-primary-container dark:bg-primary text-on-primary-container dark:text-on-primary rounded-full px-5 py-1 active:scale-90 transition-transform">
+<span class="material-symbols-outlined">explore</span>
+<span class="font-label-md text-label-md">Explore</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-fixed-variant active:scale-90 transition-transform">
+<span class="material-symbols-outlined">edit_note</span>
+<span class="font-label-md text-label-md">Drafts</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-fixed-variant active:scale-90 transition-transform">
+<span class="material-symbols-outlined">bookmark</span>
+<span class="font-label-md text-label-md">Saved</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-fixed-variant active:scale-90 transition-transform">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-md text-label-md">Profile</span>
+</button>
+</nav>
+</body></html>

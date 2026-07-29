@@ -10,7 +10,10 @@ use Illuminate\Support\Facades\Auth;
 class DashboardControlador extends Controller
 {
     public function dashboard()
-    {                       
-        return view('dashboard');
-    }   
+    {
+
+        $sitios = Auth::user()->sitios;
+
+        return view('dashboard', compact('sitios'));
+    }
 }

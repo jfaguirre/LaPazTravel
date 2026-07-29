@@ -16,39 +16,77 @@ class AccesoSitio
      * @param  Closure(Request): (Response)  $next
      */
     public function handle(Request $request, Closure $next): Response
-    {        
-        $id_sitio = session('id_sitio');        
+    {
+        $user = Auth::user();
         
-        // Si no está el id_sitio en la sesión pero el usuario está autenticado, intentamos recuperarlo
-        if (!$id_sitio && Auth::check()) {
-            $sitio = Sitio::where('id_user', Auth::id())->first();
-            if ($sitio) {
-                session(['id_sitio' => $sitio->id]);
-                $id_sitio = $sitio->id;
-            }
+        $sitioId = session('id_sitio');
+        if ($sitioId) {
+            $sitio = Sitio::find($sitioId);
         } else {
-            $sitio = Sitio::find($id_sitio);
+            $sitio = Sitio::where('id_user', $user->id)->first();
         }
 
-        if (!$sitio) {
-            return redirect()->route('perfil.inicio');
+        // Security check: Ensure the loaded site belongs to the authenticated user
+        if ($sitio && $sitio->id_user !== $user->id) {
+            $sitio = Sitio::where('id_user', $user->id)->first();
         }
-        
-        // Si el estado del sitio no es BORRADOR (por ejemplo, está en PENDIENTE o APROBADO),
-        // bloqueamos las rutas de edición redirigiendo a la vista correspondiente.
-        if ($sitio->estado !== 'BORRADOR') {
-            // Si el sitio está APROBADO, permitimos el acceso únicamente al dashboard.
-            // Redirigimos a la ruta 'dashboard' si intentan acceder a otras rutas protegidas.
-            if ($sitio->estado === 'APROBADO') {
-                if ($request->routeIs('dashboard')) {
-                    return $next($request);
-                }
-                return redirect()->route('dashboard');
+
+        $perfil = $sitio?->perfil;
+
+        // If no site exists yet, only allow site creation routes
+        if ($sitio === null) {
+            if ($request->routeIs('sitio.create') || $request->routeIs('sitio.store')) {
+                return $next($request);
             }
+            return redirect()->route('dashboard');
+        }
 
+        // If the current site is PENDIENTE, block edit routes for this site and redirect to progress page
+        if ($sitio->estado === 'PENDIENTE') {
+            if ($request->routeIs('sitio.edit') || 
+                $request->routeIs('sitio.update') || 
+                $request->routeIs('perfil.ubicacion') || 
+                $request->routeIs('perfil.ubicacion.store') || 
+                $request->routeIs('perfil.categoria.agregar') || 
+                $request->routeIs('perfil.categoria.guardar') || 
+                $request->routeIs('perfil.regla.agregar') || 
+                $request->routeIs('perfil.regla.guardar') || 
+                $request->routeIs('perfil.servicio.agregar') || 
+                $request->routeIs('perfil.servicio.guardar')) {
+                
+                return redirect()->route('perfil.create')->with('error', 'No puedes editar la información de tu sitio mientras la solicitud está pendiente de aprobación.');
+            }
+        }
+
+        $hasCategoria = (bool) $perfil?->categorias()->exists();
+        $hasRegla = (bool) $perfil?->reglas()->exists();
+        $hasServicio = (bool) $perfil?->servicios()->exists();
+
+        // Always allow creating a new site
+        if ($request->routeIs('sitio.create') || $request->routeIs('sitio.store')) {
+            return $next($request);
+        }
+
+        // If state is BORRADOR, allow access to all form steps to let them complete it
+        if ($sitio->estado === 'BORRADOR') {
+            if ($request->routeIs('sitio.edit') || $request->routeIs('sitio.update') ||
+                $request->routeIs('perfil.ubicacion') || $request->routeIs('perfil.ubicacion.store') ||
+                $request->routeIs('perfil.categoria.agregar') || $request->routeIs('perfil.categoria.guardar') ||
+                $request->routeIs('perfil.regla.agregar') || $request->routeIs('perfil.regla.guardar') ||
+                $request->routeIs('perfil.servicio.agregar') || $request->routeIs('perfil.servicio.guardar')) {
+                return $next($request);
+            }
+        }
+
+        // Default redirect for incomplete profile
+        if (!$perfil || !$hasCategoria || !$hasRegla || !$hasServicio) {
             return redirect()->route('perfil.create');
         }
-        
+
+        if ($sitio->estado === 'BORRADOR') {
+            return redirect()->route('perfil.create');
+        }
+
         return $next($request);
     }
 }

@@ -2,14 +2,14 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Sitio\Sitio\SitioControlador;
-use App\Http\Controllers\Sitio\Categoria\CategoriaControlador;
 use App\Http\Controllers\Sitio\Dashboard\DashboardControlador;
 use App\Http\Controllers\Sitio\Perfil\PerfilSitioControlador;
-use App\Http\Controllers\Sitio\Regla\ReglaControlador;
-use App\Http\Controllers\Sitio\Servicio\ServicioControlador;
 use App\Http\Controllers\Su\SuController;
 use App\Http\Controllers\Su\Usuario\SuUsuarioController;
 
+use App\Http\Controllers\Super\Sitio\Categoria\CategoriaControlador;
+use App\Http\Controllers\Super\Sitio\Regla\ReglaControlador;
+use App\Http\Controllers\Super\Sitio\Servicio\ServicioControlador;
 
 use Illuminate\Support\Facades\Route;
 
@@ -22,15 +22,14 @@ Route::view('/lapaz/este', 'paginas.regiones.LaPazEste')->name('la-paz-este');
     Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::middleware(['acceso.sitio'])->group(function () {
-            // Dahsboard
-            Route::get('/dashboard', [DashboardControlador::class, 'dashboard'])->name('dashboard');     
-            
-            // Rutas del Perfil del Sitio (Categorías, Reglas, Servicios para el sitio del Usuario)
-            // Crear el sitio del usuario    
             Route::get('/dashboard/sitio/create', [SitioControlador::class, 'create'])->name('sitio.create');
             Route::post('/dashboard/sitio/create', [SitioControlador::class, 'store'])->name('sitio.store');
             Route::get('/dashboard/sitio/edit', [SitioControlador::class, 'edit'])->name('sitio.edit');
             Route::put('/dashboard/sitio/update', [SitioControlador::class, 'update'])->name('sitio.update');
+
+            // Rutas del Perfil del Sitio (Categorías, Reglas, Servicios y ubicacion para el sitio del Usuario)
+            Route::get('/dashboard/perfil/ubicacion', [PerfilSitioControlador::class, 'ubicacion_sitio'])->name('perfil.ubicacion');
+            Route::post('/dashboard/perfil/ubicacion/store', [PerfilSitioControlador::class, 'guardar_ubicacion'])->name('perfil.ubicacion.store');
 
             Route::get('/dashboard/perfil/categoria', [PerfilSitioControlador::class, 'agregarCategoria'])->name('perfil.categoria.agregar');
             Route::post('/dashboard/perfil/categoria', [PerfilSitioControlador::class, 'guardarCategoria'])->name('perfil.categoria.guardar');
@@ -42,12 +41,15 @@ Route::view('/lapaz/este', 'paginas.regiones.LaPazEste')->name('la-paz-este');
             Route::post('/dashboard/perfil/servicio', [PerfilSitioControlador::class, 'guardarServicio'])->name('perfil.servicio.guardar');
         });
 
+        // Dahsboard
+        Route::get('/dashboard', [DashboardControlador::class, 'dashboard'])->name('dashboard');
+
         // Perfil del usuario
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-        // Iniciar datos del perfil minomos
+        // Iniciar datos del perfil minimos
         Route::get('dashboard/perfil/inicio', [PerfilSitioControlador::class, 'inicio'])->name('perfil.inicio');
         Route::get('dashboard/perfil/create', [PerfilSitioControlador::class, 'perfilSitio'])->name('perfil.create');        
         
@@ -72,6 +74,8 @@ Route::view('/lapaz/este', 'paginas.regiones.LaPazEste')->name('la-paz-este');
     
 
         });
+        Route::get('dashboard/perfil/create', [PerfilSitioControlador::class, 'perfilSitio'])->name('perfil.create');
+        Route::post('dashboard/perfil/create', [PerfilSitioControlador::class, 'perfil_session'])->name('perfil.session');
 
         // Registro de Categorías (Admin o Configuración General)
         Route::get('/dashboard/sitio/categoria', [CategoriaControlador::class, 'create'])->name('categoria.create');
@@ -84,7 +88,7 @@ Route::view('/lapaz/este', 'paginas.regiones.LaPazEste')->name('la-paz-este');
         // Registro de Servicios (Admin o Configuración General)
         Route::get('/dashboard/servicio/create', [ServicioControlador::class, 'create'])->name('servicio.create');
         Route::post('/dashboard/servicio/create', [ServicioControlador::class, 'store'])->name('servicio.store');
-        
+
     });
 
 require __DIR__.'/auth.php';
