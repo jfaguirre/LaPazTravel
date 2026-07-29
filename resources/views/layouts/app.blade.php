@@ -6,28 +6,29 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>@yield('title')</title>
-               
+
         <!-- Scripts -->
         @vite([
             'resources/css/app.css',
             'resources/js/app.js',
-            'resources/css/main.css'
+            'resources/css/main.css',
+            'resources/css/dashboard_sitio.css',
+            'resources/css/sidebar_sitio.css',
         ])
 
-        @stack('styles')        
-        
+        @stack('styles')
+
     </head>
     <body>
         <div class="min-h-screen bg-gray-100">
             @include('layouts.navigation')
-           
-            <!-- Contenido de las paginas -->
+
             <main>
                 @yield('contenido')
             </main>
 
         </div>
-    
+
     @stack('scripts')
     </body>
 </html>

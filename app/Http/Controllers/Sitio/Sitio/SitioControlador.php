@@ -15,8 +15,8 @@ use Throwable;
 class SitioControlador extends Controller
 {
     public function create()
-    {              
-        return view('usuarios.sitio.create');
+    {
+        return view('admin.sitio.create');
     }
 
     public function store(Request $request)
@@ -70,11 +70,11 @@ class SitioControlador extends Controller
 
                 } while (SitioPerfil::where('identificador', $identificador)->exists());
 
-                /* Crear perfil del sitio */                
+                /* Crear perfil del sitio */
                 SitioPerfil::create([
                     'id_sitio' => $sitio->id,
                     'identificador' => $identificador,
-                ]);                
+                ]);
 
                 return $sitio;
             });
@@ -110,7 +110,8 @@ class SitioControlador extends Controller
     public function edit()
     {
         $user = Auth::user();
-        $sitio = Sitio::where('id_user', $user->id)->first();
+        // $sitio = Sitio::where('id_user', $user->id)->first();
+        $sitio = Sitio::find(session('id_sitio'));
 
         if (!$sitio) {
             return redirect()
@@ -118,7 +119,7 @@ class SitioControlador extends Controller
                 ->with('error', 'Aún no has creado un Sitio Turístico.');
         }
 
-        return view('usuarios.sitio.edit', compact('sitio'));
+        return view('admin.sitio.edit', compact('sitio'));
     }
 
     public function update(Request $request)

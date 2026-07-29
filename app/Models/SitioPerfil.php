@@ -28,8 +28,8 @@ class SitioPerfil extends Model
         'longitud',
         'id_sitio',
         'id_departamento',
-        'id_distrito',
-        'id_municipio'
+        'id_municipio',
+        'id_distrito'
     ];
 
     // RELACIONES

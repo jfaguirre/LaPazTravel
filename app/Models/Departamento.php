@@ -9,6 +9,8 @@ class Departamento extends Model
 {
     protected $fillable = [
         'departamento',
+        'estado',
+        'id_pais'
     ];
 
     // RELACIONES
