@@ -62,7 +62,8 @@ class PerfilSitioControlador extends Controller
         compact(
             'hasSitio',
             'hasUbicacion',
-            'hasCategoria',            
+            'hasCategoria',
+            'hasRegla',            
             'hasServicio',
             'progreso',
             'sitio'));

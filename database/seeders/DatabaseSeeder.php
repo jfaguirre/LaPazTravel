@@ -15,14 +15,19 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             RolSeeder::class,
-            UserSedder::class,
+            UserSedder::class,            
             PaisSeeder::class,
             DepartamentosSeeder::class,
             MunicipiosSeeder::class,
             DistritosSeeder::class,
             CategoriasSeeder::class,
             ReglasSeeder::class,
-            ServiciosSeeder::class
+            ServiciosSeeder::class,
+            SitioSeeder::class,
+            SitioPerfilSeeder::class,
+            SitioCategoriaSeeder::class,
+            SitioReglaSeeder::class,
+            SitioServicioSeeder::class
         ]);
     }
 }
