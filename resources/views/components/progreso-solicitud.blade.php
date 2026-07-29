@@ -16,7 +16,12 @@ new class extends Component
     public function mount()
     {
         $user = Auth::user();
-        $this->sitio = Sitio::where('id_user', $user->id)->first();
+        $sitioId = session('id_sitio');
+        if ($sitioId) {
+            $this->sitio = Sitio::find($sitioId);
+        } else {
+            $this->sitio = Sitio::where('id_user', $user->id)->first();
+        }
 
         $this->hasSitio = $this->sitio !== null;
         $this->hasUbicacion = (bool) ($this->sitio?->perfil?->id_departamento !== null &&
