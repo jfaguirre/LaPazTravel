@@ -50,7 +50,7 @@
             <!-- Login / Dashboard -->
             <div class="d-flex gap-2">
                 @auth
-                    <a class="btn btn-light" href="{{ route('dashboard') }}">
+                    <a class="btn btn-light" href="{{ route('super.dashboard') }}">
                         <i class="bi bi-speedometer2 me-1"></i> Dashboard
                     </a>
                     <div class="dropdown">

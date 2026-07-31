@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Su\Usuario;
+namespace App\Http\Controllers\Super\Usuario;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -41,7 +41,7 @@ class SuUsuarioController extends Controller
         // Jalamos los roles directamente desde la tabla de Spatie para el select
         $roles = Role::all();
 
-        return view('su.usuarios.index', compact('usuarios', 'roles'));
+        return view('super.usuario.index', compact('usuarios', 'roles'));
     }
 
     /**
@@ -50,7 +50,7 @@ class SuUsuarioController extends Controller
     public function create()
     {
         $roles = Role::all();
-        return view('su.usuarios.create', compact('roles'));
+        return view('super.usuario.create', compact('roles'));
     }
 
     /**
@@ -82,7 +82,7 @@ class SuUsuarioController extends Controller
         // Asignación del rol mediante Spatie
         $usuario->assignRole($request->rol);
 
-        return redirect()->route('su.usuarios.index')
+        return redirect()->route('super.usuario.index')
             ->with('success', "El usuario {$usuario->name} {$usuario->lastName} ha sido creado con éxito.");
     }
 
@@ -94,7 +94,7 @@ class SuUsuarioController extends Controller
         // Cargamos el usuario junto con sus roles y opcionalmente sus sitios asociados
         $usuario = User::with(['roles', 'sitios'])->findOrFail($id);
 
-        return view('su.usuarios.show', compact('usuario'));
+        return view('super.usuario.show', compact('usuario'));
     }
 
     /**
@@ -108,7 +108,7 @@ class SuUsuarioController extends Controller
         // Obtenemos el nombre del rol actual del usuario
         $usuarioRol = $usuario->roles->first()?->name;
 
-        return view('su.usuarios.edit', compact('usuario', 'roles', 'usuarioRol'));
+        return view('super.usuario.edit', compact('usuario', 'roles', 'usuarioRol'));
     }
 
     /**
@@ -150,7 +150,7 @@ class SuUsuarioController extends Controller
         // Sincronizar el rol con Spatie (reemplaza los anteriores por el nuevo elegido)
         $usuario->syncRoles([$request->rol]);
 
-        return redirect()->route('su.usuarios.index')
+        return redirect()->route('super.usuario.index')
             ->with('success', "El usuario {$usuario->name} ha sido actualizado correctamente.");
     }
 
@@ -163,7 +163,7 @@ class SuUsuarioController extends Controller
 
         // Opcional: Impedir que el SuperAdmin logueado se elimine a sí mismo
         if (auth()->id() == $usuario->id) {
-            return redirect()->route('su.usuarios.index')
+            return redirect()->route('super.usuario.index')
                 ->with('error', 'No puedes eliminar tu propia cuenta de administrador.');
         }
 
@@ -174,7 +174,7 @@ class SuUsuarioController extends Controller
 
         $usuario->delete();
 
-        return redirect()->route('su.usuarios.index')
+        return redirect()->route('super.usuario.index')
             ->with('success', "El usuario ha sido eliminado del sistema con éxito.");
     }
 }

@@ -6,7 +6,7 @@
 
     <!-- Botón de retorno -->
     <div class="mb-3">
-        <a href="{{ route('su.sitios.index')}}" class="btn btn-sm btn-light border text-secondary rounded-pill px-3 shadow-sm d-inline-flex align-items-center">
+        <a href="{{ route('super.sitio.index')}}" class="btn btn-sm btn-light border text-secondary rounded-pill px-3 shadow-sm d-inline-flex align-items-center">
             <i class="bi bi-arrow-left me-1"></i> Volver al listado
         </a>
     </div>
@@ -353,7 +353,7 @@
                         
                         <!-- Botón Reestablecer a Pendiente (Solo visible si no está pendiente) -->
                         @if($sitio->estado != 'pendiente')
-                            <form action="{{ route('su.sitios.pendiente', $sitio->id) }}" method="POST" class="m-0 flex-grow-1 flex-md-grow-0">
+                            <form action="{{ route('super.sitio.pendiente', $sitio->id) }}" method="POST" class="m-0 flex-grow-1 flex-md-grow-0">
                                 @csrf
                                 @method('PATCH')
                                 <button type="submit" class="btn btn-outline-warning text-dark rounded-pill px-3 py-2 fw-semibold w-100">
@@ -380,7 +380,7 @@
                         
                         <!-- Botón Aprobar -->
                         @if($sitio->estado != 'aprobado' && $sitio->estado != 'publicado')
-                            <form action="{{ route('su.sitios.aprobar', $sitio->id) }}" method="POST" class="m-0 flex-grow-1 flex-md-grow-0">
+                            <form action="{{ route('super.sitio.aprobar', $sitio->id) }}" method="POST" class="m-0 flex-grow-1 flex-md-grow-0">
                                 @csrf
                                 @method('PATCH')
                                 <button type="submit" class="btn btn-success rounded-pill px-4 py-2 fw-semibold shadow-sm w-100">
@@ -398,7 +398,7 @@
 
             <!-- Formulario: Rechazar Solicitud -->
             <div class="mt-3 border-top pt-3" x-show="formulario === 'rechazar'" x-cloak style="display: none;" x-transition>
-                <form action="{{ route('su.sitios.rechazar', $sitio->id) }}" method="POST" class="mb-0">
+                <form action="{{ route('super.sitio.rechazar', $sitio->id) }}" method="POST" class="mb-0">
                     @csrf
                     @method('PATCH')
                     <div class="mb-2">
@@ -414,7 +414,7 @@
 
             <!-- Formulario: Suspender Sitio -->
             <div class="mt-3 border-top pt-3" x-show="formulario === 'suspender'" x-cloak style="display: none;" x-transition>
-                <form action="{{ route('su.sitios.suspender', $sitio->id) }}" method="POST" class="mb-0">
+                <form action="{{ route('super.sitio.suspender', $sitio->id) }}" method="POST" class="mb-0">
                     @csrf
                     @method('PATCH')
                     <div class="mb-2">

@@ -49,7 +49,7 @@
             <p class="text-muted mb-0">Listado, filtrado y asignación de roles para los usuarios del sistema</p>
         </div>
         <div>
-            <a href="{{ route('su.usuarios.create') }}" class="btn btn-dark font-weight-bold shadow-sm">
+            <a href="{{ route('super.usuario.create') }}" class="btn btn-dark font-weight-bold shadow-sm">
                 <i class="bi bi-person-plus-fill me-1"></i> Nuevo Usuario
             </a>
         </div>
@@ -57,7 +57,7 @@
 
     <div class="card shadow-sm border-0 mb-4">
         <div class="card-body p-4">
-            <form action="{{ route('su.usuarios.index') }}" method="GET" class="row g-3">
+            <form action="{{ route('super.usuario.index') }}" method="GET" class="row g-3">
                 
                 <div class="col-12 col-md-6">
                     <label for="search" class="form-label small font-weight-bold text-muted text-uppercase">Buscar Usuario</label>
@@ -84,7 +84,7 @@
                         <i class="bi bi-funnel-fill me-1"></i> Filtrar
                     </button>
                     @if(request()->hasAny(['search', 'rol']))
-                        <a href="{{ route('su.usuarios.index') }}" class="btn btn-outline-secondary" title="Limpiar filtros">
+                        <a href="{{ route('super.usuario.index') }}" class="btn btn-outline-secondary" title="Limpiar filtros">
                             <i class="bi bi-arrow-counterclockwise"></i>
                         </a>
                     @endif
@@ -161,10 +161,10 @@
                                 
                                 <td class="px-4 py-3 text-end">
                                     <div class="btn-group shadow-sm">
-                                        <a href="{{ route('su.usuarios.show', $usuario->id) }}" class="btn btn-sm btn-outline-dark" title="Ver Detalles">
+                                        <a href="{{ route('super.usuario.show', $usuario->id) }}" class="btn btn-sm btn-outline-dark" title="Ver Detalles">
                                             <i class="bi bi-eye-fill"></i>
                                         </a>
-                                        <a href="{{ route('su.usuarios.edit', $usuario->id) }}" class="btn btn-sm btn-outline-dark" title="Editar Usuario">
+                                        <a href="{{ route('super.usuario.edit', $usuario->id) }}" class="btn btn-sm btn-outline-dark" title="Editar Usuario">
                                             <i class="bi bi-pencil-fill"></i>
                                         </a>
                                         <!-- Botón que activa el Modal de Confirmación -->
@@ -241,7 +241,7 @@
                 modalEliminar.querySelector('#nombreUsuarioEliminar').textContent = nombre;
 
                 const form = modalEliminar.querySelector('#formEliminarUsuario');
-                form.action = `{{ url('su/usuarios') }}/${id}`;
+                form.action = `{{ url('super/usuario') }}/${id}`;
             });
         }
     });
