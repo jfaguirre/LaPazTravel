@@ -31,7 +31,7 @@ class UserSedder extends Seeder
             ]);
             $admin->assignRole('admin');
 
-            $admin = User::create([
+        $admin = User::create([
                 'name' => 'Evelin Carolina',
                 'lastName' => 'Vasquez Umaña',
                 'email' => 'ecvasquez@gmail.com',

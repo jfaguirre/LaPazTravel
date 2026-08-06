@@ -26,7 +26,7 @@ class AccesoSitio
             $sitio = Sitio::where('id_user', $user->id)->first();
         }
 
-        // Security check: Ensure the loaded site belongs to the authenticated user
+        // Verificación de seguridad: Asegurarse de que el sitio cargado pertenezca al usuario autenticado
         if ($sitio && $sitio->id_user !== $user->id) {
             $sitio = Sitio::where('id_user', $user->id)->first();
         }
@@ -45,7 +45,7 @@ class AccesoSitio
         if ($sitio->estado === 'PENDIENTE') {
             if ($request->routeIs('sitio.edit') || 
                 $request->routeIs('sitio.update') || 
-                $request->routeIs('perfil.ubicacion') || 
+                $request->routeIs('perfil.ubicacion.agregar') || 
                 $request->routeIs('perfil.ubicacion.store') || 
                 $request->routeIs('perfil.categoria.agregar') || 
                 $request->routeIs('perfil.categoria.guardar') || 
@@ -70,7 +70,7 @@ class AccesoSitio
         // If state is BORRADOR, allow access to all form steps to let them complete it
         if ($sitio->estado === 'BORRADOR') {
             if ($request->routeIs('sitio.edit') || $request->routeIs('sitio.update') ||
-                $request->routeIs('perfil.ubicacion') || $request->routeIs('perfil.ubicacion.store') ||
+                $request->routeIs('perfil.ubicacion.agregar') || $request->routeIs('perfil.ubicacion.store') ||
                 $request->routeIs('perfil.categoria.agregar') || $request->routeIs('perfil.categoria.guardar') ||
                 $request->routeIs('perfil.regla.agregar') || $request->routeIs('perfil.regla.guardar') ||
                 $request->routeIs('perfil.servicio.agregar') || $request->routeIs('perfil.servicio.guardar')) {
@@ -87,6 +87,10 @@ class AccesoSitio
             return redirect()->route('perfil.create');
         }
 
+        if ($sitio->estado === 'APROBADO') {
+            return redirect()->route('dashboard');
+        }
+      
         return $next($request);
     }
 }

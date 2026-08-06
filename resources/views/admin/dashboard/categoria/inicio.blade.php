@@ -1,10 +1,10 @@
-@extends('layouts.app')
-@section('title', 'Ubicación del sitio')
+@extends('layouts.dashboardSitio')
+@section('title', 'Agregar Categorías')
 
 @push('styles')
     @vite(['resources/css/dashboard_sitio.css'])
     <style>
-        .reglas-grid {
+        .categories-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
             gap: 20px;
@@ -28,12 +28,12 @@
         }
         .selectable-card:hover {
             transform: translateY(-4px);
-            border-color: var(--primario-claro);
+            border-color: var(--cat-color);
             box-shadow: 0 10px 20px rgba(0,0,0,0.06);
         }
         .selectable-card.selected {
-            border-color: var(--primario);
-            background-color: var(--primario-50);
+            border-color: var(--cat-color);
+            background-color: var(--cat-color-light);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
         }
         .selectable-card.selected::after {
@@ -43,7 +43,7 @@
             top: 12px;
             right: 12px;
             font-size: 20px;
-            color: var(--primario);
+            color: var(--cat-color);
             line-height: 1;
         }
         .icon-container {
@@ -60,7 +60,7 @@
         }
         .selectable-card.selected .icon-container {
             background-color: var(--blanco);
-            color: var(--primario);
+            color: var(--cat-color);
             box-shadow: 0 4px 12px rgba(0,0,0,0.06);
         }
         .icon-container i {
@@ -130,20 +130,84 @@
         <!-- Cabecera -->
         <div style="margin-bottom: 32px; border-bottom: 2px solid var(--border); padding-bottom: 20px; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px;">
             <div>
-                <h1 style="font-size: 26px; font-weight: 800; color: var(--neutro-900); margin: 0;">Selecciona el departamento, municipio y distrito</h1>
-                <p style="font-size: 15px; color: var(--neutro-500); margin: 6px 0 0 0;">Define la ubicación de tu centro turistico para que tus usuarios puedan encontrarte mas rapido.</p>
+                <h1 style="font-size: 26px; font-weight: 800; color: var(--neutro-900); margin: 0;">Selecciona las Categorías de tu Sitio</h1>
+                <p style="font-size: 15px; color: var(--neutro-500); margin: 6px 0 0 0;">Elige una o más categorías que describan mejor la experiencia de <strong>{{ $sitio->nombre }}</strong>.</p>
             </div>
-            <a href="{{ route('perfil.create') }}" class="step-link" style="font-size: 14.5px;">
+            <a href="{{ route('dashboard.sitio.inicio') }}" class="step-link" style="font-size: 14.5px;">
                 <i class="bi bi-arrow-left-short" style="font-size: 20px; line-height: 1;"></i> Volver al panel
             </a>
         </div>
 
         <!-- Formulario -->
-        <form action="{{ route('perfil.ubicacion.store') }}" method="POST">
+        <form action="{{ route('categoria.update') }}" method="POST">
             @csrf
-            <livewire:ubicacion />
+            @method('put')
+
+            @if($categorias->isEmpty())
+                <div style="background-color: var(--primario-50); border-radius: var(--radius-md); padding: 24px; border: 1px solid var(--primario-100); text-align: center;">
+                    <p style="margin: 0; color: var(--neutro-700); font-weight: 600;">No hay categorías disponibles en este momento.</p>
+                </div>
+            @else
+                <div class="categories-grid">
+                    @foreach($categorias as $cat)
+                        @php
+                            $colorHex = $cat->color ?? '#0F52BA';
+                            // Generar color de fondo con opacidad al 8% en Hex (14 en base 16)
+                            $colorLight = $colorHex . '14';
+                        @endphp
+                        <div class="selectable-card @if(in_array($cat->id, $selectedCategorias)) selected @endif" 
+                             style="--cat-color: {{ $colorHex }}; --cat-color-light: {{ $colorLight }};"
+                             data-id="{{ $cat->id }}">
+                             
+                            <input type="checkbox" name="categorias[]" value="{{ $cat->id }}" class="hidden-checkbox d-none" @if(in_array($cat->id, $selectedCategorias)) checked @endif>
+                            
+                            <div class="icon-container">
+                                @if(Str::startsWith($cat->icono, 'bi-'))
+                                    <i class="bi {{ $cat->icono }}"></i>
+                                @else
+                                    <img src="{{ asset($cat->icono) }}" alt="{{ $cat->nombre }}">
+                                @endif
+                            </div>
+                            
+                            <span class="card-title">{{ $cat->nombre }}</span>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
+
+            <div class="btn-container">
+                <a href="{{ route('dashboard.sitio.inicio') }}" class="btn-cancel">Cancelar</a>
+                <button type="submit" class="btn-submit">
+                    Guardar Cambios <i class="bi bi-check-lg" style="font-size: 16px;"></i>
+                </button>
+            </div>
         </form>
     </div>
 </div>
 @endsection
 
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const cards = document.querySelectorAll('.selectable-card');
+        
+        cards.forEach(card => {
+            card.addEventListener('click', function(e) {
+                const checkbox = this.querySelector('.hidden-checkbox');
+                
+                // Si el clic no fue directamente en el checkbox (que está oculto pero por si acaso), cambiamos su estado
+                if (e.target !== checkbox) {
+                    checkbox.checked = !checkbox.checked;
+                }
+                
+                // Toggle clase para estilos
+                if (checkbox.checked) {
+                    this.classList.add('selected');
+                } else {
+                    this.classList.remove('selected');
+                }
+            });
+        });
+    });
+</script>
+@endpush

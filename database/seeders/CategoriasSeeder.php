@@ -19,5 +19,26 @@ class CategoriasSeeder extends Seeder
             'estado' => 'ACTIVO',
             'color' => '#F54927'
         ]);
+
+        Categoria::create([
+            'nombre' => 'Balneario',
+            'icono' => 'uploads/icons/categorias/1785788560_6a70f890b30b8.svg',
+            'estado' => 'ACTIVO',
+            'color' => '#0F52BA'
+        ]);
+
+        Categoria::create([
+            'nombre' => 'Mirador',
+            'icono' => 'uploads/icons/categorias/1785789513_6a70fc49af830.svg',
+            'estado' => 'ACTIVO',
+            'color' => '#F54927'
+        ]);
+
+         Categoria::create([
+            'nombre' => 'Senderismo',
+            'icono' => 'uploads/icons/categorias/1785790115_6a70fea3f1544.svg',
+            'estado' => 'ACTIVO',
+            'color' => '#F54927'
+        ]);
     }
 }

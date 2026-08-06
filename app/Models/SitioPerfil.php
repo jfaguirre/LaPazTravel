@@ -6,8 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Contracts\HasSitio;
 
-class SitioPerfil extends Model
+class SitioPerfil extends Model implements HasSitio
 {
     protected $table = 'sitio_perfil';
 
@@ -73,5 +74,10 @@ class SitioPerfil extends Model
     public function servicios(): BelongsToMany
     {
         return $this->belongsToMany(Servicio::class, 'sitio_servicio', 'id_sitioPerfil', 'id_servicio');
+    }
+
+     public function obtenerSitio(): Sitio
+    {
+        return $this->sitio;
     }
 }

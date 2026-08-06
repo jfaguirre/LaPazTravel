@@ -2,17 +2,20 @@
 :root {
     --sidebar-width: 260px;
     --header-height: 60px;
-    --primary: #6C5CE7;
-    --primary-dark: #5A4BD1;
+    --primary: #0F52BA;
+    --primary-dark: #5a4bd1;
     --primary-light: #A29BFE;
     --bg-dark: #1E1E2E;
     --bg-dark-lighter: #2A2A3C;
     --text-white: #FFFFFF;
+    --text-success: #00b928;
     --text-muted: #9A9AB0;
-    --accent: #00D2FF;
+    --accent: #2e7aeb;
     --hover-bg: rgba(108, 92, 231, 0.15);
     --transition-speed: 0.3s;
     --shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    
+    object-fit: cover;
 }
 
 
@@ -216,10 +219,11 @@
     height: var(--header-height);
     background: var(--bg-dark);
     display: flex;
+    flex-direction: row;
     align-items: center;
     padding: 0 16px;
     z-index: 100;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);    
 }
 
 .header__logo {
