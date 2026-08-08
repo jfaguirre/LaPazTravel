@@ -81,10 +81,10 @@ new class extends Component
                     @if($hasSitio)
                         @if($hasUbicacion)
                             <span class="badge badge-completed">Completado</span>
-                            <a href="{{ route('perfil.ubicacion') }}" class="step-link">Editar <i class="bi bi-pencil-square"></i></a>
+                            <a href="{{ route('perfil.ubicacion.agregar') }}" class="step-link">Editar <i class="bi bi-pencil-square"></i></a>
                         @else
                             <span class="badge badge-pending">Pendiente</span>
-                            <a href="{{ route('perfil.ubicacion') }}" class="step-link">Completar <i class="bi bi-arrow-right-short"></i></a>
+                            <a href="{{ route('perfil.ubicacion.agregar') }}" class="step-link">Completar <i class="bi bi-arrow-right-short"></i></a>
                         @endif
                     @else
                         <span class="badge badge-pending" style="opacity: 0.6;">Pendiente</span>

@@ -11,6 +11,7 @@ use App\Models\SitioPerfil;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+
 class PerfilSitioControlador extends Controller
 {
 
@@ -23,8 +24,16 @@ class PerfilSitioControlador extends Controller
         // Guardar el id del sitio en la sesión
         session(['id_sitio' => $request->input('id_sitio')]);
 
+        $sitio = Sitio::find($request->input('id_sitio'));
+
+            if($sitio->estado === 'APROBADO')
+            {
+                return redirect()->route('dashboard.sitio.inicio');                
+            }
+
         return redirect()->route('perfil.create');
     }
+
 
     public function perfilSitio()
     {                
@@ -87,9 +96,7 @@ class PerfilSitioControlador extends Controller
     }
 
     public function guardarCategoria(Request $request)
-    {
-        $user = Auth::user();
-        // $sitio = Sitio::where('id_user', $user->id)->first();
+    {                
         $sitio = Sitio::find(session('id_sitio')); // Obtener el sitio desde la sesión
 
         if (!$sitio) {
@@ -186,7 +193,7 @@ class PerfilSitioControlador extends Controller
 
     public function ubicacion_sitio()
     {
-        return view('admin.ubicacion.ubicacion');
+        return view('admin.ubicacion.agregar');
     }
 
     public function guardar_ubicacion(Request $request)

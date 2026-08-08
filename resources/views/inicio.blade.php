@@ -164,43 +164,7 @@
         </div>
     </div>
 <!--  -->
-    <h2>Guía de Iconos</h2>
-    <div class="guia-iconos">
-        
-        
-        <div class="card" style="width: 18rem;">
-            <div class="card-header">
-                lugares de interés
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item"><i class="bi bi-backpack fs-2"></i> camping</li>
-                <li class="list-group-item"><i class="bi bi-binoculars fs-2"></i> mirador</li>
-                <li class="list-group-item"><i class="bi bi-bank fs-2"></i> museo</li>
-            </ul>
-        </div>
 
-        <div class="card" style="width: 18rem;">
-            <div class="card-header">
-                servicios
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item"><i class="bi bi-bullseye fs-2"></i> camping</li>
-                <li class="list-group-item"><i class="bi bi-binoculars fs-2"></i> mirador</li>
-                <li class="list-group-item"><i class="bi bi-bank fs-2"></i>museo</li>
-            </ul>
-        </div>
-        <div class="card" style="width: 18rem;">
-            <div class="card-header">
-                actividades
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item"><i class="bi bi-backpack fs-2"></i> camping</li>
-                <li class="list-group-item"><i class="bi bi-cake2 fs-2"></i> mirador</li>
-                <li class="list-group-item"><i class="bi bi-bank fs-2"></i> museo</li>
-            </ul>
-        </div>
-    </div>
-    
 
 @endsection
 

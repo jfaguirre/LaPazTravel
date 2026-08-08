@@ -13,8 +13,12 @@
             <div class="contenido">
                 <h1 style="font-size: 28px; font-weight: 800; color: var(--neutro-900); margin: 0;">Configuración de tu Sitio Turístico</h1>
                 <p style="font-size: 15px; color: var(--neutro-500); margin: 6px 0 0 0;">Completa los pasos requeridos para registrar tu destino en La Paz Travel.</p>
+                <div class="sitio-nombre">
+                    <span style="color:#28a745">{{ $sitio->nombre }}</span>
+                </div>
+                
             </div>
-            <livewire:solicitar-aprobacion />
+            <livewire:solicitar-aprobacion />            
         </div>
 
         <!-- Mensajes de Estado -->

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('regla', 20)->unique();
             $table->string('icono', 100);
+            $table->boolean('permitido')->default(false);
             $table->enum('estado', ['ACTIVO', 'INACTIVO'])->default('INACTIVO');
             $table->timestamps();
         });
