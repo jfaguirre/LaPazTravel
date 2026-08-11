@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Municipio extends Model
 {
-      protected $fillable = [
+    protected $fillable = [
         'municipio',
         'id_distrito'
     ];

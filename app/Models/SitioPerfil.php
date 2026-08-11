@@ -76,7 +76,7 @@ class SitioPerfil extends Model implements HasSitio
         return $this->belongsToMany(Servicio::class, 'sitio_servicio', 'id_sitioPerfil', 'id_servicio');
     }
 
-     public function obtenerSitio(): Sitio
+    public function obtenerSitio(): Sitio
     {
         return $this->sitio;
     }
