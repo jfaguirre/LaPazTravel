@@ -49,7 +49,7 @@
             Categorías
         </a>
 
-        <a href="{{ route('perfil.regla.agregar') }}" class="sidebar__nav-item {{ request()->routeIs('perfil.regla.agregar') ? 'active' : '' }}">
+        <a href="{{ route('regla.inicio') }}" class="sidebar__nav-item {{ request()->routeIs('regla.inicio') ? 'active' : '' }}">
             <i class="bi bi-shield-fill-check sidebar__nav-icon"></i>
             Reglas y Normas
         </a>

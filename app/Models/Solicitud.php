@@ -36,7 +36,7 @@ class Solicitud extends Model
     }
 
     public function operaciones(): HasMany
-{
-    return $this->hasMany(SolicitudOperacion::class);
-}
+    {
+        return $this->hasMany(SolicitudOperacion::class, 'id_solicitud');
+    }
 }

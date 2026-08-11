@@ -10,30 +10,44 @@ use App\Contracts\HasSitio;
 
 class SolicitudService
 {
+    /**
+     * Verifica si existe una solicitud PENDIENTE para un sitio.
+     * Opcionalmente se puede filtrar por modelo, id de registro o nombre de relación.
+     */
+    public function tieneSolicitudPendiente(
+        int $idSitio,
+        ?string $modelo = null,
+        ?int $registroId = null,
+        ?string $relacion = null
+    ): bool {
+        $query = Solicitud::where('id_sitio', $idSitio)
+            ->where('estado', 'PENDIENTE');
 
-    public function tieneSolicitudPendiente(int $idSitio): bool
-    {
-        return Solicitud::where('id_sitio', $idSitio)
-            ->where('estado', 'PENDIENTE')
-            ->exists();
-    }
-
-    public function crearSolicitud(int $idUsuario, int $idSitio): Solicitud
-    {        
-    
-        $solicitud = Solicitud::where('id_sitio', $idSitio)
-            ->where('id_user', $idUsuario)
-            ->where('estado', 'PENDIENTE')
-            ->first();
-            
-        if ($solicitud) {                     
-            return $solicitud;
+        if ($modelo !== null) {
+            $query->whereHas('operaciones', function ($q) use ($modelo, $registroId, $relacion) {
+                $q->where('modelo', $modelo);
+                if ($registroId !== null) {
+                    $q->where('id_registro', $registroId);
+                }
+                if ($relacion !== null) {
+                    $q->whereJsonContains('cambios->relacion', $relacion);
+                }
+            });
         }
 
+        return $query->exists();
+    }
+
+    /**
+     * Crea una nueva solicitud PENDIENTE para el usuario y sitio.
+     */
+    public function crearSolicitud(int $idUsuario, int $idSitio, ?string $comentarioUsuario = null): Solicitud
+    {
         return Solicitud::create([
             'id_sitio' => $idSitio,
-            'id_user' => $idUsuario,
-            'estado' => 'PENDIENTE',
+            'id_user'  => $idUsuario,
+            'estado'   => 'PENDIENTE',
+            'comentario_usuario' => $comentarioUsuario,
         ]);
     }
 
@@ -55,7 +69,7 @@ class SolicitudService
             $operacionExistente->update([
                 'operacion'   => strtoupper($operacion),
                 'descripcion' => $descripcion,
-                'cambios' => $cambios,
+                'cambios'     => $cambios,
             ]);
 
             return $operacionExistente;
@@ -71,12 +85,11 @@ class SolicitudService
         ]);
     }
 
-    public function registrarCambio(        
+    public function registrarCambio(
         Model $modelo,
         array $datosNuevos,
         ?string $descripcion = null
-        ): SolicitudOperacion
-    {
+    ): SolicitudOperacion {
 
         if (! $modelo instanceof HasSitio) {
             throw new \InvalidArgumentException(
@@ -86,34 +99,34 @@ class SolicitudService
 
         $sitio = $modelo->obtenerSitio();
 
-        $solicitud = $this->crearSolicitud(            
+        $solicitud = $this->crearSolicitud(
             Auth::id(),
-            $sitio->id
+            $sitio->id,
+            $descripcion
         );
 
         return $this->agregarOperacion(
-                $solicitud,
-                get_class($modelo),
-                $modelo->getKey(),
-                'UPDATE',
-                    [
-                        'antes' => $modelo->toArray(),
-                        'despues' => array_merge(
-                            $modelo->toArray(),
-                            $datosNuevos
-                        ),
-                    ],
-                $descripcion
-            );    
+            $solicitud,
+            get_class($modelo),
+            $modelo->getKey(),
+            'UPDATE',
+            [
+                'antes' => $modelo->toArray(),
+                'despues' => array_merge(
+                    $modelo->toArray(),
+                    $datosNuevos
+                ),
+            ],
+            $descripcion
+        );
     }
 
     public function registrarRelacion(
-            Model $modelo,
-            string $relacion,
-            array $idsNuevos,
-            ?string $descripcion = null
-        ): SolicitudOperacion        
-    {
+        Model $modelo,
+        string $relacion,
+        array $idsNuevos,
+        ?string $descripcion = null
+    ): SolicitudOperacion {
 
         if (!method_exists($modelo, $relacion)) {
             throw new \InvalidArgumentException(
@@ -132,8 +145,9 @@ class SolicitudService
         $sitio = $modelo->obtenerSitio();
 
         $solicitud = $this->crearSolicitud(
+            Auth::id(),
             $sitio->id,
-            Auth::id()
+            $descripcion
         );
 
         return $this->agregarOperacion(
@@ -183,70 +197,70 @@ class SolicitudService
         );
     }
 
-    public function aprobar(Solicitud $solicitud): void
+    // Aprobar solicitud y aplicar todas sus operaciones
+    public function aprobarSolicitud(Solicitud $solicitud): void
     {
         DB::transaction(function () use ($solicitud) {
+            $operaciones = $solicitud->operaciones;
 
-            foreach ($solicitud->operaciones as $operacion) {
-
-                switch ($operacion->accion) {
-
-                    case 'CREATE':
-                        $this->aprobarCreate($operacion);
-                        break;
-
-                    case 'UPDATE':
-                        $this->aprobarUpdate($operacion);
-                        break;
-
-                    case 'DELETE':
-                        $this->aprobarDelete($operacion);
-                        break;
-                }
+            foreach ($operaciones as $operacion) {
+                $this->aprobarOperacion($operacion);
             }
 
             $solicitud->update([
-                'estado' => 'APROBADA',
+                'estado'         => 'APROBADA',
+                'revisado_por'   => Auth::id(),
                 'fecha_revision' => now(),
-                'revisado_por' => Auth::user()->id(),
             ]);
-
         });
     }
 
-
-    // Metodos
-    private function aprobarCreate(SolicitudOperacion $operacion): void
+    // Alias para compatibilidad con código previo
+    public function aprobar(Solicitud $solicitud): void
     {
-        $modelo = $operacion->modelo;
-        $modelo::create($operacion->datos_nuevos);
+        $this->aprobarSolicitud($solicitud);
     }
 
-    private function aprobarUpdate(SolicitudOperacion $operacion): void
+    // Rechazar solicitud con comentario opcional
+    public function rechazarSolicitud(Solicitud $solicitud, ?string $comentarioAdmin = null): void
     {
-        $modelo = $operacion->modelo;
-        $registro = $modelo::find($operacion->registro_id);
+        $solicitud->update([
+            'estado'           => 'RECHAZADA',
+            'comentario_admin' => $comentarioAdmin,
+            'revisado_por'     => Auth::id(),
+            'fecha_revision'   => now(),
+        ]);
+    }
 
-        if (!$registro) {
-            throw new \Exception(
-                "No existe el registro {$operacion->registro_id} del modelo {$modelo}"
-            );
+    private function aprobarOperacion(SolicitudOperacion $operacion): void
+    {
+        $cambios = $operacion->cambios;
+        $modeloClass = $operacion->modelo;
+
+        if ($operacion->operacion === 'CREATE') {
+            if (isset($cambios['despues'])) {
+                $modeloClass::create($cambios['despues']);
+            }
+            return;
         }
 
-        $registro->update(
-            $operacion->datos_nuevos
-        );
-    }
-
-    private function aprobarDelete(SolicitudOperacion $operacion): void
-    {
-        $modelo = $operacion->modelo;
-        $registro = $modelo::find($operacion->registro_id);
+        $registro = $operacion->id_registro ? $modeloClass::find($operacion->id_registro) : null;
 
         if (!$registro) {
             return;
         }
 
-        $registro->delete();
+        if ($operacion->operacion === 'DELETE') {
+            $registro->delete();
+            return;
+        }
+
+        // Operación UPDATE
+        if (isset($cambios['relacion'])) {
+            $registro->{$cambios['relacion']}()->sync($cambios['despues']);
+        } elseif (isset($cambios['despues'])) {
+            $registro->update($cambios['despues']);
+        }
     }
 }
+

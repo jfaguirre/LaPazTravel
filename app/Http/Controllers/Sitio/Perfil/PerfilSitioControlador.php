@@ -106,7 +106,7 @@ class PerfilSitioControlador extends Controller
         $request->validate([
             'categorias' => 'nullable|array',
             'categorias.*' => 'exists:categorias,id',
-        ]);
+        ]);        
 
         $sitio->perfil->categorias()->sync($request->input('categorias', []));
 
@@ -116,8 +116,7 @@ class PerfilSitioControlador extends Controller
     // Funcion para agregar reglas al perfil del sitio.
     public function agregarRegla()
     {
-        $user = Auth::user();
-        // $sitio = Sitio::where('id_user', $user->id)->first();
+        $user = Auth::user();        
         $sitio = Sitio::find(session('id_sitio')); // Obtener el sitio desde la sesión
 
         if (!$sitio) {
@@ -135,8 +134,7 @@ class PerfilSitioControlador extends Controller
     {
         $user = Auth::user();
         $sitio = Sitio::find(session('id_sitio')); // Obtener el sitio desde la sesión
-        // $sitio = Sitio::where('id_user', $user->id)->first();
-
+        
         if (!$sitio) {
             return redirect()->route('perfil.create')->with('error', 'Primero debes completar el Paso 1: Sitio Turístico.');
         }
@@ -145,7 +143,7 @@ class PerfilSitioControlador extends Controller
             'reglas' => 'nullable|array',
             'reglas.*' => 'exists:reglas,id',
         ]);
-
+        
         $sitio->perfil->reglas()->sync($request->input('reglas', []));
 
         return redirect()->route('perfil.create')->with('success', 'Reglas del perfil actualizadas correctamente.');
@@ -172,8 +170,7 @@ class PerfilSitioControlador extends Controller
 
     public function guardarServicio(Request $request)
     {
-        $user = Auth::user();
-        // $sitio = Sitio::where('id_user', $user->id)->first();
+        $user = Auth::user();        
         $sitio = Sitio::find(session('id_sitio')); // Obtener el sitio desde la sesión
 
         if (!$sitio) {

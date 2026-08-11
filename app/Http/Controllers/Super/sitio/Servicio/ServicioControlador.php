@@ -46,14 +46,7 @@ class ServicioControlador extends Controller
             'icono' => $iconoPath,
             'estado' => $request->estado,
         ]);
-
-        // Asociar el servicio con el perfil del sitio si existe
-        $user = Auth::user();
-        $sitio = Sitio::where('id_user', $user->id)->first();
-        if ($sitio && $sitio->perfil) {
-            $sitio->perfil->servicios()->attach($servicio->id);
-        }
-
+              
         return redirect()->route('dashboard')->with('success', 'Servicio registrado correctamente.');
     }
 }

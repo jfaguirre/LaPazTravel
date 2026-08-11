@@ -1,0 +1,2 @@
+<h1>{{ $sitio->nombre }}</h1>
+<p>{{ $sitio->descripcion_corta }}</p>

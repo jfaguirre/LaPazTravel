@@ -11,9 +11,12 @@ use App\Services\SolicitudService;
 class CategoriasControlador extends Controller
 {
      public function inicio()
-    {     
-        // $sitio = Sitio::where('id_user', $user->id)->first();
+    {             
         $sitio = Sitio::find(session('id_sitio')); // Obtener el sitio desde la sesión
+        if(!$sitio)
+        {
+            return redirect()->route('dashboard');
+        }
 
         $categorias = Categoria::where('estado', 'ACTIVO')->get();
         $selectedCategorias = $sitio->perfil->categorias->pluck('id')->toArray();
@@ -28,6 +31,11 @@ class CategoriasControlador extends Controller
         )
     {
         $sitio = Sitio::find(session('id_sitio'));
+
+        if ($sitio && $sitio->perfil && $solicitudService->tieneSolicitudPendiente($sitio->id, get_class($sitio->perfil), $sitio->perfil->id, 'categorias')) {
+            return redirect()->route('dashboard.sitio.inicio')
+                ->with('error', 'Ya tienes una solicitud de actualización de categorías pendiente de aprobación.');
+        }
         
         $request->validate([
             'categorias'   => 'nullable|array',
