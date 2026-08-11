@@ -115,7 +115,7 @@
         <div class="deck">
             @foreach($sitiosP as $s)
                 <div class="cart">
-                    <a class="solo" href="#">
+                    <a class="solo" href="{{ route('sitio.show', $s->sitio->slug) }}">
                         <div class="card-content">
                             <h2>{{ $s->sitio->nombre }}</h2>
                             Ubicación:{{ $s->municipio->municipio }}, {{ $s->distrito->distrito }}
