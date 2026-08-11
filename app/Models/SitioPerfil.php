@@ -68,7 +68,9 @@ class SitioPerfil extends Model implements HasSitio
 
     public function reglas(): BelongsToMany
     {
-        return $this->belongsToMany(Regla::class, 'sitio_regla', 'id_sitioPerfil', 'id_regla');
+        return $this->belongsToMany(Regla::class, 'sitio_regla', 'id_sitioPerfil', 'id_regla')
+                    ->withPivot('permitido', 'color')
+                    ->withTimestamps();
     }
 
     public function servicios(): BelongsToMany

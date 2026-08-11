@@ -4,11 +4,13 @@
 @push('styles')
     @vite(['resources/css/dashboard_sitio.css'])
     <style>
-        .categories-grid {
+        .categories-grid {            
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+            gap: 20px;            
             margin-bottom: 32px;
+            padding-top: 5px;
+            
         }
         .selectable-card {
             border: 2px solid var(--border);
@@ -37,7 +39,7 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
         }
         .selectable-card.selected::after {
-            content: "\F272"; /* Bootstrap Icons check-circle-fill */
+            content: "\F272"; 
             font-family: "bootstrap-icons";
             position: absolute;
             top: 12px;

@@ -124,9 +124,16 @@ class PerfilSitioControlador extends Controller
         }
 
         $reglas = Regla::where('estado', 'ACTIVO')->get();
-        $selectedReglas = $sitio->perfil->reglas->pluck('id')->toArray();
+        
+        $selectedReglasMap = [];
+        if ($sitio->perfil) {
+            foreach ($sitio->perfil->reglas as $r) {
+                $selectedReglasMap[$r->id] = (bool) $r->pivot->permitido;
+            }
+        }
+        $selectedReglas = array_keys($selectedReglasMap);
 
-        return view('admin.regla.agregar', compact('reglas', 'selectedReglas', 'sitio'));
+        return view('admin.regla.agregar', compact('reglas', 'selectedReglas', 'selectedReglasMap', 'sitio'));
     }
 
 
@@ -142,9 +149,22 @@ class PerfilSitioControlador extends Controller
         $request->validate([
             'reglas' => 'nullable|array',
             'reglas.*' => 'exists:reglas,id',
+            'permitido' => 'nullable|array',
         ]);
         
-        $sitio->perfil->reglas()->sync($request->input('reglas', []));
+        $selectedIds = $request->input('reglas', []);
+        $permitidosMap = $request->input('permitido', []);
+
+        $syncData = [];
+        foreach ($selectedIds as $reglaId) {
+            $isPermitido = isset($permitidosMap[$reglaId]) && (int)$permitidosMap[$reglaId] === 1;
+            $syncData[$reglaId] = [
+                'permitido' => $isPermitido,
+                'color'     => $isPermitido ? '#00b344' : '#e53e3e',
+            ];
+        }
+
+        $sitio->perfil->reglas()->sync($syncData);
 
         return redirect()->route('perfil.create')->with('success', 'Reglas del perfil actualizadas correctamente.');
     }

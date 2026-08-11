@@ -22,9 +22,16 @@ class ReglasControlador extends Controller
         }
 
         $reglas = Regla::where('estado', 'ACTIVO')->get();
-        $selectedReglas = $sitio->perfil->reglas->pluck('id')->toArray();
-                
-        return view('admin.dashboard.regla.inicio', compact('reglas', 'selectedReglas', 'sitio'));
+        
+        $selectedReglasMap = [];
+        if ($sitio->perfil) {
+            foreach ($sitio->perfil->reglas as $r) {
+                $selectedReglasMap[$r->id] = (bool) $r->pivot->permitido;
+            }
+        }
+        $selectedReglas = array_keys($selectedReglasMap);
+
+        return view('admin.dashboard.regla.inicio', compact('reglas', 'selectedReglas', 'selectedReglasMap', 'sitio'));
     }
 
 
@@ -39,14 +46,27 @@ class ReglasControlador extends Controller
         }
 
         $request->validate([
-            'reglas' => 'required|array',
-            'reglas.*' => 'exists:reglas,id',              
+            'reglas' => 'nullable|array',
+            'reglas.*' => 'exists:reglas,id',
+            'permitido' => 'nullable|array',
         ]);
 
-         $solicitudService->registrarRelacion(
+        $selectedIds = $request->input('reglas', []);
+        $permitidosMap = $request->input('permitido', []);
+
+        $syncData = [];
+        foreach ($selectedIds as $reglaId) {
+            $isPermitido = isset($permitidosMap[$reglaId]) && (int)$permitidosMap[$reglaId] === 1;
+            $syncData[$reglaId] = [
+                'permitido' => $isPermitido,
+                'color'     => $isPermitido ? '#00b344' : '#e53e3e',
+            ];
+        }
+
+        $solicitudService->registrarRelacion(
             $sitio->perfil,
             'reglas',
-            $request->input('reglas', []),
+            $syncData,
             'Actualización de reglas y normas'
         );
 
@@ -54,10 +74,6 @@ class ReglasControlador extends Controller
             ->with(
                 'success',
                 'La solicitud de actualización de reglas fue enviada para revisión.'
-            );
-
-        // $sitio->perfil->reglas()->sync($request->input('reglas', []));
-
-        // return redirect()->route('perfil.create')->with('success', 'Reglas del perfil actualizadas correctamente.');
+            );        
     }
 }
