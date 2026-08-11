@@ -41,7 +41,7 @@
             <!-- Búsqueda -->
             <form class="d-flex me-3" role="search" action="#" method="GET">
                 <input class="form-control me-2" type="search" name="q"
-                       placeholder="Buscar..." aria-label="Buscar">
+                placeholder="Buscar..." aria-label="Buscar">
                 <button class="btn btn-outline-light" type="submit">
                     <i class="bi bi-search"></i>
                 </button>
