@@ -93,7 +93,9 @@ Route::view('/lapaz/este', 'paginas.regiones.LaPazEste')->name('la-paz-este');
         Route::post('/super/solicitudes/{id}/rechazar', [SolicitudControlador::class, 'rechazar'])->name('super.solicitudes.rechazar');   
     });
 
+    require __DIR__.'/auth.php';
+    
      // Mostrar sitio con Slug    
     Route::get('/{slug}', [SitioSlugControlador::class, 'show'])->name('sitio.show');
 
-require __DIR__.'/auth.php';
+
