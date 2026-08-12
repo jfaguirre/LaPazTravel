@@ -4,16 +4,19 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Sitio\Sitio\SitioControlador;
 use App\Http\Controllers\Sitio\Dashboard\DashboardControlador;
 use App\Http\Controllers\Super\Dashboard\SuDashboardController;
-use App\Http\Controllers\Sitio\DashboardSitio\categorias\CategoriasControlador;
-use App\Http\Controllers\sitio\dashboardsitio\DashboardSitioControlador;
-use App\Http\Controllers\sitio\dashboardsitio\ubicacion\UbicacionControlador;
-use App\Http\Controllers\Sitio\Perfil\PerfilSitioControlador;
 use App\Http\Controllers\Super\SuController;
 use App\Http\Controllers\Super\Usuario\SuUsuarioController;
 
+use App\Http\Controllers\Sitio\DashboardSitio\categorias\CategoriasControlador;
+use App\Http\Controllers\sitio\dashboardsitio\DashboardSitioControlador;
+use App\Http\Controllers\Sitio\DashboardSitio\reglas\ReglasControlador;
+use App\Http\Controllers\sitio\dashboardsitio\ubicacion\UbicacionControlador;
+use App\Http\Controllers\Sitio\Perfil\PerfilSitioControlador;
+use App\Http\Controllers\Sitio\Sitio\SitioSlugControlador;
 use App\Http\Controllers\Super\Sitio\Categoria\CategoriaControlador;
 use App\Http\Controllers\Super\Sitio\Regla\ReglaControlador;
 use App\Http\Controllers\Super\Sitio\Servicio\ServicioControlador;
+use App\Http\Controllers\Super\Solicitud\SolicitudControlador;
 
 use Illuminate\Support\Facades\Route;
 
@@ -55,6 +58,10 @@ Route::view('/lapaz/este', 'paginas.regiones.LaPazEste')->name('la-paz-este');
             // CRUD Categoria
             Route::get('dashboard/sitio/categoria/inicio', [CategoriasControlador::class, 'inicio'])->name('categoria.inicio');
             Route::put('dashboard/sitio/categoria/update', [CategoriasControlador::class, 'update'])->name('categoria.update');
+
+            // CRUD Reglas
+            Route::get('dashboard/sitio/regla/inicio', [ReglasControlador::class, 'inicio'])->name('regla.inicio');
+            Route::put('dashboard/sitio/regla/update', [ReglasControlador::class, 'update'])->name('regla.update');
 
         });
 
@@ -109,6 +116,16 @@ Route::view('/lapaz/este', 'paginas.regiones.LaPazEste')->name('la-paz-este');
         Route::get('/dashboard/servicio/create', [ServicioControlador::class, 'create'])->name('servicio.create');
         Route::post('/dashboard/servicio/create', [ServicioControlador::class, 'store'])->name('servicio.store');
 
+        // Aprobación de Solicitudes (Super Admin)
+        Route::get('/super/solicitudes', [SolicitudControlador::class, 'index'])->name('super.solicitudes.index');
+        Route::get('/super/solicitudes/{id}', [SolicitudControlador::class, 'show'])->name('super.solicitudes.show');
+        Route::post('/super/solicitudes/{id}/aprobar', [SolicitudControlador::class, 'aprobar'])->name('super.solicitudes.aprobar');
+        Route::post('/super/solicitudes/{id}/rechazar', [SolicitudControlador::class, 'rechazar'])->name('super.solicitudes.rechazar');   
     });
 
-require __DIR__.'/auth.php';
+    require __DIR__.'/auth.php';
+    
+     // Mostrar sitio con Slug    
+    Route::get('/{slug}', [SitioSlugControlador::class, 'show'])->name('sitio.show');
+
+

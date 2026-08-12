@@ -9,12 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class AccesoSitio
-{
-    /**
-     * Handle an incoming request.
-     *
-     * @param  Closure(Request): (Response)  $next
-     */
+{    
     public function handle(Request $request, Closure $next): Response
     {
         $user = Auth::user();
@@ -33,7 +28,7 @@ class AccesoSitio
 
         $perfil = $sitio?->perfil;
 
-        // If no site exists yet, only allow site creation routes
+        // Si el sitio no exisre
         if ($sitio === null) {
             if ($request->routeIs('sitio.create') || $request->routeIs('sitio.store')) {
                 return $next($request);
@@ -41,7 +36,7 @@ class AccesoSitio
             return redirect()->route('dashboard');
         }
 
-        // If the current site is PENDIENTE, block edit routes for this site and redirect to progress page
+        // Rutas
         if ($sitio->estado === 'PENDIENTE') {
             if ($request->routeIs('sitio.edit') || 
                 $request->routeIs('sitio.update') || 
@@ -62,12 +57,12 @@ class AccesoSitio
         $hasRegla = (bool) $perfil?->reglas()->exists();
         $hasServicio = (bool) $perfil?->servicios()->exists();
 
-        // Always allow creating a new site
+        // Crear nuevo sitio
         if ($request->routeIs('sitio.create') || $request->routeIs('sitio.store')) {
             return $next($request);
         }
 
-        // If state is BORRADOR, allow access to all form steps to let them complete it
+        // Mientras sea BORRADOR
         if ($sitio->estado === 'BORRADOR') {
             if ($request->routeIs('sitio.edit') || $request->routeIs('sitio.update') ||
                 $request->routeIs('perfil.ubicacion.agregar') || $request->routeIs('perfil.ubicacion.store') ||
@@ -78,7 +73,7 @@ class AccesoSitio
             }
         }
 
-        // Default redirect for incomplete profile
+        // Rutas en curso
         if (!$perfil || !$hasCategoria || !$hasRegla || !$hasServicio) {
             return redirect()->route('perfil.create');
         }

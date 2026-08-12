@@ -17,12 +17,6 @@ class SitioReglaSeeder extends Seeder
 
             $sitio->reglas()->sync([
                 1, // Alimentos            
-            ]);
-
-        $sitio = SitioPerfil::find(2);
-
-            $sitio->reglas()->sync([
-                1, // Alimentos            
-            ]);
+        ]);       
     }
 }

@@ -15,6 +15,8 @@ return new class extends Migration
             $table->foreignId('id_sitioPerfil')->constrained('sitio_perfil')->cascadeOnDelete();
             $table->foreignId('id_regla')->constrained('reglas')->cascadeOnDelete();
             $table->unique(['id_sitioPerfil', 'id_regla']);
+            $table->boolean('permitido')->default(true);     
+            $table->string('color', 20)->default('#00b344'); 
             $table->timestamps();
         });
     }

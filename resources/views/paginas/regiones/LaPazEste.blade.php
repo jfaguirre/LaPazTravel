@@ -31,55 +31,24 @@
         editadas para que muestren la información correctamente segun lo establecido en la base de datos -->
     <div class="muestras">
         <div class="deck">
-            <div class= "cart">
-                <a class="solo" href="https://www.google.com/maps/place/Parque+Recreativo+Costa+del+Sol/@13.5833333,-88.1833333,15z/data=!4m6!3m5!1s0x8f633b7e9c8f8f8f:0x8f633b7e9c8f8f8f!8m2!3d13.5833333!4d-88.1833333!16s%2Fg%2F11c5v5v5v5?entry=ttu" target="_blank">
-                    
-                    <div class="card-content">
-                        <h2>Isla Espíritu Santo</h2>
-                        <img src="{{ asset('images/islá-espiritú-santo.jpg') }}" alt="Imagen de Isla Espíritu Santo"><br>
-                        <p class="">Isla Espíritu Santo, en el departamento de La Paz, 
-                            se ha consolidado como un destino turístico familiar gracias a la reciente renovación de su parque recreativo, 
-                            que ahora ofrece modernas piscinas, palapas frente al mar y áreas de descanso para toda la familia. 
-                            Con una inversión que supera los 8 millones de dólares, el espacio ha sido transformado para brindar 
-                            un ambiente seguro y ordenado, 
-                            obteniendo además la certificación "Family Friendly"</p>
+            @foreach($sitiosP as $s)
+                @if ($s->municipio->municipio == 'La Paz Este')
+                    <div class="cart">
+                        <a class="solo" href="#">
+                            <div class="card-content">
+                                <h2>{{ $s->sitio->nombre }}</h2>
+                                Ubicación:{{ $s->municipio->municipio }}, {{ $s->distrito->distrito }}
+                                <br>
+                                <br>
+                                <p class="">
+                                    {{ $s->sitio->descripcion_corta }}
+                                </p>
+                                
+                            </div>
+                        </a>
                     </div>
-                    
-                </a>
-            </div>
-
-            <div class= "cart">
-                <a class="solo" href="https://www.google.com/maps/place/Parque+Recreativo+Ichanmichen/@13.5833333,-88.1833333,15z/data=!4m6!3m5!1s0x8f633b7e9c8f8f8f:0x8f633b7e9c8f8f8f!8m2!3d13.5833333!4d-88.1833333!16s%2Fg%2F11c5v5v5v5?entry=ttu" target="_blank">
-                    
-                    <div class="card-content">
-                        <h2>ichanmichen</h2>
-                        <img src="{{ asset('images/ichanmichen.jpg') }}" alt="Imagen de ichanmichen"><br>
-                        <p class="">ICHANMICHEN, en el departamento de La Paz, 
-                            se ha consolidado como un destino turístico familiar gracias a la reciente renovación de su parque recreativo, 
-                            que ahora ofrece modernas piscinas, palapas frente al mar y áreas de descanso para toda la familia. 
-                            Con una inversión que supera los 8 millones de dólares, el espacio ha sido transformado para brindar 
-                            un ambiente seguro y ordenado, 
-                            obteniendo además la certificación "Family Friendly"</p>
-                        
-                    </div>
-                </a>
-            </div>
-            <div class= "cart">
-                <a class="solo" href="https://www.google.com/maps/place/Parque+Recreativo+Ichanmichen/@13.5833333,-88.1833333,15z/data=!4m6!3m5!1s0x8f633b7e9c8f8f8f:0x8f633b7e9c8f8f8f!8m2!3d13.5833333!4d-88.1833333!16s%2Fg%2F11c5v5v5v5?entry=ttu" target="_blank">
-                    
-                    <div class="card-content">
-                        <h2>laguna de nahualapa</h2>
-                        <img src="{{ asset('images/laguna-nahualapa.jpg') }}" alt="Imagen de laguna de nahualapa"><br>
-                        <p class="">LAGUNA DE NAHUALAPA, en el departamento de La Paz, 
-                            se ha consolidado como un destino turístico familiar gracias a la reciente renovación de su parque recreativo, 
-                            que ahora ofrece modernas piscinas, palapas frente al mar y áreas de descanso para toda la familia. 
-                            Con una inversión que supera los 8 millones de dólares, el espacio ha sido transformado para brindar 
-                            un ambiente seguro y ordenado, 
-                            obteniendo además la certificación "Family Friendly"</p>
-                        
-                    </div>
-                </a>
-            </div>
+                @endif
+            @endforeach
         </div>
     </div>
     

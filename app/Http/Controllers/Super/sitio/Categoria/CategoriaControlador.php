@@ -47,14 +47,7 @@ class CategoriaControlador extends Controller
             'color' => $request->color,
             'estado' => $request->estado,
         ]);
-
-        // Asociar la categoría con el perfil del sitio si existe
-        $user = Auth::user();
-        $sitio = Sitio::where('id_user', $user->id)->first();
-        if ($sitio && $sitio->perfil) {
-            $sitio->perfil->categorias()->attach($categoria->id);
-        }
-
+                
         return redirect()->route('dashboard')->with('success', 'Categoría registrada correctamente.');
     }
 }

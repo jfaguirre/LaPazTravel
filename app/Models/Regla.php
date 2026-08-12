@@ -10,6 +10,8 @@ class Regla extends Model
     protected $fillable = [
         'regla',
         'icono',
+        'permitido',
+        'color',
         'estado'
     ];
 
@@ -18,6 +20,8 @@ class Regla extends Model
 
     public function sitioPerfiles(): BelongsToMany
     {
-        return $this->belongsToMany(SitioPerfil::class, 'sitio_regla', 'id_regla', 'id_sitioPerfil');
+        return $this->belongsToMany(SitioPerfil::class, 'sitio_regla', 'id_regla', 'id_sitioPerfil')
+                    ->withPivot('permitido', 'color')
+                    ->withTimestamps();
     }
 }

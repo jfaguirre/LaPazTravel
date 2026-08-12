@@ -596,8 +596,8 @@
             @if($sitio->perfil && count($sitio->perfil->reglas) > 0)
                 <ul class="bullet-list">
                     @foreach($sitio->perfil->reglas as $regla)
-                        <li class="bullet-item warning">
-                            <i class="bi bi-check-circle-fill"></i>
+                        <li class="bullet-item {{ $regla->permitido ? 'success' : 'danger' }}">
+                            <i class="bi {{ $regla->permitido ? 'bi-check-circle-fill' : 'bi-x-circle-fill' }}" style="color: {{ $regla->permitido ? '#10b981' : '#ef4444' }};"></i>
                             <span>{{ $regla->regla }}</span>
                         </li>
                     @endforeach

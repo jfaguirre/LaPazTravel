@@ -46,14 +46,7 @@ class ReglaControlador extends Controller
             'icono' => $iconoPath,
             'estado' => $request->estado,
         ]);
-
-        // Asociar la regla con el perfil del sitio si existe
-        $user = Auth::user();
-        $sitio = Sitio::where('id_user', $user->id)->first();
-        if ($sitio && $sitio->perfil) {
-            $sitio->perfil->reglas()->attach($regla->id);
-        }
-
+        
         return redirect()->route('dashboard')->with('success', 'Regla registrada correctamente.');
     }
 }

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.dashboardSitio')
 @section('title', 'Agregar Reglas')
 
 @push('styles')
@@ -201,16 +201,17 @@
         <div style="margin-bottom: 32px; border-bottom: 2px solid var(--border); padding-bottom: 20px; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px;">
             <div>
                 <h1 style="font-size: 26px; font-weight: 800; color: var(--neutro-900); margin: 0;">Selecciona las Reglas del Sitio</h1>
-                <p style="font-size: 15px; color: var(--neutro-500); margin: 6px 0 0 0;">Elige las normativas de seguridad, prohibiciones y pautas que los turistas deben seguir en <strong>{{ $sitio->nombre }}</strong>.</p>
+                <p style="font-size: 15px; color: var(--neutro-500); margin: 6px 0 0 0;">Elige las normativas, prohibiciones y pautas que los turistas deben seguir en <strong>{{ $sitio->nombre }}</strong>.</p>
             </div>
-            <a href="{{ route('perfil.create') }}" class="step-link" style="font-size: 14.5px;">
+            <a href="{{ route('dashboard.sitio.inicio') }}" class="step-link" style="font-size: 14.5px;">
                 <i class="bi bi-arrow-left-short" style="font-size: 20px; line-height: 1;"></i> Volver al panel
             </a>
         </div>
 
         <!-- Formulario -->
-        <form action="{{ route('perfil.regla.guardar') }}" method="POST">
+        <form action="{{ route('regla.update') }}" method="POST">
             @csrf
+            @method('put')
 
             @if($reglas->isEmpty())
                 <div style="background-color: var(--primario-50); border-radius: var(--radius-md); padding: 24px; border: 1px solid var(--primario-100); text-align: center;">
@@ -254,11 +255,18 @@
             @endif
 
             <div class="btn-container">
-                <a href="{{ route('perfil.create') }}" class="btn-cancel">Cancelar</a>
+                <a href="{{ route('dashboard.sitio.inicio') }}" class="btn-cancel">Cancelar</a>
                 <button type="submit" class="btn-submit">
                     Guardar Cambios <i class="bi bi-check-lg" style="font-size: 16px;"></i>
                 </button>
             </div>
+
+            @if(session('error'))
+                <div class="alert alert-danger" style="padding: 12px; margin-bottom: 24px; border-radius: 8px; border: 1px solid #f5c6cb; background-color: #f8d7da; color: #721c24; font-size: 14px; font-weight: 500;">
+                    {{ session('error') }}
+                </div>
+            @endif
+
         </form>
     </div>
 </div>
