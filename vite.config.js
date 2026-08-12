@@ -15,6 +15,7 @@ export default defineConfig({
                 'resources/css/inicio.css',
                 'resources/css/sidebar_sitio.css',
                 'resources/css/dashboard_sitio.css',
+                'resources/css/solicitudes.css'
             ],
             refresh: true,
         }),

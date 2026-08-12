@@ -102,9 +102,7 @@ Route::view('/lapaz/este', 'paginas.regiones.LaPazEste')->name('la-paz-este');
             Route::patch('/sitio/{id}/pendiente', [SuController::class, 'pendiente'])->name('sitio.pendiente');
 
             Route::resource('usuario', SuUsuarioController::class);
-
     
-
         });
         Route::get('dashboard/perfil/create', [PerfilSitioControlador::class, 'perfilSitio'])->name('perfil.create');
         Route::post('dashboard/perfil/create', [PerfilSitioControlador::class, 'perfil_session'])->name('perfil.session');
