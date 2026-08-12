@@ -6,6 +6,7 @@ use App\Http\Controllers\Sitio\Dashboard\DashboardControlador;
 use App\Http\Controllers\Sitio\DashboardSitio\categorias\CategoriasControlador;
 use App\Http\Controllers\sitio\dashboardsitio\DashboardSitioControlador;
 use App\Http\Controllers\Sitio\DashboardSitio\reglas\ReglasControlador;
+use App\Http\Controllers\Sitio\DashboardSitio\servicios\ServiciosControlador;
 use App\Http\Controllers\sitio\dashboardsitio\ubicacion\UbicacionControlador;
 use App\Http\Controllers\Sitio\Perfil\PerfilSitioControlador;
 use App\Http\Controllers\Sitio\Sitio\SitioSlugControlador;
@@ -58,6 +59,10 @@ Route::view('/lapaz/este', 'paginas.regiones.LaPazEste')->name('la-paz-este');
             // CRUD Reglas
             Route::get('dashboard/sitio/regla/inicio', [ReglasControlador::class, 'inicio'])->name('regla.inicio');
             Route::put('dashboard/sitio/regla/update', [ReglasControlador::class, 'update'])->name('regla.update');
+
+            // CRUD Servicios
+            Route::get('dashboard/sitio/servicio/inicio', [ServiciosControlador::class, 'inicio'])->name('servicio.inicio');
+            Route::put('dashboard/sitio/servicio/update', [ServiciosControlador::class, 'update'])->name('servicio.update');
 
         });
 

@@ -34,17 +34,17 @@
             Panel de Control
         </a>
 
-        <a href="{{ route('dashboard.sitio.inicio') }}" class="sidebar__nav-item {{ request()->routeIs('sitio.edit') ? 'active' : '' }}">
+        <a href="{{ route('dashboard.sitio.inicio') }}" class="sidebar__nav-item {{ request()->routeIs('dashboard.sitio') ? 'active' : '' }}">
             <i class="bi bi-info-circle-fill sidebar__nav-icon"></i>
             Información del Sitio
         </a>
 
-        <a href="{{ route('ubicacion.inicio') }}" class="sidebar__nav-item {{ request()->routeIs('perfil.ubicacion.agregar') ? 'active' : '' }}">
+        <a href="{{ route('ubicacion.inicio') }}" class="sidebar__nav-item {{ request()->routeIs('ubicacion.inicio') ? 'active' : '' }}">
             <i class="bi bi-geo-alt-fill sidebar__nav-icon"></i>
             Ubicación geográfica
         </a>
 
-        <a href="{{ route('categoria.inicio') }}" class="sidebar__nav-item {{ request()->routeIs('perfil.categoria.agregar') ? 'active' : '' }}">
+        <a href="{{ route('categoria.inicio') }}" class="sidebar__nav-item {{ request()->routeIs('categoria.inicio') ? 'active' : '' }}">
             <i class="bi bi-tags-fill sidebar__nav-icon"></i>
             Categorías
         </a>
@@ -54,7 +54,7 @@
             Reglas y Normas
         </a>
 
-        <a href="{{ route('perfil.servicio.agregar') }}" class="sidebar__nav-item {{ request()->routeIs('perfil.servicio.agregar') ? 'active' : '' }}">
+        <a href="{{ route('servicio.inicio') }}" class="sidebar__nav-item {{ request()->routeIs('servicio.inicio') ? 'active' : '' }}">
             <i class="bi bi-grid-fill sidebar__nav-icon"></i>
             Servicios del Sitio
         </a>

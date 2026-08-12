@@ -368,7 +368,7 @@
 </style>
 
 <div class="dashboard-container">
-    <!-- Hero / Welcome banner -->
+    <!-- Bienvenida -->
     @php
         $portadaUrl = $sitio->perfil && $sitio->perfil->foto_portada ? asset('storage/' . $sitio->perfil->foto_portada) : null;
     @endphp
@@ -382,9 +382,9 @@
         <p class="hero-card__desc">{{ $sitio->descripcion_corta ?? 'No se ha agregado una descripción corta del sitio todavía. Puedes configurarla en el botón de edición.' }}</p>
     </div>
 
-    <!-- Stats Grid -->
+    <!-- Grid -->
     <div class="stats-grid">
-        <!-- Visits -->
+        <!-- Visitas -->
         <div class="stat-card">
             <div class="stat-card__icon icon-visits">
                 <i class="bi bi-eye-fill"></i>
@@ -395,7 +395,7 @@
             </div>
         </div>
 
-        <!-- Publications -->
+        <!-- Publicaciones -->
         <div class="stat-card">
             <div class="stat-card__icon icon-visits">
                 <i class="bi bi-journal-richtext"></i>
@@ -406,7 +406,7 @@
             </div>
         </div>
 
-        <!-- Categories -->
+        <!-- Categorias -->
         <div class="stat-card">
             <div class="stat-card__icon icon-visits">
                 <i class="bi bi-tags-fill"></i>
@@ -417,7 +417,7 @@
             </div>
         </div>
 
-        <!-- Services -->
+        <!-- Servicios -->
         <div class="stat-card">
             <div class="stat-card__icon icon-visits">
                 <i class="bi bi-grid-fill"></i>
@@ -428,7 +428,7 @@
             </div>
         </div>
 
-        <!-- Rules -->
+        <!-- Reglas -->
         <div class="stat-card">
             <div class="stat-card__icon icon-visits">
                 <i class="bi bi-shield-fill-check"></i>
@@ -440,9 +440,9 @@
         </div>
     </div>
 
-    <!-- Details and Sections Grid -->
+    <!-- Grid -->
     <div class="dashboard-grid-layout">
-        <!-- Col 1: Location & Contact -->
+        <!-- Col 1: Ubicacion y contacto -->
         <div class="panel-card">
             <h2 class="panel-card__title">
                 <i class="bi bi-geo-alt-fill"></i> Contacto y Ubicación
@@ -516,7 +516,7 @@
                 @endif
             </div>
             
-            <!-- Social Links -->
+            <!-- Redes sociales -->
             <div class="social-links">
                 @if($sitio->perfil && $sitio->perfil->facebook)
                     <a href="{{ $sitio->perfil->facebook }}" target="_blank" class="social-btn social-facebook" title="Facebook"><i class="bi bi-facebook"></i></a>
@@ -556,13 +556,13 @@
             </div>
         </div>
 
-        <!-- Col 2: Content & Profile -->
+        <!-- Col 2: contenido y perfil -->
         <div class="panel-card">
             <h2 class="panel-card__title">
                 <i class="bi bi-card-checklist"></i> Perfil Turístico
             </h2>
 
-            <!-- Categories -->
+            <!-- Categorias -->
             <div class="info-item__label" style="margin-bottom: 8px;">Categorías del Sitio</div>
             @if($sitio->perfil && count($sitio->perfil->categorias) > 0)
                 <div class="item-badge-list">
@@ -576,7 +576,7 @@
                 <div class="empty-state-text">Sin categorías asociadas.</div>
             @endif
 
-            <!-- Services -->
+            <!-- Servicios -->
             <div class="info-item__label" style="margin-bottom: 10px;">Servicios Ofrecidos</div>
             @if($sitio->perfil && count($sitio->perfil->servicios) > 0)
                 <ul class="bullet-list">
@@ -591,13 +591,13 @@
                 <div class="empty-state-text">No se han registrado servicios para este sitio turístico.</div>
             @endif
 
-            <!-- Rules -->
+            <!-- REglas -->
             <div class="info-item__label" style="margin-bottom: 10px;">Reglas e Instrucciones del Sitio</div>
             @if($sitio->perfil && count($sitio->perfil->reglas) > 0)
                 <ul class="bullet-list">
-                    @foreach($sitio->perfil->reglas as $regla)
-                        <li class="bullet-item {{ $regla->permitido ? 'success' : 'danger' }}">
-                            <i class="bi {{ $regla->permitido ? 'bi-check-circle-fill' : 'bi-x-circle-fill' }}" style="color: {{ $regla->permitido ? '#10b981' : '#ef4444' }};"></i>
+                    @foreach($sitio->perfil->reglas as $regla)                    
+                        <li class="bullet-item {{ $regla->pivot->permitido ? 'success' : 'danger' }}">
+                            <i class="bi {{ $regla->pivot->permitido ? 'bi-check-circle-fill' : 'bi-x-circle-fill' }}" style="color: {{ $regla->pivot->permitido ? '#10b981' : '#ef4444' }};"></i>
                             <span>{{ $regla->regla }}</span>
                         </li>
                     @endforeach
@@ -607,13 +607,13 @@
             @endif
 
             <div class="panel-card__footer">
-                <a href="{{ route('perfil.categoria.agregar') }}" class="btn-edit-shortcut" style="margin-right: 8px;">
+                <a href="{{ route('categoria.inicio') }}" class="btn-edit-shortcut" style="margin-right: 8px;">
                     <i class="bi bi-tags-fill"></i> Categorías
                 </a>
-                <a href="{{ route('perfil.servicio.agregar') }}" class="btn-edit-shortcut" style="margin-right: 8px;">
+                <a href="{{ route('servicio.inicio') }}" class="btn-edit-shortcut" style="margin-right: 8px;">
                     <i class="bi bi-grid-fill"></i> Servicios
                 </a>
-                <a href="{{ route('perfil.regla.agregar') }}" class="btn-edit-shortcut">
+                <a href="{{ route('regla.inicio') }}" class="btn-edit-shortcut">
                     <i class="bi bi-shield-fill-check"></i> Reglas
                 </a>
             </div>            
