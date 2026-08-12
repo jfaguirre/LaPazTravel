@@ -43,7 +43,7 @@
     transition: all 0.3s ease;
 }
 .card-content {
-    mask-image: linear-gradient(to bottom, rgb(5, 4, 66) 60%, transparent 80%);
+    mask-image: linear-gradient(to bottom, rgb(5, 4, 66) 100%, transparent 80%);
 }
 
 /* ===== Distritos ===== */

@@ -8,8 +8,9 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
             gap: 20px;
-            margin-bottom: 32px;
+            margin-bottom: 32px;            
         }
+
         .selectable-card {
             border: 2px solid var(--border);
             border-radius: var(--radius-md);
@@ -56,7 +57,7 @@
             justify-content: center;
             margin-bottom: 14px;
             transition: all 0.25s ease;
-            color: var(--neutro-700);
+            color: var(--neutro-700);            
         }
         .selectable-card.selected .icon-container {
             background-color: var(--blanco);
@@ -76,7 +77,7 @@
             font-weight: 700;
             color: var(--neutro-800);
             margin: 0;
-            line-height: 1.3;
+            line-height: 1.3;            
         }
         .btn-container {
             display: flex;

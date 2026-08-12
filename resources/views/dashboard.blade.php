@@ -40,7 +40,7 @@
                                 <i class="bi bi-pencil-square"></i>
                             </button>
                         </form>
-                            <a class="btn btn-dark" href="{{ route('perfil.create') }}" title="Vista previa">
+                            <a class="btn btn-dark" href="{{ route('perfil.session') }}" title="Vista previa">
                                 <i class="bi bi-eye"></i>
                             </a>
                         </div>

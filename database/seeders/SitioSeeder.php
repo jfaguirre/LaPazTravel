@@ -17,7 +17,7 @@ class SitioSeeder extends Seeder
             'nombre' => 'Mango Village',
             'slug' => 'mango-village',
             'descripcion_corta' => 'Un lugar natural para disfrutar en familia.',
-            'estado' => 'PENDIENTE',
+            'estado' => 'APROBADO',
             'id_user' => 2
         ]);
 

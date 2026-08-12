@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('reglas', function (Blueprint $table) {
             $table->id();
             $table->string('regla', 20)->unique();
-            $table->string('icono', 100);
+            $table->string('icono', 100);                 
             $table->enum('estado', ['ACTIVO', 'INACTIVO'])->default('INACTIVO');
             $table->timestamps();
         });

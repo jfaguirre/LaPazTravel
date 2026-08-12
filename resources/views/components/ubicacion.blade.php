@@ -99,12 +99,4 @@ new class extends Component
             </select>
         </div>
     </div>
-
-    <div class="btn-container">
-        <a href="{{ route('perfil.create') }}" class="btn-cancel">Cancelar</a>
-        <button type="submit" class="btn-submit">
-            Guardar Cambios <i class="bi bi-check-lg" style="font-size: 16px;"></i>
-        </button>
-    </div>
-
 </div>
