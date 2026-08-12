@@ -3,6 +3,10 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Sitio\Sitio\SitioControlador;
 use App\Http\Controllers\Sitio\Dashboard\DashboardControlador;
+use App\Http\Controllers\Super\Dashboard\SuDashboardController;
+use App\Http\Controllers\Super\SuController;
+use App\Http\Controllers\Super\Usuario\SuUsuarioController;
+
 use App\Http\Controllers\Sitio\DashboardSitio\categorias\CategoriasControlador;
 use App\Http\Controllers\sitio\dashboardsitio\DashboardSitioControlador;
 use App\Http\Controllers\Sitio\DashboardSitio\reglas\ReglasControlador;
@@ -76,6 +80,32 @@ Route::view('/lapaz/este', 'paginas.regiones.LaPazEste')->name('la-paz-este');
 
         // Iniciar datos del perfil minimos
         Route::get('dashboard/perfil/inicio', [PerfilSitioControlador::class, 'inicio'])->name('perfil.inicio');
+        Route::get('dashboard/perfil/create', [PerfilSitioControlador::class, 'perfilSitio'])->name('perfil.create');        
+        
+
+        Route::middleware(['role:su'])->prefix('super')->name('super.')->group(function () {
+
+            Route::get('/dashboard', [SuDashboardController::class, 'dashboard'])->name('dashboard');
+
+            Route::get('/get-municipios/{departamentoId}', [SuController::class, 'getMunicipios'])->name('getMunicipios');
+            Route::get('/get-distritos/{municipioId}', [SuController::class, 'getDistritos'])->name('getDistritos');
+
+            Route::get('/sitio', [SuController::class, 'sitioIndex'])->name('sitio.index');
+
+            // Pantalla de revisión individual
+            Route::get('/sitio/{id}/revisar', [SuController::class, 'revisar'])->name('sitio.revisar');
+            
+            // Acciones para cambiar el estado de la solicitud
+            Route::patch('/sitio/{id}/aprobar', [SuController::class, 'aprobar'])->name('sitio.aprobar');
+            Route::patch('/sitio/{id}/rechazar', [SuController::class, 'rechazar'])->name('sitio.rechazar');
+            Route::patch('/sitio/{id}/suspender', [SuController::class, 'suspender'])->name('sitio.suspender');
+            Route::patch('/sitio/{id}/pendiente', [SuController::class, 'pendiente'])->name('sitio.pendiente');
+
+            Route::resource('usuario', SuUsuarioController::class);
+
+    
+
+        });
         Route::get('dashboard/perfil/create', [PerfilSitioControlador::class, 'perfilSitio'])->name('perfil.create');
         Route::post('dashboard/perfil/create', [PerfilSitioControlador::class, 'perfil_session'])->name('perfil.session');
 

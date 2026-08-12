@@ -9,6 +9,7 @@ export default defineConfig({
                 'resources/js/app.js',
                 'resources/js/menu.js',
                 'resources/js/guest.js',
+                'resources/js/super/ubicacion-cascada.js',
                 'resources/css/app.css',
                 'resources/css/main.css',
                 'resources/css/inicio.css',
