@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.su')
 @section('title', 'Crear regla')
 
 @push('styles')
@@ -9,7 +9,7 @@
 
 <div class="pagina">
     <div class="form-container">      
-        <form id="form-regla" class="form-card" action="{{ route('regla.store') }}" method="POST" enctype="multipart/form-data">
+        <form id="form-regla" class="form-card" action="{{ route('super.regla.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-section-title">                
                 <i class="bi bi-shield-fill-exclamation"></i> Nueva Regla de Convivencia

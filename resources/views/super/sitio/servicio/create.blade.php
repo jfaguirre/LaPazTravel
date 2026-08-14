@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.su')
 @section('title', 'Crear servicio')
 
 @push('styles')
@@ -9,7 +9,7 @@
 
 <div class="pagina">
     <div class="form-container">      
-        <form id="form-servicio" class="form-card" action="{{ route('servicio.store') }}" method="POST" enctype="multipart/form-data">
+        <form id="form-servicio" class="form-card" action="{{ route('super.servicio.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-section-title">                
                 <i class="bi bi-briefcase-fill"></i> Nuevo Servicio Disponible
