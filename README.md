@@ -131,6 +131,7 @@ npm install bootstrap @popperjs/core
 ```
 
 Instalación de leaflet para la creación del mapa de manera gratuita.
+https://leafletjs.com/
 ```bash
 npm install leaflet
 ```
