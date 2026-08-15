@@ -110,7 +110,7 @@
                                                                                    
             @if($sitio->perfil->latitud && $sitio->perfil->longitud)
             <div class="form-section-title">                
-                Editar datos generales
+                Editar coordenadas
             </div>
             @else
             <div class="form-section-title">                
@@ -167,9 +167,10 @@
             </div>
 
             <hr>
-            <p style="margin-top: 20px">
-                Has clic o arrastra para asignar coordenadas geográficas a tu sitio en el mapa.
-            </p>
+            <div class="alert alert-primary" role="alert">
+                Haz clic en el mapa o arrastra el marcador para asignar las coordenadas geográficas de tu sitio.
+            </div>
+
             <div id="mapa" style="height: 400px; overflow: hidden; margin-top:20px;"></div>
 
         </form>
