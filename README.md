@@ -126,10 +126,14 @@ Instalación de Livewire para componentes reactivos
 composer require livewire/livewire
 ```
 
-
-
-
 ```bash
 npm install bootstrap @popperjs/core
 ```
+
+Instalación de leaflet para la creación del mapa de manera gratuita.
+```bash
+npm install leaflet
+```
+
+
 
