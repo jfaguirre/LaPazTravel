@@ -448,8 +448,8 @@ body {
     color: var(--error) !important;
 }
 
-/* Responsive Styles */
 
+/* Responsive Styles */
 @media (width > 320px) {
     .pantall_320 {
         display: none;

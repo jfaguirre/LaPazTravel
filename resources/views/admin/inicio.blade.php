@@ -33,7 +33,7 @@
             <div class="imagen">
                 <img src="{{ asset('assets/images/sitio_create.svg') }}" alt="Crear sitio">
             </div>
-        </div>
+        </div>       
 
     </div>
 </div>
