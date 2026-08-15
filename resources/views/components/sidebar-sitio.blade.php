@@ -34,14 +34,19 @@
             Panel de Control
         </a>
 
-        <a href="{{ route('dashboard.sitio.inicio') }}" class="sidebar__nav-item {{ request()->routeIs('dashboard.sitio') ? 'active' : '' }}">
+        <a href="{{ route('informacion.inicio') }}" class="sidebar__nav-item {{ request()->routeIs('informacion.inicio') ? 'active' : '' }}">
             <i class="bi bi-info-circle-fill sidebar__nav-icon"></i>
             Información del Sitio
         </a>
 
         <a href="{{ route('ubicacion.inicio') }}" class="sidebar__nav-item {{ request()->routeIs('ubicacion.inicio') ? 'active' : '' }}">
-            <i class="bi bi-geo-alt-fill sidebar__nav-icon"></i>
+            <i class="bi bi-map-fill sidebar__nav-icon"></i>
             Ubicación geográfica
+        </a>
+
+        <a href="{{ route('gps.inicio') }}" class="sidebar__nav-item {{ request()->routeIs('gps.inicio') ? 'active' : '' }}">
+            <i class="bi bi-geo-alt-fill sidebar__nav-icon"></i>
+            Ver mapa
         </a>
 
         <a href="{{ route('categoria.inicio') }}" class="sidebar__nav-item {{ request()->routeIs('categoria.inicio') ? 'active' : '' }}">

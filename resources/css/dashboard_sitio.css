@@ -179,8 +179,6 @@ body {
 }
 
 
-
-
 /* Dashboard */
 .dashboard-progress-section {
     margin-top: 0;
@@ -446,6 +444,9 @@ body {
     color: var(--neutro-400);
 }
 
+.color-pendiente {
+    color: var(--error) !important;
+}
 
 /* Responsive Styles */
 

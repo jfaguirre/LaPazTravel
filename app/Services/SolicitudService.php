@@ -10,10 +10,9 @@ use App\Contracts\HasSitio;
 
 class SolicitudService
 {
-    /**
-     * Verifica si existe una solicitud PENDIENTE para un sitio.
-     * Opcionalmente se puede filtrar por modelo, id de registro o nombre de relación.
-     */
+    /* Verifica si existe una solicitud PENDIENTE para un sitio.
+      Opcionalmente se puede filtrar por modelo, id de registro o nombre de relación. */
+      
     public function tieneSolicitudPendiente(
         int $idSitio,
         ?string $modelo = null,
@@ -38,9 +37,7 @@ class SolicitudService
         return $query->exists();
     }
 
-    /**
-     * Crea una nueva solicitud PENDIENTE para el usuario y sitio.
-     */
+    /* Crea una nueva solicitud PENDIENTE para el usuario y sitio. */
     public function crearSolicitud(int $idUsuario, int $idSitio, ?string $comentarioUsuario = null): Solicitud
     {
         return Solicitud::create([
