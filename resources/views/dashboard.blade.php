@@ -15,6 +15,7 @@
            @forelse ($sitios as $sitio)
            
             <div class="card-sitio" style="background-image: linear-gradient(rgba(0, 0, 0, 0.10), rgba(16, 69, 214, 0.1)), url('{{ $sitio->perfil->foto_portada ? asset($sitio->perfil->foto_portada) : asset('assets/images/default.webp') }}');">
+            {{-- <div class="card-sitio" style="background-image: linear-gradient(rgba(0, 0, 0, 0.10), rgba(16, 69, 214, 0.1)), url('{{ $sitio->perfil->foto_portada ? asset($sitio->perfil->foto_portada) : asset('assets/images/default.webp') }}');"> --}}
 
                 <section class="superior">                  
                     <div class="{{ match($sitio->estado) {

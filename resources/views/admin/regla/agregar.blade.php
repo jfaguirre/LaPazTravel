@@ -32,9 +32,6 @@
         }
 
         /* Estilos Verde (Permitido = 1) */
-        .selectable-card.is-permitido {
-            border-color: #10b981;
-        }
         .selectable-card.is-permitido.selected {
             border-color: #059669;
             background-color: #f0fdf4;
@@ -57,9 +54,6 @@
         }
 
         /* Estilos Rojo (No Permitido = 0) */
-        .selectable-card.is-no-permitido {
-            border-color: #ef4444;
-        }
         .selectable-card.is-no-permitido.selected {
             border-color: #dc2626;
             background-color: #fef2f2;
@@ -111,10 +105,13 @@
 
         .permitido-toggle-wrapper {
             margin-top: auto;
-            display: flex;
+            display: none;
             align-items: center;
             justify-content: center;
             width: 100%;
+        }
+        .selectable-card.selected .permitido-toggle-wrapper {
+            display: flex;
         }
         .permitido-toggle-label {
             display: inline-flex;
@@ -220,12 +217,13 @@
                 <div class="reglas-grid">
                     @foreach($reglas as $rg)
                         @php
-                            $isPermitido = isset($selectedReglasMap[$rg->id]) ? $selectedReglasMap[$rg->id] : (bool)$rg->permitido;
+                            $isSelected = in_array($rg->id, $selectedReglas);
+                            $isPermitido = $isSelected && isset($selectedReglasMap[$rg->id]) ? (bool)$selectedReglasMap[$rg->id] : false;
                         @endphp
-                        <div class="selectable-card @if(in_array($rg->id, $selectedReglas)) selected @endif @if($isPermitido) is-permitido @else is-no-permitido @endif"
+                        <div class="selectable-card @if($isSelected) selected @endif @if($isPermitido) is-permitido @else is-no-permitido @endif"
                              data-id="{{ $rg->id }}">
 
-                            <input type="checkbox" name="reglas[]" value="{{ $rg->id }}" class="hidden-checkbox d-none" @if(in_array($rg->id, $selectedReglas)) checked @endif>
+                            <input type="checkbox" name="reglas[]" value="{{ $rg->id }}" class="hidden-checkbox d-none" @if($isSelected) checked @endif>
 
                             <div class="icon-container">
                                 @if(Str::startsWith($rg->icono, 'bi-'))
@@ -276,6 +274,8 @@
                 }
 
                 const checkbox = this.querySelector('.hidden-checkbox');
+                const permitidoCheckbox = this.querySelector('.permitido-checkbox');
+                const textSpan = this.querySelector('.permitido-text');
 
                 if (e.target !== checkbox) {
                     checkbox.checked = !checkbox.checked;
@@ -285,6 +285,14 @@
                     this.classList.add('selected');
                 } else {
                     this.classList.remove('selected');
+                    if (permitidoCheckbox) {
+                        permitidoCheckbox.checked = false;
+                    }
+                    this.classList.remove('is-permitido');
+                    this.classList.add('is-no-permitido');
+                    if (textSpan) {
+                        textSpan.textContent = 'No permitido';
+                    }
                 }
             });
         });
