@@ -38,6 +38,9 @@ class RolSeeder extends Seeder
         $permiso_editar_sitio = Permission::create(['name' => 'editar sitio']);
         $permiso_eliminar_sitio = Permission::create(['name' => 'eliminar sitio']);        
 
+        $permiso_ver_dashboard_su = Permission::create(['name' => 'ver dashboard su']);
+
+
         // Asignacion de permisos
         $permisos_su = [
             $permiso_crear_rol,
@@ -53,7 +56,8 @@ class RolSeeder extends Seeder
             $permiso_mostrar_sitio,
             $permiso_mostrar_sitios,
             $permiso_editar_sitio,
-            $permiso_eliminar_sitio            
+            $permiso_eliminar_sitio,            
+            $permiso_ver_dashboard_su
         ];
 
         $permisos_admin = [

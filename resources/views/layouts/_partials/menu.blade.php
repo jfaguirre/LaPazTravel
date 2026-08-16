@@ -50,9 +50,13 @@
             <!-- Login / Dashboard -->
             <div class="d-flex gap-2">
                 @auth
+
+                @can('ver dashboard su')
                     <a class="btn btn-light" href="{{ route('super.dashboard') }}">
                         <i class="bi bi-speedometer2 me-1"></i> Dashboard
                     </a>
+                @endcan
+                    
                     <div class="dropdown">
                         <button class="btn btn-secondary dropdown-toggle" type="button" 
                                 data-bs-toggle="dropdown" aria-expanded="false">

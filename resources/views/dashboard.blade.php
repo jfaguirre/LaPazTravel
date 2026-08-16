@@ -14,9 +14,18 @@
 
            @forelse ($sitios as $sitio)
            
-            <div class="card-sitio" style="background-image: linear-gradient(rgba(0, 0, 0, 0.10), rgba(16, 69, 214, 0.1)), url('{{ $sitio->perfil->foto_portada ? asset($sitio->perfil->foto_portada) : asset('assets/images/default.webp') }}');">
-            {{-- <div class="card-sitio" style="background-image: linear-gradient(rgba(0, 0, 0, 0.10), rgba(16, 69, 214, 0.1)), url('{{ $sitio->perfil->foto_portada ? asset($sitio->perfil->foto_portada) : asset('assets/images/default.webp') }}');"> --}}
+            @php
+                if ($sitio->perfil?->foto_portada) {
+                    // COn foto propia: gradiente suave
+                    $fondo = "linear-gradient(rgba(0, 0, 0, 0.40), rgba(16, 69, 214, 0.40)), url('" . asset($sitio->perfil->foto_portada) . "')";
+                } else {
+                    // SIN foto: gradiente más oscuro sobre la imagen por defecto
+                    $fondo = "linear-gradient(rgba(0, 0, 0, 0.10), rgba(16, 69, 214, 0.10)), url('" . asset('assets/images/default.webp') . "')";
+                }
+            @endphp
 
+            <div class="card-sitio" style="background-image: {{ $fondo }};">
+            
                 <section class="superior">                  
                     <div class="{{ match($sitio->estado) {
                         'APROBADO'   => 'sitio-estado-aprobado',
