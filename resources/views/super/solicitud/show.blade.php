@@ -157,6 +157,18 @@
                         @if(isset($cambios['antes']))
                             <div class="diff-box diff-antes">
                                 <div class="diff-title">Estado Original (Antes)</div>
+                                @if(is_array($cambios['antes']) && isset($cambios['antes']['foto_portada']) && $cambios['antes']['foto_portada'])
+                                    @php
+                                        $antesImg = $cambios['antes']['foto_portada'];
+                                        $antesUrl = \Illuminate\Support\Str::startsWith($antesImg, ['http://', 'https://', 'uploads/']) 
+                                            ? asset($antesImg) 
+                                            : asset('storage/' . $antesImg);
+                                    @endphp
+                                    <div style="margin-bottom: 10px; padding: 8px; background: rgba(0,0,0,0.03); border-radius: 8px;">
+                                        <strong style="font-size: 0.8rem; color: #475569; display: block; margin-bottom: 4px;">Portada Anterior:</strong>
+                                        <img src="{{ $antesUrl }}" style="width: 100%; max-height: 180px; object-fit: cover; border-radius: 6px; border: 1px solid #cbd5e1;">
+                                    </div>
+                                @endif
                                 <pre style="margin:0; white-space: pre-wrap; word-break: break-word;">{{ json_encode($cambios['antes'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) }}</pre>
                             </div>
                         @endif
@@ -164,6 +176,18 @@
                         @if(isset($cambios['despues']))
                             <div class="diff-box diff-despues">
                                 <div class="diff-title">Estado Propuesto (Después)</div>
+                                @if(is_array($cambios['despues']) && isset($cambios['despues']['foto_portada']) && $cambios['despues']['foto_portada'])
+                                    @php
+                                        $despuesImg = $cambios['despues']['foto_portada'];
+                                        $despuesUrl = \Illuminate\Support\Str::startsWith($despuesImg, ['http://', 'https://', 'uploads/']) 
+                                            ? asset($despuesImg) 
+                                            : asset('storage/' . $despuesImg);
+                                    @endphp
+                                    <div style="margin-bottom: 10px; padding: 8px; background: rgba(0,0,0,0.03); border-radius: 8px;">
+                                        <strong style="font-size: 0.8rem; color: #0f52ba; display: block; margin-bottom: 4px;">Nueva Portada Propuesta:</strong>
+                                        <img src="{{ $despuesUrl }}" style="width: 100%; max-height: 180px; object-fit: cover; border-radius: 6px; border: 1px solid #93c5fd;">
+                                    </div>
+                                @endif
                                 <pre style="margin:0; white-space: pre-wrap; word-break: break-word;">{{ json_encode($cambios['despues'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) }}</pre>
                             </div>
                         @endif

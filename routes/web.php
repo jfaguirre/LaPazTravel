@@ -11,6 +11,7 @@ use App\Http\Controllers\Sitio\DashboardSitio\categorias\CategoriasControlador;
 use App\Http\Controllers\sitio\dashboardsitio\DashboardSitioControlador;
 use App\Http\Controllers\sitio\dashboardsitio\gps\GpsControlador;
 use App\Http\Controllers\Sitio\DashboardSitio\informacion\InformacionControlador;
+use App\Http\Controllers\sitio\dashboardsitio\portada\PortadaControlador;
 use App\Http\Controllers\Sitio\DashboardSitio\reglas\ReglasControlador;
 use App\Http\Controllers\Sitio\DashboardSitio\servicios\ServiciosControlador;
 use App\Http\Controllers\sitio\dashboardsitio\ubicacion\UbicacionControlador;
@@ -77,6 +78,9 @@ Route::view('/lapaz/este', 'paginas.regiones.LaPazEste')->name('la-paz-este');
             // CRUD GPS
             Route::get('dashboard/sitio/gps/inicio', [GpsControlador::class, 'inicio'])->name('gps.inicio');
             Route::put('dashboard/sitio/gps/update', [GpsControlador::class, 'update'])->name('gps.update');
+
+            // CRUD Portada            
+            Route::put('dashboard/sitio/portada/update', [PortadaControlador::class, 'update'])->name('portada.update');
 
         });
 

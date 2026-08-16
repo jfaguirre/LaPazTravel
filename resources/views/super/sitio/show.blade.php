@@ -13,8 +13,16 @@
 
     <!-- Cabecera -->
     <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4">
-        <!-- Foto de Portada con Banner según el Estado -->
-        <div class="position-relative bg-secondary bg-gradient" style="height: 180px; @if($sitio->perfil && $sitio->perfil->foto_portada) background: url('{{ asset('storage/' . $sitio->perfil->foto_portada) }}') center/cover no-repeat; @endif">
+        @php
+            $superPortadaUrl = null;
+            if ($sitio->perfil && $sitio->perfil->foto_portada) {
+                $p = $sitio->perfil->foto_portada;
+                $superPortadaUrl = \Illuminate\Support\Str::startsWith($p, ['http://', 'https://', 'uploads/']) 
+                    ? asset($p) 
+                    : asset('storage/' . $p);
+            }
+        @endphp
+        <div class="position-relative bg-secondary bg-gradient" style="height: 180px; @if($superPortadaUrl) background: url('{{ $superPortadaUrl }}') center/cover no-repeat; @endif">
             <div class="position-absolute top-0 end-0 p-3">
                 @if($sitio->estado == 'PENDIENTE')
                     <span class="badge bg-warning text-dark px-3 py-2 rounded-pill shadow-sm fs-6">

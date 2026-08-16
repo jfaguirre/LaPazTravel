@@ -356,19 +356,66 @@ body {
     gap: 5px;
 }
 
-.superior .sitio-estado-info {
+/* APROBADO */
+.superior .sitio-estado-aprobado {
     display: flex;
     align-items: center;
     gap: 5px;
     padding: 4px 8px;
     border-radius: 12px;
+    font-size: 10px;    
+    color: var(--primario-100);
+    background-color: var(--neutro-700);
+}
+
+/* BORRADOR */
+.superior .sitio-estado-borrador {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 10px;    
+    color: var(--neutro-700);
     background-color: var(--warning);
 }
 
-.superior .sitio-estado-info span {
-    font-size: 10px;
-    color: var(--neutro-800);
+/* PENDIENTE */
+.superior .sitio-estado-pendiente {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 10px;    
+    color: var(--primario-100);
+    background-color: var(--primario-claro);
 }
+
+/* RECHAZADO */
+.superior .sitio-estado-rechazado {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 10px;    
+    color: var(--primario-100);
+    background-color: var(--error);
+}
+
+/* SUSPENDIDO */
+.superior .sitio-estado-suspendido {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 10px;    
+    color: var(--primario-100);
+    background-color: var(--error);
+}
+
 
 .superior .verificacion {
     width: 30px;
@@ -420,6 +467,14 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
+}
+
+.inferior .contenido .titulo_card, .parrafo_card {
+    color: var(--primario-100);
+}
+
+.inferior .contenido .parrafo_card {
+    color: var(--primario-100);
 }
 
 

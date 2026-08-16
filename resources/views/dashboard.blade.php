@@ -13,22 +13,29 @@
         <div class="dashboard-grid">
 
            @forelse ($sitios as $sitio)
+           
+            <div class="card-sitio" style="background-image: linear-gradient(rgba(0, 0, 0, 0.10), rgba(16, 69, 214, 0.1)), url('{{ $sitio->perfil->foto_portada ? asset($sitio->perfil->foto_portada) : asset('assets/images/default.webp') }}');">
 
-            <div class="card-sitio" style="background-image: linear-gradient(rgba(0, 0, 0, 0.10), rgba(0, 0, 0, 0.10)), url('{{ asset('assets/images/default.webp') }}');">
-
-                <section class="superior">
-                    <div class="sitio-estado-info">
-                        <span>{{ $sitio->estado }}</span>
+                <section class="superior">                  
+                    <div class="{{ match($sitio->estado) {
+                        'APROBADO'   => 'sitio-estado-aprobado',
+                        'BORRADOR'   => 'sitio-estado-borrador',
+                        'PENDIENTE'  => 'sitio-estado-pendiente',
+                        'RECHAZADO'  => 'sitio-estado-rechazado',
+                        'SUSPENDIDO' => 'sitio-estado-suspendido',
+                        default => '',
+                        } }}">
+                        {{ $sitio->estado }}
                     </div>
-                    <div class="verificacion">
+                    <div class="verificacion">                                                
                         <i class="bi bi-patch-check-fill icon-verificado"></i>
                     </div>
                 </section>
 
                 <section class="inferior">
                     <div class="contenido">
-                        <h5>{{ $sitio->nombre }}</h5>
-                        <p>{{ $sitio->descripcion_corta }}</p>
+                        <h5 class="{{ $sitio->perfil->foto_portada ? 'titulo_card' : ''}}">{{ $sitio->nombre }}</h5>
+                        <p class="{{ $sitio->perfil->foto_portada ? 'parrafo_card' : ''}}">{{ $sitio->descripcion_corta }}</p>
                     </div>
 
                     <div class="estados">
@@ -40,7 +47,7 @@
                                 <i class="bi bi-pencil-square"></i>
                             </button>
                         </form>
-                            <a class="btn btn-dark" href="{{ route('perfil.session') }}" title="Vista previa">
+                            <a class="btn btn-dark" href="{{ route('sitio.show', $sitio->slug) }}" title="Vista previa">
                                 <i class="bi bi-eye"></i>
                             </a>
                         </div>

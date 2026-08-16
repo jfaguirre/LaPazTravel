@@ -64,6 +64,16 @@
             Servicios del Sitio
         </a>
 
+        <a href="{{ route('servicio.inicio') }}" class="sidebar__nav-item {{ request()->routeIs('servicio.inicio') ? 'active' : '' }}">            
+            <i class="bi bi-calendar3 sidebar__nav-icon"></i>
+            Horarios
+        </a>
+
+        <a href="{{ route('servicio.inicio') }}" class="sidebar__nav-item {{ request()->routeIs('servicio.inicio') ? 'active' : '' }}">                        
+            <i class="bi bi-cash-coin sidebar__nav-icon"></i>
+            Precios
+        </a>
+
         <div class="sidebar__nav-label">Sistema</div>
 
         <a href="{{ route('dashboard') }}" class="sidebar__nav-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
