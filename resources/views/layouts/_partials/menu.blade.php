@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark" 
 
-    style="background-color: var(--primario-claro);">
+    style="background-color: var(--primario);">
     <div class="container-fluid">
         
         <!-- Logo / Marca -->
