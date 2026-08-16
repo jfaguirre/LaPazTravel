@@ -25,10 +25,7 @@ class CategoriasControlador extends Controller
     }
 
 
-   public function update(
-            Request $request,
-            SolicitudService $solicitudService
-        )
+   public function update(Request $request, SolicitudService $solicitudService)
     {
         $sitio = Sitio::find(session('id_sitio'));
 

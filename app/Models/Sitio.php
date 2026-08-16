@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class Sitio extends Model
+use App\Contracts\HasSitio;
+
+class Sitio extends Model implements HasSitio
 {
     protected $fillable = [
         'nombre',
@@ -43,6 +45,12 @@ class Sitio extends Model
     {
         return $this->hasMany(Publicacion::class, 'id_sitio');
     }
+
+    public function obtenerSitio(): Sitio
+    {
+        return $this;
+    }
+
 
 
 }

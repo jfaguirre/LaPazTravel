@@ -37,7 +37,7 @@
                         <a class="solo" href="#">
                             <div class="card-content">
                                 <h2>{{ $s->sitio->nombre }}</h2>
-                                Ubicación:{{ $s->municipio->municipio }}, {{ $s->distrito->distrito }}
+                                Ubicación:{{ $s->departamento->departamento }}, {{ $s->distrito->distrito }}
                                 <br>
                                 <br>
                                 <p class="">

@@ -109,8 +109,7 @@ class SitioControlador extends Controller
 
     public function edit()
     {
-        $user = Auth::user();
-        // $sitio = Sitio::where('id_user', $user->id)->first();
+        $user = Auth::user();        
         $sitio = Sitio::find(session('id_sitio'));
 
         if (!$sitio) {

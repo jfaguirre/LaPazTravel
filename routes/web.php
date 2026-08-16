@@ -9,7 +9,11 @@ use App\Http\Controllers\Super\Usuario\SuUsuarioController;
 
 use App\Http\Controllers\Sitio\DashboardSitio\categorias\CategoriasControlador;
 use App\Http\Controllers\sitio\dashboardsitio\DashboardSitioControlador;
+use App\Http\Controllers\sitio\dashboardsitio\gps\GpsControlador;
+use App\Http\Controllers\Sitio\DashboardSitio\informacion\InformacionControlador;
+use App\Http\Controllers\sitio\dashboardsitio\portada\PortadaControlador;
 use App\Http\Controllers\Sitio\DashboardSitio\reglas\ReglasControlador;
+use App\Http\Controllers\Sitio\DashboardSitio\servicios\ServiciosControlador;
 use App\Http\Controllers\sitio\dashboardsitio\ubicacion\UbicacionControlador;
 use App\Http\Controllers\Sitio\Perfil\PerfilSitioControlador;
 use App\Http\Controllers\Sitio\Sitio\SitioSlugControlador;
@@ -63,6 +67,21 @@ Route::view('/lapaz/este', 'paginas.regiones.LaPazEste')->name('la-paz-este');
             Route::get('dashboard/sitio/regla/inicio', [ReglasControlador::class, 'inicio'])->name('regla.inicio');
             Route::put('dashboard/sitio/regla/update', [ReglasControlador::class, 'update'])->name('regla.update');
 
+            // CRUD Servicios
+            Route::get('dashboard/sitio/servicio/inicio', [ServiciosControlador::class, 'inicio'])->name('servicio.inicio');
+            Route::put('dashboard/sitio/servicio/update', [ServiciosControlador::class, 'update'])->name('servicio.update');
+
+            // CRUD Informacion
+            Route::get('dashboard/sitio/informacion/inicio', [InformacionControlador::class, 'inicio'])->name('informacion.inicio');
+            Route::put('dashboard/sitio/informacion/update', [InformacionControlador::class, 'update'])->name('informacion.update');
+
+            // CRUD GPS
+            Route::get('dashboard/sitio/gps/inicio', [GpsControlador::class, 'inicio'])->name('gps.inicio');
+            Route::put('dashboard/sitio/gps/update', [GpsControlador::class, 'update'])->name('gps.update');
+
+            // CRUD Portada            
+            Route::put('dashboard/sitio/portada/update', [PortadaControlador::class, 'update'])->name('portada.update');
+
         });
 
         // Dahsboard
@@ -109,6 +128,7 @@ Route::view('/lapaz/este', 'paginas.regiones.LaPazEste')->name('la-paz-este');
             // Registro de Servicios (Admin o Configuración General)
             Route::get('/dashboard/servicio/create', [ServicioControlador::class, 'create'])->name('servicio.create');
             Route::post('/dashboard/servicio/create', [ServicioControlador::class, 'store'])->name('servicio.store');
+    
         });
 
 

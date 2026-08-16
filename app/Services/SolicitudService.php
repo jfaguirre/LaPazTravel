@@ -10,10 +10,9 @@ use App\Contracts\HasSitio;
 
 class SolicitudService
 {
-    /**
-     * Verifica si existe una solicitud PENDIENTE para un sitio.
-     * Opcionalmente se puede filtrar por modelo, id de registro o nombre de relación.
-     */
+    /* Verifica si existe una solicitud PENDIENTE para un sitio.
+      Opcionalmente se puede filtrar por modelo, id de registro o nombre de relación. */
+      
     public function tieneSolicitudPendiente(
         int $idSitio,
         ?string $modelo = null,
@@ -38,9 +37,7 @@ class SolicitudService
         return $query->exists();
     }
 
-    /**
-     * Crea una nueva solicitud PENDIENTE para el usuario y sitio.
-     */
+    /* Crea una nueva solicitud PENDIENTE para el usuario y sitio. */
     public function crearSolicitud(int $idUsuario, int $idSitio, ?string $comentarioUsuario = null): Solicitud
     {
         return Solicitud::create([
@@ -224,12 +221,22 @@ class SolicitudService
     // Rechazar solicitud con comentario opcional
     public function rechazarSolicitud(Solicitud $solicitud, ?string $comentarioAdmin = null): void
     {
-        $solicitud->update([
-            'estado'           => 'RECHAZADA',
-            'comentario_admin' => $comentarioAdmin,
-            'revisado_por'     => Auth::id(),
-            'fecha_revision'   => now(),
-        ]);
+        DB::transaction(function () use ($solicitud, $comentarioAdmin) {
+            // Eliminar archivos creados en solicitudes rechazadas
+            foreach ($solicitud->operaciones as $operacion) {
+                $cambios = $operacion->cambios;
+                if (isset($cambios['despues']['foto_portada'])) {
+                    $this->eliminarArchivo($cambios['despues']['foto_portada']);
+                }
+            }
+
+            $solicitud->update([
+                'estado'           => 'RECHAZADA',
+                'comentario_admin' => $comentarioAdmin,
+                'revisado_por'     => Auth::id(),
+                'fecha_revision'   => now(),
+            ]);
+        });
     }
 
     private function aprobarOperacion(SolicitudOperacion $operacion): void
@@ -259,7 +266,37 @@ class SolicitudService
         if (isset($cambios['relacion'])) {
             $registro->{$cambios['relacion']}()->sync($cambios['despues']);
         } elseif (isset($cambios['despues'])) {
+            // Si se actualiza foto_portada, eliminar la imagen anterior de disco
+            if (isset($cambios['despues']['foto_portada'])) {
+                $fotoAnterior = $registro->foto_portada;
+                $fotoNueva = $cambios['despues']['foto_portada'];
+
+                if ($fotoAnterior && $fotoAnterior !== $fotoNueva) {
+                    $this->eliminarArchivo($fotoAnterior);
+                }
+            }
+
             $registro->update($cambios['despues']);
+        }
+    }
+
+    private function eliminarArchivo(?string $path): void
+    {
+        if (empty($path)) {
+            return;
+        }
+
+        // Verificar en la carpeta public (ej. uploads/portada/file.jpg)
+        $publicPath = public_path($path);
+        if (file_exists($publicPath) && is_file($publicPath)) {
+            @unlink($publicPath);
+            return;
+        }
+
+        // Verificar en la carpeta storage/app/public/
+        $storagePath = storage_path('app/public/' . ltrim($path, '/'));
+        if (file_exists($storagePath) && is_file($storagePath)) {
+            @unlink($storagePath);
         }
     }
 }

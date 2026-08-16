@@ -89,6 +89,13 @@ class CategoriasSeeder extends Seeder
             'estado' => 'ACTIVO',
             'color' => '#F54927'
         ]);
+
+        Categoria::create([
+            'nombre' => 'Surf',
+            'icono' => 'uploads/icons/categorias/1786509061_6a7bf7055c9bc.svg',
+            'estado' => 'ACTIVO',
+            'color' => '#0F52BA'
+        ]);
         
     }
 }

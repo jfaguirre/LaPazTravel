@@ -34,17 +34,22 @@
             Panel de Control
         </a>
 
-        <a href="{{ route('dashboard.sitio.inicio') }}" class="sidebar__nav-item {{ request()->routeIs('sitio.edit') ? 'active' : '' }}">
+        <a href="{{ route('informacion.inicio') }}" class="sidebar__nav-item {{ request()->routeIs('informacion.inicio') ? 'active' : '' }}">
             <i class="bi bi-info-circle-fill sidebar__nav-icon"></i>
             Información del Sitio
         </a>
 
-        <a href="{{ route('ubicacion.inicio') }}" class="sidebar__nav-item {{ request()->routeIs('perfil.ubicacion.agregar') ? 'active' : '' }}">
-            <i class="bi bi-geo-alt-fill sidebar__nav-icon"></i>
+        <a href="{{ route('ubicacion.inicio') }}" class="sidebar__nav-item {{ request()->routeIs('ubicacion.inicio') ? 'active' : '' }}">
+            <i class="bi bi-map-fill sidebar__nav-icon"></i>
             Ubicación geográfica
         </a>
 
-        <a href="{{ route('categoria.inicio') }}" class="sidebar__nav-item {{ request()->routeIs('perfil.categoria.agregar') ? 'active' : '' }}">
+        <a href="{{ route('gps.inicio') }}" class="sidebar__nav-item {{ request()->routeIs('gps.inicio') ? 'active' : '' }}">
+            <i class="bi bi-geo-alt-fill sidebar__nav-icon"></i>
+            Ver mapa
+        </a>
+
+        <a href="{{ route('categoria.inicio') }}" class="sidebar__nav-item {{ request()->routeIs('categoria.inicio') ? 'active' : '' }}">
             <i class="bi bi-tags-fill sidebar__nav-icon"></i>
             Categorías
         </a>
@@ -54,9 +59,19 @@
             Reglas y Normas
         </a>
 
-        <a href="{{ route('perfil.servicio.agregar') }}" class="sidebar__nav-item {{ request()->routeIs('perfil.servicio.agregar') ? 'active' : '' }}">
+        <a href="{{ route('servicio.inicio') }}" class="sidebar__nav-item {{ request()->routeIs('servicio.inicio') ? 'active' : '' }}">
             <i class="bi bi-grid-fill sidebar__nav-icon"></i>
             Servicios del Sitio
+        </a>
+
+        <a href="{{ route('servicio.inicio') }}" class="sidebar__nav-item {{ request()->routeIs('servicio.inicio') ? 'active' : '' }}">            
+            <i class="bi bi-calendar3 sidebar__nav-icon"></i>
+            Horarios
+        </a>
+
+        <a href="{{ route('servicio.inicio') }}" class="sidebar__nav-item {{ request()->routeIs('servicio.inicio') ? 'active' : '' }}">                        
+            <i class="bi bi-cash-coin sidebar__nav-icon"></i>
+            Precios
         </a>
 
         <div class="sidebar__nav-label">Sistema</div>

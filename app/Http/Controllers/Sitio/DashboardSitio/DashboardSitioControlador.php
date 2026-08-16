@@ -7,9 +7,11 @@ use App\Models\Sitio;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use App\Services\SolicitudService;
+
 class DashboardSitioControlador extends Controller
 {
-    public function inicio()
+    public function inicio(SolicitudService $solicitudService)
     {
         $user = Auth::user();
         $sitioId = session('id_sitio');
@@ -56,6 +58,15 @@ class DashboardSitioControlador extends Controller
             return redirect()->route('dashboard')->with('error', 'No tienes ningún sitio registrado.');
         }
 
-        return view('admin.dashboard.inicio.inicio', compact('sitio'));
+        $tieneSolicitudPendiente = false;
+        if ($sitio && $sitio->perfil) {
+            $tieneSolicitudPendiente = $solicitudService->tieneSolicitudPendiente(
+                $sitio->id,
+                get_class($sitio->perfil),
+                $sitio->perfil->id
+            );
+        }
+
+        return view('admin.dashboard.inicio.inicio', compact('sitio', 'tieneSolicitudPendiente'));
     }
 }

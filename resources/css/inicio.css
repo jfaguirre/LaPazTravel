@@ -2,7 +2,7 @@
     background: var(--primario);
     padding: 30px;
     border-radius: 10px;
-    width: 95%;                /* ✅ Antes: device-width (inválido) */
+    width: 95%;                
 
     box-shadow: var(--sombra-md);
     margin: 0 15px;
@@ -23,7 +23,7 @@
     transition: all 0.3s ease;
     padding: 20px;
     margin: 20px;
-    flex-wrap: wrap;            /* ✅ Permite que las cards bajen si no caben */
+    flex-wrap: wrap;            
     gap: 20px;
 }
 .cart {
@@ -54,7 +54,7 @@
     gap: 30px;
     padding: 20px;
     text-decoration: none;
-    flex-wrap: wrap;            /* ✅ Se adapta si no caben */
+    flex-wrap: wrap;            
 }
 .distrito-content {
     font-weight: 700;
@@ -76,15 +76,15 @@
     position: relative;
     width: 100%;
     max-width: 940px;
-    overflow: hidden;           /* ✅ Evita desbordes */
+    overflow: hidden;           /*  Evita desbordes */
 }
 
-/* ✅ Contenedor escalable con aspect-ratio */
+/* Contenedor escalable con aspect-ratio */
 .map-container {
     position: relative;
     width: 100%;
     max-width: 900px;
-    aspect-ratio: 9 / 7;        /* ✅ Mantiene proporción 900x700 */
+    aspect-ratio: 9 / 7;        /*  Mantiene proporción 900x700 */
     margin: 0 auto;
 }
 
@@ -101,7 +101,7 @@
     transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-/* ✅ Posiciones en porcentaje para que escale */
+/* Posiciones en porcentaje para que escale */
 .region-oeste {
     left: 12%;
     top: -1.35%;
@@ -157,7 +157,7 @@
     backdrop-filter: blur(15px);
     border: 2px solid rgba(255, 255, 255, 0.2);
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
-    max-width: 90vw;            /* ✅ Evita desbordes en móvil */
+    max-width: 90vw;            /*  Evita desbordes en móvil */
 }
 .tooltip.visible {
     opacity: 1;
@@ -244,7 +244,7 @@
 
 
 /* =========================================================
-📱 MEDIA QUERIES - RESPONSIVE
+MEDIA QUERIES - RESPONSIVE
 ========================================================= */
 
 /* Tablet y móviles grandes (hasta 768px) */
@@ -362,7 +362,7 @@
     }
 
     .search {
-        order: 3;               /* ✅ Mover búsqueda debajo en móviles muy pequeños */
+        order: 3;               /*  Mover búsqueda debajo en móviles muy pequeños */
         width: 100%;
         margin-top: 8px;
     }
