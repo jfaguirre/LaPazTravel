@@ -70,6 +70,11 @@
         -webkit-backdrop-filter: blur(8px);
     }
 
+    .hero-card__badge .icono-portada-edit {
+        display: flex;
+        gap: 10px;
+    }
+
     .hero-card__badge .icono-portada-edit a {        
         color: var(--primario-50);
         display: flex;
@@ -777,8 +782,8 @@
             </div>
 
             <div class="panel-card__footer">
-                <a href="{{ route('perfil.ubicacion.agregar') }}" class="btn-edit-shortcut">
-                    <i class="bi bi-pencil-fill"></i> Editar Contacto y Mapa
+                <a href="{{ route('gps.inicio') }}" class="btn-edit-shortcut">
+                    <i class="bi bi-pencil-fill"></i> Editar Mapa
                 </a>
             </div>
         </div>

@@ -16,6 +16,11 @@ class SitioPerfilSeeder extends Seeder
         SitioPerfil::create([
             'identificador' => 'BHUTGCF3ML',
             'id_sitio' => 1,
+            'telefono' => '23342121',
+            'correo_institucional' => 'mangovillage@gmail.com',
+            'direccion' => 'Km 62 1/2 Autopista a Zacatecoluca. 400 Mts al sur de Gasolinera UNO',
+            'horario' => '{"Lunes":"08:00 - 17:00","Martes":"08:00 - 17:00","Miércoles":"08:00 - 17:00","Jueves":"08:00 - 17:00","Viernes":"08:00 - 17:00","Sábado":"08:00 - 17:00","Domingo":"08:00 - 17:00"}',
+            
             'id_departamento' => 6,
             'id_distrito' => 133,
             'id_municipio' => 19

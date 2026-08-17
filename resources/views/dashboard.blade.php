@@ -12,7 +12,7 @@
             @php
                 if ($sitio->perfil?->foto_portada) {
                     // COn foto propia: gradiente suave
-                    $fondo = "linear-gradient(rgba(0, 0, 0, 0.40), rgba(16, 69, 214, 0.40)), url('" . asset($sitio->perfil->foto_portada) . "')";
+                    $fondo = "linear-gradient(rgba(0, 0, 0, 0.10), rgba(16, 69, 214, 0.10)), url('" . asset($sitio->perfil->foto_portada) . "')";
                 } else {
                     // SIN foto: gradiente más oscuro sobre la imagen por defecto
                     $fondo = "linear-gradient(rgba(0, 0, 0, 0.10), rgba(16, 69, 214, 0.10)), url('" . asset('assets/images/default.webp') . "')";
@@ -40,10 +40,9 @@
                 <section class="inferior">
                     <div class="contenido">
                         <h5 class="{{ $sitio->perfil->foto_portada ? 'titulo_card' : ''}}">{{ $sitio->nombre }}</h5>
-                        <p class="{{ $sitio->perfil->foto_portada ? 'parrafo_card' : ''}}">{{ $sitio->descripcion_corta }}</p>
-                    </div>
+                        <p class="{{ $sitio->perfil->foto_portada ? 'parrafo_card' : ''}}">{{ $sitio->descripcion_corta }}</p>                        
 
-                    <div class="estados">
+                        <div class="estados">
                         <div class="estado-acciones">
                             <form action="{{ route('perfil.session') }}" method="POST">
                             @csrf
@@ -57,6 +56,10 @@
                             </a>
                         </div>
                     </div>
+
+                    </div>
+
+                    
                 </section>
 
             </div>

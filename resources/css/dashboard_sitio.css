@@ -469,6 +469,14 @@ body {
     color: var(--primario);
 }
 
+.inferior .contenido {
+    border-radius: 10px;
+    padding: 10px 10px;    
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
 .inferior .estado-acciones {
     display: flex;
     align-items: center;
@@ -477,6 +485,10 @@ body {
 
 .inferior .contenido .titulo_card, .parrafo_card {
     color: var(--primario-100);
+}
+
+.inferior .contenido .parrafo_card {
+    font-size: 12px;
 }
 
 .inferior .contenido .parrafo_card {
