@@ -63,7 +63,9 @@ class DashboardSitioControlador extends Controller
             $tieneSolicitudPendiente = $solicitudService->tieneSolicitudPendiente(
                 $sitio->id,
                 get_class($sitio->perfil),
-                $sitio->perfil->id
+                $sitio->perfil->id,
+                null,
+                ['foto_portada']
             );
         }
 

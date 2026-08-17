@@ -28,8 +28,8 @@ class PortadaControlador extends Controller
                 ->with('error', 'El perfil del sitio aún no ha sido configurado.');
         }
 
-        // Verificar si ya tiene una solicitud de actualización pendiente para el perfil
-        if ($solicitudService->tieneSolicitudPendiente($sitio->id, get_class($perfil), $perfil->id)) {
+        // Verificar si ya tiene una solicitud de actualización pendiente para la portada
+        if ($solicitudService->tieneSolicitudPendiente($sitio->id, get_class($perfil), $perfil->id, null, ['foto_portada'])) {
             return redirect()->back()
                 ->with('error', 'Ya tienes una solicitud de actualización de portada pendiente de aprobación.');
         }
@@ -78,6 +78,7 @@ class PortadaControlador extends Controller
             [
                 'antes'   => ['foto_portada' => $perfil->foto_portada],
                 'despues' => ['foto_portada' => $path],
+                'campos'  => ['foto_portada'],
             ],
             'Actualización de foto de portada del sitio'
         );

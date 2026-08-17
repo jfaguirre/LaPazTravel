@@ -36,10 +36,10 @@
                         default => '',
                         } }}">
                         {{ $sitio->estado }}
-                    </div>
-                    <div class="verificacion">                                                
-                        <i class="bi bi-patch-check-fill icon-verificado"></i>
-                    </div>
+                    </div>                                    
+                    @if($sitio->estado == "APROBADO")
+                        <i class="bi bi-patch-check-fill icon-verificado"></i>                    
+                    @endif
                 </section>
 
                 <section class="inferior">

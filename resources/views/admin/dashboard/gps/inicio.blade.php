@@ -18,8 +18,8 @@
 
         // Centro de La Paz por defecto si aún no hay ubicación guardada
         const inicial = {
-            lat: parseFloat(inputLat.value) || -16.4956,
-            lng: parseFloat(inputLng.value) || -68.1336,            
+            lat: parseFloat(inputLat.value) || 13.5122,
+            lng: parseFloat(inputLng.value) || -88.8695,            
         };
         
         if(gps.latitud && gps.longitud)

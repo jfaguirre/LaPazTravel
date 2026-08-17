@@ -40,7 +40,7 @@ class ReglasControlador extends Controller
         $user = Auth::user();
         $sitio = Sitio::find(session('id_sitio')); // Obtener el sitio desde la sesión
 
-        if ($sitio && $sitio->perfil && $solicitudService->tieneSolicitudPendiente($sitio->id, get_class($sitio->perfil), $sitio->perfil->id, 'categorias')) {
+        if ($sitio && $sitio->perfil && $solicitudService->tieneSolicitudPendiente($sitio->id, get_class($sitio->perfil), $sitio->perfil->id, 'reglas')) {
             return redirect()->route('dashboard.sitio.inicio')
                 ->with('error', 'Ya tienes una solicitud de actualización de reglas pendiente de aprobación.');
         }

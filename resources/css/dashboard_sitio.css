@@ -329,8 +329,14 @@ body {
     padding: 20px 20px;
     border-radius: 16px;
     transition: all 0.25s ease;
-    background-size: cover;
+    background-size: 100%;
     background-position: center;
+    background-repeat: no-repeat;
+    transition: background-size 0.5s ease;
+}
+
+.card-sitio:hover {
+    background-size: 120%;
 }
 
 .card-sitio h5 {

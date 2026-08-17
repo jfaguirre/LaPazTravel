@@ -35,7 +35,7 @@ class InformacionControlador extends Controller
 
         $perfil = $sitio->perfil;
 
-        if ($solicitudService->tieneSolicitudPendiente($sitio->id, get_class($sitio), $sitio->id)) {
+        if ($solicitudService->tieneSolicitudPendiente($sitio->id, get_class($sitio), $sitio->id, null, ['nombre', 'slug', 'descripcion_corta'])) {
             return redirect()->route('dashboard.sitio.inicio')
                 ->with('error', 'Ya tienes una solicitud de actualización de información general pendiente de aprobación.');
         }
@@ -68,6 +68,14 @@ class InformacionControlador extends Controller
             'Actualización de información general y de contacto'
         );
 
+        $sitioArray = $sitio->toArray();
+        $antesSitio = [];
+        foreach (array_keys($datosSitio) as $key) {
+            if (array_key_exists($key, $sitioArray)) {
+                $antesSitio[$key] = $sitioArray[$key];
+            }
+        }
+
         // Operación 1: Cambios en el modelo Sitio
         $solicitudService->agregarOperacion(
             $solicitud,
@@ -75,22 +83,32 @@ class InformacionControlador extends Controller
             $sitio->id,
             'UPDATE',
             [
-                'antes'   => $sitio->toArray(),
-                'despues' => array_merge($sitio->toArray(), $datosSitio),
+                'antes'   => $antesSitio,
+                'despues' => $datosSitio,
+                'campos'  => array_keys($datosSitio),
             ],
             'Actualización de datos generales del sitio'
         );
 
         // Operación 2: Cambios en el modelo SitioPerfil
         if ($perfil) {
+            $perfilArray = $perfil->toArray();
+            $antesPerfil = [];
+            foreach (array_keys($datosPerfil) as $key) {
+                if (array_key_exists($key, $perfilArray)) {
+                    $antesPerfil[$key] = $perfilArray[$key];
+                }
+            }
+
             $solicitudService->agregarOperacion(
                 $solicitud,
                 get_class($perfil),
                 $perfil->id,
                 'UPDATE',
                 [
-                    'antes'   => $perfil->toArray(),
-                    'despues' => array_merge($perfil->toArray(), $datosPerfil),
+                    'antes'   => $antesPerfil,
+                    'despues' => $datosPerfil,
+                    'campos'  => array_keys($datosPerfil),
                 ],
                 'Actualización de datos de contacto del sitio'
             );

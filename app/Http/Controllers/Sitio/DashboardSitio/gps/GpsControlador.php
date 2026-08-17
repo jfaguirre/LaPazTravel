@@ -34,10 +34,10 @@ class GpsControlador extends Controller
         $idSitio = session('id_sitio');
         $perfil  = SitioPerfil::where('id_sitio', $idSitio)->first();
     
-        if ($perfil && $solicitudService->tieneSolicitudPendiente($idSitio, get_class($perfil), $perfil->id)) {
-            return redirect()->route('dashboard.sitio.inicio')->with('error', 'Ya tienes una solicitud pendiente de aprobación para el cambio de ubicación.');
+        if ($perfil && $solicitudService->tieneSolicitudPendiente($idSitio, get_class($perfil), $perfil->id, null, ['latitud', 'longitud'])) {
+            return redirect()->route('dashboard.sitio.inicio')->with('error', 'Ya tienes una solicitud pendiente de aprobación para el cambio de coordenadas geográficas en el mapa.');
         }
-
+        
         $request->validate([
             'latitud'  => ['required', 'numeric', 'regex:/^-?\d{1,2}\.\d{1,8}$/'],
             'longitud' => ['required', 'numeric', 'regex:/^-?\d{1,3}\.\d{1,8}$/'],

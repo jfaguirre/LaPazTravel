@@ -17,19 +17,29 @@ class SolicitudService
         int $idSitio,
         ?string $modelo = null,
         ?int $registroId = null,
-        ?string $relacion = null
+        ?string $relacion = null,
+        array|string|null $campos = null
     ): bool {
         $query = Solicitud::where('id_sitio', $idSitio)
             ->where('estado', 'PENDIENTE');
 
         if ($modelo !== null) {
-            $query->whereHas('operaciones', function ($q) use ($modelo, $registroId, $relacion) {
+            $query->whereHas('operaciones', function ($q) use ($modelo, $registroId, $relacion, $campos) {
                 $q->where('modelo', $modelo);
                 if ($registroId !== null) {
                     $q->where('id_registro', $registroId);
                 }
                 if ($relacion !== null) {
                     $q->whereJsonContains('cambios->relacion', $relacion);
+                }
+                if ($campos !== null) {
+                    $camposArray = (array) $campos;
+                    $q->where(function ($q2) use ($camposArray) {
+                        foreach ($camposArray as $campo) {
+                            $q2->orWhereJsonContains('cambios->campos', $campo)
+                               ->orWhereNotNull("cambios->despues->$campo");
+                        }
+                    });
                 }
             });
         }
@@ -102,17 +112,23 @@ class SolicitudService
             $descripcion
         );
 
+        $datosAntes = [];
+        $modeloArray = $modelo->toArray();
+        foreach ($datosNuevos as $key => $val) {
+            if (array_key_exists($key, $modeloArray)) {
+                $datosAntes[$key] = $modeloArray[$key];
+            }
+        }
+
         return $this->agregarOperacion(
             $solicitud,
             get_class($modelo),
             $modelo->getKey(),
             'UPDATE',
             [
-                'antes' => $modelo->toArray(),
-                'despues' => array_merge(
-                    $modelo->toArray(),
-                    $datosNuevos
-                ),
+                'antes'   => $datosAntes,
+                'despues' => $datosNuevos,
+                'campos'  => array_keys($datosNuevos),
             ],
             $descripcion
         );

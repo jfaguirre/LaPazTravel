@@ -30,10 +30,10 @@ class UbicacionControlador extends Controller
         $idSitio = session('id_sitio');
         $perfil  = SitioPerfil::where('id_sitio', $idSitio)->first();
     
-        if ($perfil && $solicitudService->tieneSolicitudPendiente($idSitio, get_class($perfil), $perfil->id)) {
-            return redirect()->route('dashboard.sitio.inicio')->with('error', 'Ya tienes una solicitud pendiente de aprobación para el cambio de ubicación.');
+        if ($perfil && $solicitudService->tieneSolicitudPendiente($idSitio, get_class($perfil), $perfil->id, null, ['id_departamento', 'id_municipio', 'id_distrito'])) {
+            return redirect()->route('dashboard.sitio.inicio')->with('error', 'Ya tienes una solicitud pendiente de aprobación para el cambio de ubicación (departamento, municipio, distrito).');
         }
-
+        
         $request->validate([
             'departamento' => 'required',
             'municipio'    => 'required',
