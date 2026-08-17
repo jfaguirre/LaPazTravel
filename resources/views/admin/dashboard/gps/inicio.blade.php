@@ -104,6 +104,15 @@
             </a>
         </div>
         
+        @if(!empty($tieneSolicitudPendiente) && $tieneSolicitudPendiente)
+            <div class="alert alert-warning mb-4 d-flex align-items-center" role="alert" style="background-color: #fef3c7; border: 1px solid #fde68a; color: #92400e; border-radius: 12px; padding: 16px 20px;">
+                <i class="bi bi-clock-history fs-4 me-3" style="color: #d97706;"></i>
+                <div>
+                    <strong>Solicitud en revisión:</strong> Ya tienes una solicitud de actualización de coordenadas del mapa pendiente de aprobación. No se pueden realizar modificaciones hasta que la solicitud actual sea procesada.
+                </div>
+            </div>
+        @endif
+
         <form id="form-datos-basicos" class="form-card" action="{{ route('gps.update') }}" method="POST">
             @csrf
             @method('put')
@@ -161,7 +170,7 @@
                 <a class="btn btn-dark" href="{{ route('dashboard.sitio.inicio') }}">                    
                     Cancelar
                 </a>
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-primary" @if(!empty($tieneSolicitudPendiente) && $tieneSolicitudPendiente) disabled style="opacity: 0.55; cursor: not-allowed;" @endif>
                     Guardar Cambios
                 </button>                               
             </div>

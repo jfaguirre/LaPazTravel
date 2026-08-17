@@ -1,11 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Dashboard')
 
-
-@section('sidebar')
-    @include('components.sidebar-sitio')
-@endsection
-
 @section('contenido')
 
 <div id="page-dashboard" class="page">

@@ -138,6 +138,15 @@
             </a>
         </div>
 
+        @if(!empty($tieneSolicitudPendiente) && $tieneSolicitudPendiente)
+            <div class="alert alert-warning mb-4 d-flex align-items-center" role="alert" style="background-color: #fef3c7; border: 1px solid #fde68a; color: #92400e; border-radius: 12px; padding: 16px 20px;">
+                <i class="bi bi-clock-history fs-4 me-3" style="color: #d97706;"></i>
+                <div>
+                    <strong>Solicitud en revisión:</strong> Ya tienes una solicitud de actualización de ubicación (departamento, municipio, distrito) pendiente de aprobación. No se pueden realizar modificaciones hasta que la solicitud actual sea procesada.
+                </div>
+            </div>
+        @endif
+
         <!-- Alert Banners -->
         @if(session('error'))
             <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert" style="margin-bottom: 24px; border-radius: var(--radius-md); padding: 12px 20px; border: 1px solid rgba(220, 38, 38, 0.2); background-color: #fef2f2; color: #dc2626;">
@@ -165,11 +174,13 @@
         <form action="{{ route('ubicacion.update') }}" method="POST">
             @method('put')
             @csrf
-            <livewire:ubicacion />
+            <div @if(!empty($tieneSolicitudPendiente) && $tieneSolicitudPendiente) style="pointer-events: none; opacity: 0.65;" @endif>
+                <livewire:ubicacion />
+            </div>
 
             <div class="btn-container">
                 <a href="{{ route('dashboard.sitio.inicio') }}" class="btn-cancel">Cancelar</a>
-                <button type="submit" class="btn-submit">
+                <button type="submit" class="btn-submit" @if(!empty($tieneSolicitudPendiente) && $tieneSolicitudPendiente) disabled style="opacity: 0.55; cursor: not-allowed;" @endif>
                     Guardar Cambios <i class="bi bi-check-lg" style="font-size: 16px;"></i>
                 </button>
             </div>

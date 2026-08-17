@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class GpsControlador extends Controller
 {
-    public function inicio()
+    public function inicio(SolicitudService $solicitudService)
     {
 
         $sitio = Sitio::find(session('id_sitio')); // Obtener el sitio desde la sesión
@@ -23,8 +23,20 @@ class GpsControlador extends Controller
         $gps = SitioPerfil::where('id', $sitio->id)
             ->select('latitud', 'longitud')
             ->first();
+
+        $perfil = $sitio->perfil;
+        $tieneSolicitudPendiente = false;
+        if ($perfil) {
+            $tieneSolicitudPendiente = $solicitudService->tieneSolicitudPendiente(
+                $sitio->id,
+                get_class($perfil),
+                $perfil->id,
+                null,
+                ['latitud', 'longitud']
+            );
+        }
         
-        return view('admin.dashboard.gps.inicio', compact('sitio', 'gps'));
+        return view('admin.dashboard.gps.inicio', compact('sitio', 'gps', 'tieneSolicitudPendiente'));
 
     }
 

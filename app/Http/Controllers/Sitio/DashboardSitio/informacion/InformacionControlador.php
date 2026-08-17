@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class InformacionControlador extends Controller
 {
-    public function inicio()
+    public function inicio(SolicitudService $solicitudService)
     {
 
         $sitio = Sitio::find(session('id_sitio')); // Obtener el sitio desde la sesión
@@ -21,7 +21,18 @@ class InformacionControlador extends Controller
             return redirect()->route('dashboard');
         }        
 
-        return view('admin.dashboard.informacion.inicio', compact('sitio'));
+        $tieneSolicitudPendiente = false;
+        if ($sitio) {
+            $tieneSolicitudPendiente = $solicitudService->tieneSolicitudPendiente(
+                $sitio->id,
+                get_class($sitio),
+                $sitio->id,
+                null,
+                ['nombre', 'slug', 'descripcion_corta']
+            );
+        }
+
+        return view('admin.dashboard.informacion.inicio', compact('sitio', 'tieneSolicitudPendiente'));
     }
 
     public function update(Request $request, SolicitudService $solicitudService)

@@ -11,21 +11,28 @@ use App\Services\SolicitudService;
 
 class ServiciosControlador extends Controller
 {
-    public function inicio()
+    public function inicio(SolicitudService $solicitudService)
     {
-
         $sitio = Sitio::find(session('id_sitio')); // Obtener el sitio desde la sesión
         if(!$sitio)
         {
             return redirect()->route('dashboard');
         }
 
-        $sitio = Sitio::find(session('id_sitio')); // Obtener el sitio desde la sesión       
-
         $servicios = Servicio::where('estado', 'ACTIVO')->get();
-        $selectedServicios = $sitio->perfil->servicios->pluck('id')->toArray();
+        $selectedServicios = $sitio->perfil ? $sitio->perfil->servicios->pluck('id')->toArray() : [];
 
-        return view('admin.dashboard.servicio.inicio', compact('servicios', 'selectedServicios', 'sitio'));
+        $tieneSolicitudPendiente = false;
+        if ($sitio && $sitio->perfil) {
+            $tieneSolicitudPendiente = $solicitudService->tieneSolicitudPendiente(
+                $sitio->id,
+                get_class($sitio->perfil),
+                $sitio->perfil->id,
+                'servicios'
+            );
+        }
+
+        return view('admin.dashboard.servicio.inicio', compact('servicios', 'selectedServicios', 'sitio', 'tieneSolicitudPendiente'));
     }
 
 

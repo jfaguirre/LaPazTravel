@@ -21,6 +21,15 @@
             </a>
         </div>
 
+        @if(!empty($tieneSolicitudPendiente) && $tieneSolicitudPendiente)
+            <div class="alert alert-warning mb-4 d-flex align-items-center" role="alert" style="background-color: #fef3c7; border: 1px solid #fde68a; color: #92400e; border-radius: 12px; padding: 16px 20px;">
+                <i class="bi bi-clock-history fs-4 me-3" style="color: #d97706;"></i>
+                <div>
+                    <strong>Solicitud en revisión:</strong> Ya tienes una solicitud de actualización de información general y de contacto pendiente de aprobación. No se pueden realizar modificaciones hasta que la solicitud actual sea procesada.
+                </div>
+            </div>
+        @endif
+
         <form id="form-datos-basicos" class="form-card" action="{{ route('informacion.update') }}" method="POST">
             @csrf
             @method('put')
@@ -43,7 +52,8 @@
                     placeholder="Ej: Cascada El Salto" 
                     value="{{ old('nombre', $sitio->nombre) }}"
                     required
-                    oninput="updateSlug(this.value); updateCounter(this, 'counter-nombre')"                    
+                    oninput="updateSlug(this.value); updateCounter(this, 'counter-nombre')"
+                    @if(!empty($tieneSolicitudPendiente) && $tieneSolicitudPendiente) disabled @endif
                 >
                 <div class="char-counter" id="counter-nombre">0 / 50</div>
             </div>
@@ -64,6 +74,7 @@
                     required
                     readonly
                     oninput="updateCounter(this, 'counter-slug')"
+                    @if(!empty($tieneSolicitudPendiente) && $tieneSolicitudPendiente) disabled @endif
                 >
                 <div class="slug-preview" id="slug-preview">
                     <i class="bi bi-globe2"></i> https://lapaztravel.com/<span id="slug-text"></span>
@@ -84,6 +95,7 @@
                     required
                     maxlength="200" 
                     oninput="updateCounter(this, 'counter-desc')"
+                    @if(!empty($tieneSolicitudPendiente) && $tieneSolicitudPendiente) disabled @endif
                 >{{ old('descripcion_corta', $sitio->descripcion_corta) }}</textarea>
                 <div class="char-counter" id="counter-desc">0 caracteres</div>
             </div>
@@ -102,7 +114,8 @@
                     maxlength="9" 
                     placeholder="Ej: 23340866" 
                     value="{{ old('telefono', optional($sitio->perfil)->telefono) }}"                      
-                    oninput="updateCounter(this, 'counter-telefono')"            
+                    oninput="updateCounter(this, 'counter-telefono')"
+                    @if(!empty($tieneSolicitudPendiente) && $tieneSolicitudPendiente) disabled @endif
                 >
                 <div class="char-counter" id="counter-telefono">0 / 9</div>
             </div>
@@ -120,7 +133,8 @@
                     maxlength="100" 
                     placeholder="Ej: info@miagencia.com, o personal, como usuario@gmail.com"
                     value="{{ old('correo', optional($sitio->perfil)->correo_institucional) }}"                      
-                    oninput="updateCounter(this, 'counter-correo')"            
+                    oninput="updateCounter(this, 'counter-correo')"
+                    @if(!empty($tieneSolicitudPendiente) && $tieneSolicitudPendiente) disabled @endif
                 >
                 <div class="char-counter" id="counter-correo">0 / 100</div>
             </div>
@@ -138,7 +152,8 @@
                     maxlength="150" 
                     placeholder="Ej: Carretera El Litoral. Km 57. Canton El Salto. Caserio San Jose"
                     value="{{ old('direccion', optional($sitio->perfil)->direccion) }}"                      
-                    oninput="updateCounter(this, 'counter-direccion')"            
+                    oninput="updateCounter(this, 'counter-direccion')"
+                    @if(!empty($tieneSolicitudPendiente) && $tieneSolicitudPendiente) disabled @endif
                 >
                 <div class="char-counter" id="counter-direccion">0 / 150</div>
             </div>
@@ -149,7 +164,7 @@
                 <a class="btn btn-dark" href="{{ route('dashboard.sitio.inicio') }}">                    
                     Cancelar
                 </a>
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-primary" @if(!empty($tieneSolicitudPendiente) && $tieneSolicitudPendiente) disabled style="opacity: 0.55; cursor: not-allowed;" @endif>
                     Guardar Cambios
                 </button>                               
             </div>

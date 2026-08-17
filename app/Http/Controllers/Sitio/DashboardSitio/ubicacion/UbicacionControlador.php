@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 class UbicacionControlador extends Controller
 {
 
-    public function index()
+    public function index(SolicitudService $solicitudService)
     {
 
         $sitio = Sitio::find(session('id_sitio')); // Obtener el sitio desde la sesión
@@ -21,7 +21,19 @@ class UbicacionControlador extends Controller
             return redirect()->route('dashboard');
         }
 
-        return view('admin.dashboard.ubicacion.inicio');
+        $perfil = SitioPerfil::where('id_sitio', $sitio->id)->first();
+        $tieneSolicitudPendiente = false;
+        if ($perfil) {
+            $tieneSolicitudPendiente = $solicitudService->tieneSolicitudPendiente(
+                $sitio->id,
+                get_class($perfil),
+                $perfil->id,
+                null,
+                ['id_departamento', 'id_municipio', 'id_distrito']
+            );
+        }
+
+        return view('admin.dashboard.ubicacion.inicio', compact('sitio', 'tieneSolicitudPendiente'));
     }
 
     public function update(Request $request, SolicitudService $solicitudService)

@@ -10,7 +10,7 @@ use App\Services\SolicitudService;
 
 class CategoriasControlador extends Controller
 {
-     public function inicio()
+     public function inicio(SolicitudService $solicitudService)
     {             
         $sitio = Sitio::find(session('id_sitio')); // Obtener el sitio desde la sesión
         if(!$sitio)
@@ -19,9 +19,19 @@ class CategoriasControlador extends Controller
         }
 
         $categorias = Categoria::where('estado', 'ACTIVO')->get();
-        $selectedCategorias = $sitio->perfil->categorias->pluck('id')->toArray();
+        $selectedCategorias = $sitio->perfil ? $sitio->perfil->categorias->pluck('id')->toArray() : [];
 
-        return view('admin.dashboard.categoria.inicio', compact('sitio', 'categorias', 'selectedCategorias'));
+        $tieneSolicitudPendiente = false;
+        if ($sitio && $sitio->perfil) {
+            $tieneSolicitudPendiente = $solicitudService->tieneSolicitudPendiente(
+                $sitio->id,
+                get_class($sitio->perfil),
+                $sitio->perfil->id,
+                'categorias'
+            );
+        }
+
+        return view('admin.dashboard.categoria.inicio', compact('sitio', 'categorias', 'selectedCategorias', 'tieneSolicitudPendiente'));
     }
 
 

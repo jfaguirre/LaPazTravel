@@ -140,6 +140,15 @@
             </a>
         </div>
 
+        @if(!empty($tieneSolicitudPendiente) && $tieneSolicitudPendiente)
+            <div class="alert alert-warning mb-4 d-flex align-items-center" role="alert" style="background-color: #fef3c7; border: 1px solid #fde68a; color: #92400e; border-radius: 12px; padding: 16px 20px;">
+                <i class="bi bi-clock-history fs-4 me-3" style="color: #d97706;"></i>
+                <div>
+                    <strong>Solicitud en revisión:</strong> Ya tienes una solicitud de actualización de categorías pendiente de aprobación. No se pueden realizar modificaciones hasta que la solicitud actual sea procesada.
+                </div>
+            </div>
+        @endif
+
         <!-- Formulario -->
         <form action="{{ route('categoria.update') }}" method="POST">
             @csrf
@@ -150,7 +159,7 @@
                     <p style="margin: 0; color: var(--neutro-700); font-weight: 600;">No hay categorías disponibles en este momento.</p>
                 </div>
             @else
-                <div class="categories-grid">
+                <div class="categories-grid" @if(!empty($tieneSolicitudPendiente) && $tieneSolicitudPendiente) style="pointer-events: none; opacity: 0.65;" @endif>
                     @foreach($categorias as $cat)
                         @php
                             $colorHex = $cat->color ?? '#0F52BA';
@@ -161,7 +170,7 @@
                              style="--cat-color: {{ $colorHex }}; --cat-color-light: {{ $colorLight }};"
                              data-id="{{ $cat->id }}">
                              
-                            <input type="checkbox" name="categorias[]" value="{{ $cat->id }}" class="hidden-checkbox d-none" @if(in_array($cat->id, $selectedCategorias)) checked @endif>
+                            <input type="checkbox" name="categorias[]" value="{{ $cat->id }}" class="hidden-checkbox d-none" @if(in_array($cat->id, $selectedCategorias)) checked @endif @if(!empty($tieneSolicitudPendiente) && $tieneSolicitudPendiente) disabled @endif>
                             
                             <div class="icon-container">
                                 @if(Str::startsWith($cat->icono, 'bi-'))
@@ -179,7 +188,7 @@
 
             <div class="btn-container">
                 <a href="{{ route('dashboard.sitio.inicio') }}" class="btn-cancel">Cancelar</a>
-                <button type="submit" class="btn-submit">
+                <button type="submit" class="btn-submit" @if(!empty($tieneSolicitudPendiente) && $tieneSolicitudPendiente) disabled style="opacity: 0.55; cursor: not-allowed;" @endif>
                     Guardar Cambios <i class="bi bi-check-lg" style="font-size: 16px;"></i>
                 </button>
             </div>

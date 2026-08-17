@@ -12,9 +12,8 @@ use App\Services\SolicitudService;
 class ReglasControlador extends Controller
 {
     // Funcion para agregar reglas al perfil del sitio.
-    public function inicio()
+    public function inicio(SolicitudService $solicitudService)
     {        
-        
         $sitio = Sitio::find(session('id_sitio')); // Obtener el sitio desde la sesión
         if(!$sitio)
         {
@@ -31,7 +30,17 @@ class ReglasControlador extends Controller
         }
         $selectedReglas = array_keys($selectedReglasMap);
 
-        return view('admin.dashboard.regla.inicio', compact('reglas', 'selectedReglas', 'selectedReglasMap', 'sitio'));
+        $tieneSolicitudPendiente = false;
+        if ($sitio && $sitio->perfil) {
+            $tieneSolicitudPendiente = $solicitudService->tieneSolicitudPendiente(
+                $sitio->id,
+                get_class($sitio->perfil),
+                $sitio->perfil->id,
+                'reglas'
+            );
+        }
+
+        return view('admin.dashboard.regla.inicio', compact('reglas', 'selectedReglas', 'selectedReglasMap', 'sitio', 'tieneSolicitudPendiente'));
     }
 
 
