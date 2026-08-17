@@ -64,12 +64,12 @@
             Servicios del Sitio
         </a>
 
-        <a href="{{ route('servicio.inicio') }}" class="sidebar__nav-item {{ request()->routeIs('servicio.inicio') ? 'active' : '' }}">            
+        <a href="{{ route('horario.inicio') }}" class="sidebar__nav-item {{ request()->routeIs('horario.inicio') ? 'active' : '' }}">            
             <i class="bi bi-calendar3 sidebar__nav-icon"></i>
             Horarios
         </a>
 
-        <a href="{{ route('servicio.inicio') }}" class="sidebar__nav-item {{ request()->routeIs('servicio.inicio') ? 'active' : '' }}">                        
+        <a href="{{ route('precio.inicio') }}" class="sidebar__nav-item {{ request()->routeIs('precio.inicio') ? 'active' : '' }}">                        
             <i class="bi bi-cash-coin sidebar__nav-icon"></i>
             Precios
         </a>

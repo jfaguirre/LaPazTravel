@@ -3,7 +3,6 @@
 
 @section('title', 'Nombre del sitio - La Paz Travel')
 
-@section('contenido')
 <style>
     .lpc-site {
         --lpc-primary: #0f766e;
@@ -203,6 +202,8 @@
     }
 </style>
 
+@section('contenido')
+
 <div class="lpc-site">
 
     <!-- PORTADA -->
@@ -292,10 +293,41 @@
                         <div class="lpc-info-item">
                             <dt>Horarios</dt>
                             <dd>
-                                <!-- Reemplazar por horarios -->
-                                Ejemplos de horarios:<br>
-                                Sábado: 9:00 - 14:00<br>
-                                Domingo: Cerrado
+                                @if($sitio->perfil && $sitio->perfil->horarios)
+                                    @php
+                                        $horariosData = is_array($sitio->perfil->horarios)
+                                            ? $sitio->perfil->horarios
+                                            : json_decode($sitio->perfil->horarios, true);
+                                    @endphp
+                                    @if(is_array($horariosData) && count($horariosData) > 0)
+                                        @foreach($horariosData as $dia => $horas)
+                                            <div><strong>{{ ucfirst($dia) }}:</strong> {{ $horas }}</div>
+                                        @endforeach
+                                    @else
+                                        <span class="text-muted">No especificado</span>
+                                    @endif
+                                @else
+                                    <span class="text-muted">No especificado</span>
+                                @endif
+                            </dd>
+                        </div>
+
+                        <!-- PRECIOS / TARIFAS -->
+                        <div class="lpc-info-item">
+                            <dt>Precios / Tarifas</dt>
+                            <dd>
+                                @if($sitio->perfil && $sitio->perfil->precios->isNotEmpty())
+                                    @foreach($sitio->perfil->precios as $precio)
+                                        <div>
+                                            <strong>{{ $precio->categoria }}:</strong> ${{ number_format($precio->precioEntrada, 2) }}
+                                            @if($precio->descripcion)
+                                                <small class="text-muted">({{ $precio->descripcion }})</small>
+                                            @endif
+                                        </div>
+                                    @endforeach
+                                @else
+                                    <span class="text-muted">No especificados</span>
+                                @endif
                             </dd>
                         </div>
 
@@ -317,4 +349,5 @@
     </div>
 
 </div>
+    
 @endsection

@@ -595,6 +595,9 @@
 
             {{-- Editar portada --}}
             <div class="icono-portada-edit">
+                <a class="btn btn-dark" href="{{ route('sitio.show', $sitio->slug) }}" title="Vista previa">
+                    <i class="bi bi-eye"></i>
+                </a>
                 <a href="#" onclick="openPortadaModal(event)" title="Editar foto de portada">
                     <span>Editar</span>
                     <i class="bi bi-pencil-square"></i>

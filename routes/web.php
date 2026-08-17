@@ -6,11 +6,12 @@ use App\Http\Controllers\Sitio\Dashboard\DashboardControlador;
 use App\Http\Controllers\Super\Dashboard\SuDashboardController;
 use App\Http\Controllers\Super\SuController;
 use App\Http\Controllers\Super\Usuario\SuUsuarioController;
-
 use App\Http\Controllers\Sitio\DashboardSitio\categorias\CategoriasControlador;
 use App\Http\Controllers\sitio\dashboardsitio\DashboardSitioControlador;
 use App\Http\Controllers\sitio\dashboardsitio\gps\GpsControlador;
-use App\Http\Controllers\Sitio\DashboardSitio\informacion\InformacionControlador;
+use App\Http\Controllers\sitio\dashboardsitio\informacion\InformacionControlador;
+use App\Http\Controllers\sitio\dashboardsitio\horarios\HorarioControlador;
+use App\Http\Controllers\sitio\dashboardsitio\precios\PrecioControlador;
 use App\Http\Controllers\sitio\dashboardsitio\portada\PortadaControlador;
 use App\Http\Controllers\Sitio\DashboardSitio\reglas\ReglasControlador;
 use App\Http\Controllers\Sitio\DashboardSitio\servicios\ServiciosControlador;
@@ -78,6 +79,14 @@ Route::view('/lapaz/este', 'paginas.regiones.LaPazEste')->name('la-paz-este');
             // CRUD GPS
             Route::get('dashboard/sitio/gps/inicio', [GpsControlador::class, 'inicio'])->name('gps.inicio');
             Route::put('dashboard/sitio/gps/update', [GpsControlador::class, 'update'])->name('gps.update');
+
+            // CRUD Horarios
+            Route::get('dashboard/sitio/horario/inicio', [HorarioControlador::class, 'inicio'])->name('horario.inicio');
+            Route::put('dashboard/sitio/horario/update', [HorarioControlador::class, 'update'])->name('horario.update');
+
+            // CRUD Precios
+            Route::get('dashboard/sitio/precio/inicio', [PrecioControlador::class, 'inicio'])->name('precio.inicio');
+            Route::put('dashboard/sitio/precio/update', [PrecioControlador::class, 'update'])->name('precio.update');
 
             // CRUD Portada            
             Route::put('dashboard/sitio/portada/update', [PortadaControlador::class, 'update'])->name('portada.update');
