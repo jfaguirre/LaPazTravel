@@ -37,11 +37,11 @@ Route::view('/lapaz/este', 'paginas.regiones.LaPazEste')->name('la-paz-este');
             Route::get('/dashboard/sitio/create', [SitioControlador::class, 'create'])->name('sitio.create');
             Route::post('/dashboard/sitio/create', [SitioControlador::class, 'store'])->name('sitio.store');
             Route::get('/dashboard/sitio/edit', [SitioControlador::class, 'edit'])->name('sitio.edit');
-            Route::put('/dashboard/sitio/update', [SitioControlador::class, 'update'])->name('sitio.update');
+            Route::put('/dashboard/sitio/edit', [SitioControlador::class, 'update'])->name('sitio.update');
 
             // Rutas del Perfil del Sitio (Categorías, Reglas, Servicios y ubicacion para el sitio del Usuario)
-            Route::get('/dashboard/perfil/ubicacion/agregar', [PerfilSitioControlador::class, 'ubicacion_sitio'])->name('perfil.ubicacion.agregar');
-            Route::post('/dashboard/perfil/ubicacion/store', [PerfilSitioControlador::class, 'guardar_ubicacion'])->name('perfil.ubicacion.store');
+            Route::get('/dashboard/perfil/ubicacion', [PerfilSitioControlador::class, 'ubicacion_sitio'])->name('perfil.ubicacion.agregar');            
+            Route::post('/dashboard/perfil/ubicacion', [PerfilSitioControlador::class, 'guardar_ubicacion'])->name('perfil.ubicacion.store');
 
             Route::get('/dashboard/perfil/categoria', [PerfilSitioControlador::class, 'agregarCategoria'])->name('perfil.categoria.agregar');
             Route::post('/dashboard/perfil/categoria', [PerfilSitioControlador::class, 'guardarCategoria'])->name('perfil.categoria.guardar');
@@ -57,39 +57,39 @@ Route::view('/lapaz/este', 'paginas.regiones.LaPazEste')->name('la-paz-este');
         
             Route::get('/dashboard/sitio/panel', [DashboardSitioControlador::class, 'inicio'])->name('dashboard.sitio.inicio');
             // CRUD Ubicacion
-            Route::get('dashboard/sitio/ubicacion/inicio', [UbicacionControlador::class, 'index'])->name('ubicacion.inicio');
-            Route::put('dashboard/sitio/ubicacion/update', [UbicacionControlador::class, 'update'])->name('ubicacion.update');
+            Route::get('dashboard/sitio/ubicacion', [UbicacionControlador::class, 'index'])->name('ubicacion.inicio');
+            Route::put('dashboard/sitio/ubicacion', [UbicacionControlador::class, 'update'])->name('ubicacion.update');
 
             // CRUD Categoria
-            Route::get('dashboard/sitio/categoria/inicio', [CategoriasControlador::class, 'inicio'])->name('categoria.inicio');
-            Route::put('dashboard/sitio/categoria/update', [CategoriasControlador::class, 'update'])->name('categoria.update');
+            Route::get('dashboard/sitio/categoria', [CategoriasControlador::class, 'inicio'])->name('categoria.inicio');
+            Route::put('dashboard/sitio/categoria', [CategoriasControlador::class, 'update'])->name('categoria.update');
 
             // CRUD Reglas
-            Route::get('dashboard/sitio/regla/inicio', [ReglasControlador::class, 'inicio'])->name('regla.inicio');
-            Route::put('dashboard/sitio/regla/update', [ReglasControlador::class, 'update'])->name('regla.update');
+            Route::get('dashboard/sitio/regla', [ReglasControlador::class, 'inicio'])->name('regla.inicio');
+            Route::put('dashboard/sitio/regla', [ReglasControlador::class, 'update'])->name('regla.update');
 
             // CRUD Servicios
-            Route::get('dashboard/sitio/servicio/inicio', [ServiciosControlador::class, 'inicio'])->name('servicio.inicio');
-            Route::put('dashboard/sitio/servicio/update', [ServiciosControlador::class, 'update'])->name('servicio.update');
+            Route::get('dashboard/sitio/servicio', [ServiciosControlador::class, 'inicio'])->name('servicio.inicio');
+            Route::put('dashboard/sitio/servicio', [ServiciosControlador::class, 'update'])->name('servicio.update');
 
             // CRUD Informacion
-            Route::get('dashboard/sitio/informacion/inicio', [InformacionControlador::class, 'inicio'])->name('informacion.inicio');
-            Route::put('dashboard/sitio/informacion/update', [InformacionControlador::class, 'update'])->name('informacion.update');
+            Route::get('dashboard/sitio/informacion', [InformacionControlador::class, 'inicio'])->name('informacion.inicio');
+            Route::put('dashboard/sitio/informacion', [InformacionControlador::class, 'update'])->name('informacion.update');
 
             // CRUD GPS
-            Route::get('dashboard/sitio/gps/inicio', [GpsControlador::class, 'inicio'])->name('gps.inicio');
-            Route::put('dashboard/sitio/gps/update', [GpsControlador::class, 'update'])->name('gps.update');
+            Route::get('dashboard/sitio/gps', [GpsControlador::class, 'inicio'])->name('gps.inicio');
+            Route::put('dashboard/sitio/gps', [GpsControlador::class, 'update'])->name('gps.update');
 
             // CRUD Horarios
-            Route::get('dashboard/sitio/horario/inicio', [HorarioControlador::class, 'inicio'])->name('horario.inicio');
-            Route::put('dashboard/sitio/horario/update', [HorarioControlador::class, 'update'])->name('horario.update');
+            Route::get('dashboard/sitio/horario', [HorarioControlador::class, 'inicio'])->name('horario.inicio');
+            Route::put('dashboard/sitio/horario', [HorarioControlador::class, 'update'])->name('horario.update');
 
             // CRUD Precios
-            Route::get('dashboard/sitio/precio/inicio', [PrecioControlador::class, 'inicio'])->name('precio.inicio');
-            Route::put('dashboard/sitio/precio/update', [PrecioControlador::class, 'update'])->name('precio.update');
+            Route::get('dashboard/sitio/precio', [PrecioControlador::class, 'inicio'])->name('precio.inicio');
+            Route::put('dashboard/sitio/precio', [PrecioControlador::class, 'update'])->name('precio.update');
 
             // CRUD Portada            
-            Route::put('dashboard/sitio/portada/update', [PortadaControlador::class, 'update'])->name('portada.update');
+            Route::put('dashboard/sitio/portada', [PortadaControlador::class, 'update'])->name('portada.update');
 
         });
 
@@ -101,9 +101,8 @@ Route::view('/lapaz/este', 'paginas.regiones.LaPazEste')->name('la-paz-este');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-        // Iniciar datos del perfil minimos
-        Route::get('dashboard/perfil/inicio', [PerfilSitioControlador::class, 'inicio'])->name('perfil.inicio');
-        Route::get('dashboard/perfil/create', [PerfilSitioControlador::class, 'perfilSitio'])->name('perfil.create');        
+        // Crear perfil
+        // Route::get('dashboard/perfil/create', [PerfilSitioControlador::class, 'perfilSitio'])->name('perfil.create');        
         
 
         Route::middleware(['role:su'])->prefix('super')->name('super.')->group(function () {

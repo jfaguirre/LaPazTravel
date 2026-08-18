@@ -140,7 +140,8 @@
 
         <!-- Formulario -->
         <form action="{{ route('perfil.ubicacion.store') }}" method="POST">
-            @csrf
+            @csrf           
+
             <livewire:ubicacion />
 
         <div class="btn-container">

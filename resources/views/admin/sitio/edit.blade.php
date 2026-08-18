@@ -74,11 +74,10 @@
 
 
             <!-- Botones -->
-            <div class="btn-actions">
-                <a class="btn btn-dark" href="{{ route('perfil.create') }}">
-                    <i class="bi bi-arrow-left-circle"></i>
-                    Regresar
-                </a>
+            <div class="btn-actions">                
+                <a class="btn btn-dark" href="{{ route('perfil.create') }}">                    
+                    Cancelar
+                </a>                
                 <button type="submit" class="btn btn-primary">
                     Guardar Cambios
                 </button>                               

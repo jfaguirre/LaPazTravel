@@ -141,7 +141,7 @@
 
         <!-- Formulario -->
         <form action="{{ route('perfil.categoria.guardar') }}" method="POST">
-            @csrf
+            @csrf            
 
             @if($categorias->isEmpty())
                 <div style="background-color: var(--primario-50); border-radius: var(--radius-md); padding: 24px; border: 1px solid var(--primario-100); text-align: center;">

@@ -11,11 +11,22 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                            {{ __('Dashboard') }}
-                        </x-nav-link>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">                    
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        {{ __('Dashboard') }}
+                    </x-nav-link>
                 </div>
+
+                <!-- Navigation Links Super usuario -->
+                @can('ver dashboard su')
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">                    
+                        <x-nav-link :href="route('super.dashboard')" :active="request()->routeIs('super.dashboard')">
+                            {{ __('Super usuario') }}
+                        </x-nav-link>
+                    </div>    
+                @endcan
+                
+
             </div>
 
             <!-- Settings Dropdown -->

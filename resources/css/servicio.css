@@ -23,6 +23,7 @@ body {
     padding: 40px;
     box-shadow: var(--sombra-card);
     border: 1px solid var(--border);
+    
 }
 
 .form-section-title {

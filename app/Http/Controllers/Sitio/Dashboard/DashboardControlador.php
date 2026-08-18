@@ -12,8 +12,7 @@ class DashboardControlador extends Controller
     public function dashboard()
     {
 
-        $sitios = Auth::user()->sitios;
-
+        $sitios = Auth::user()->sitios;        
         return view('dashboard', compact('sitios'));
     }
 }

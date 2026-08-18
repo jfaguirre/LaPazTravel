@@ -3,8 +3,21 @@
 
 @section('contenido')
 
-<div id="page-dashboard" class="page">
-    <div class="dashboard-card">
+
+<div id="page-dashboard" class="page">    
+    
+
+    @if($sitios->count() == 0)
+    <div class="dashboard-card">               
+        <section class="crear-sitio" style="display: flex; flex-direction:column; align-items: center; gap:20px;">
+            <img src="{{asset("assets/images/sin-sitio.svg")}}" alt="Aun no tiene un sitio" style="width: 250px">
+            <h4>¿Aun no tienes tu sitio?</h4>
+            <p>Crea tu primer sitio para que los usuarios lo conozcan.</p>
+            <a href="{{ route('sitio.create') }}" class="btn btn-primary">Crear mi sitio turistico</a>
+        </section>
+    </div>
+    @else
+    <div class="dashboard-card">               
         <div class="dashboard-grid">
 
            @forelse ($sitios as $sitio)
@@ -19,8 +32,7 @@
                 }
             @endphp
 
-            <div class="card-sitio" style="background-image: {{ $fondo }};">
-            
+            <div class="card-sitio" style="background-image: {{ $fondo }};">            
                 <section class="superior">                  
                     <div class="{{ match($sitio->estado) {
                         'APROBADO'   => 'sitio-estado-aprobado',
@@ -38,7 +50,7 @@
                 </section>
 
                 <section class="inferior">
-                    <div class="contenido">
+                    <div class="contenido">                        
                         <h5 class="{{ $sitio->perfil->foto_portada ? 'titulo_card' : ''}}">{{ $sitio->nombre }}</h5>
                         <p class="{{ $sitio->perfil->foto_portada ? 'parrafo_card' : ''}}">{{ $sitio->descripcion_corta }}</p>                        
 
@@ -72,6 +84,8 @@
             </a>
         </div>
     </div>
+    @endif
+
 </div>
 
 @endsection
