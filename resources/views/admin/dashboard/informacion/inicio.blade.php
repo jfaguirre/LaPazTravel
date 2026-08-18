@@ -165,7 +165,7 @@
                     Cancelar
                 </a>
                 <button type="submit" class="btn btn-primary" @if(!empty($tieneSolicitudPendiente) && $tieneSolicitudPendiente) disabled style="opacity: 0.55; cursor: not-allowed;" @endif>
-                    Guardar Cambios
+                    <i class="bi bi-send-fill me-1"></i> Guardar solicitud
                 </button>                               
             </div>
 

@@ -389,7 +389,7 @@
             <!-- Vista previa en tiempo real -->
             <div class="preview-card">
                 <div class="preview-header">
-                    <i class="bi bi-eye-fill"></i> Vista previa pública de horarios
+                    <i class="bi bi-eye-fill"></i> Vista previa pubilca de horarios
                 </div>
                 <div id="preview-lista">
                     <!-- Se llena dinámicamente -->
@@ -402,7 +402,7 @@
                     Cancelar
                 </a>
                 <button type="submit" class="btn btn-primary" @if($tieneSolicitudPendiente) disabled @endif>
-                    <i class="bi bi-send-fill me-1"></i> Guardar y Enviar a Aprobación
+                    <i class="bi bi-send-fill me-1"></i> Guardar solicitud
                 </button>
             </div>
         </form>

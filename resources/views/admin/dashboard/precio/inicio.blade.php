@@ -296,7 +296,7 @@
                     Cancelar
                 </a>
                 <button type="submit" class="btn btn-primary" @if($tieneSolicitudPendiente) disabled @endif>
-                    <i class="bi bi-send-fill me-1"></i> Guardar y Enviar a Aprobación
+                    <i class="bi bi-send-fill me-1"></i> Guardar solicitud
                 </button>
             </div>
         </form>
@@ -329,8 +329,7 @@
                     required oninput="actualizarPreviewPrecios()" ${disabledAttr}>
             </td>
             <td>
-                <div class="input-group input-group-sm">
-                    <span class="input-group-text">$</span>
+                <div class="input-group input-group-sm d-flex flex-row">                   
                     <input type="number" step="0.01" min="0" name="precios[${index}][precioEntrada]" value="${precioEntrada !== '' ? precioEntrada : ''}" 
                         placeholder="0.00" class="input-precio-monto" required oninput="actualizarPreviewPrecios()" ${disabledAttr}>
                 </div>
