@@ -125,22 +125,25 @@ Route::view('/lapaz/este', 'paginas.regiones.LaPazEste')->name('la-paz-este');
             Route::patch('/sitio/{id}/pendiente', [SuController::class, 'pendiente'])->name('sitio.pendiente');
 
             Route::resource('usuario', SuUsuarioController::class);
+
+            // Registro de Categorías (Admin o Configuración General)
+            Route::get('/dashboard/sitio/categoria', [CategoriaControlador::class, 'create'])->name('categoria.create');
+            Route::post('/dashboard/sitio/categoria', [CategoriaControlador::class, 'store'])->name('categoria.store');
+
+            // Registro de Reglas (Admin o Configuración General)
+            Route::get('/dashboard/regla/create', [ReglaControlador::class, 'create'])->name('regla.create');
+            Route::post('/dashboard/regla/create', [ReglaControlador::class, 'store'])->name('regla.store');
+
+            // Registro de Servicios (Admin o Configuración General)
+            Route::get('/dashboard/servicio/create', [ServicioControlador::class, 'create'])->name('servicio.create');
+            Route::post('/dashboard/servicio/create', [ServicioControlador::class, 'store'])->name('servicio.store');
     
         });
+
+
         Route::get('dashboard/perfil/create', [PerfilSitioControlador::class, 'perfilSitio'])->name('perfil.create');
         Route::post('dashboard/perfil/create', [PerfilSitioControlador::class, 'perfil_session'])->name('perfil.session');
 
-        // Registro de Categorías (Admin o Configuración General)
-        Route::get('/dashboard/sitio/categoria', [CategoriaControlador::class, 'create'])->name('categoria.create');
-        Route::post('/dashboard/sitio/categoria', [CategoriaControlador::class, 'store'])->name('categoria.store');
-
-        // Registro de Reglas (Admin o Configuración General)
-        Route::get('/dashboard/regla/create', [ReglaControlador::class, 'create'])->name('regla.create');
-        Route::post('/dashboard/regla/create', [ReglaControlador::class, 'store'])->name('regla.store');
-
-        // Registro de Servicios (Admin o Configuración General)
-        Route::get('/dashboard/servicio/create', [ServicioControlador::class, 'create'])->name('servicio.create');
-        Route::post('/dashboard/servicio/create', [ServicioControlador::class, 'store'])->name('servicio.store');
 
         // Aprobación de Solicitudes (Super Admin)
         Route::get('/super/solicitudes', [SolicitudControlador::class, 'index'])->name('super.solicitudes.index');

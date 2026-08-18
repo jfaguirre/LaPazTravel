@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.su')
 @section('title', 'Crear categoría')
 
 @push('styles')
@@ -9,7 +9,7 @@
 
 <div class="pagina">
     <div class="form-container">      
-        <form id="form-categoria" class="form-card" action="{{ route('categoria.store') }}" method="POST" enctype="multipart/form-data">
+        <form id="form-categoria" class="form-card" action="{{ route('super.categoria.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-section-title">                
                 <i class="bi bi-tag-fill"></i> Nueva Categoría
