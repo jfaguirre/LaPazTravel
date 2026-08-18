@@ -135,9 +135,8 @@ https://leafletjs.com/
 ```bash
 npm install leaflet
 ```
-Agregar en JS
+Agregar en resources/js
 ```bash
-// *********************************************** leaflet
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
@@ -154,7 +153,6 @@ L.Icon.Default.mergeOptions({
 });
 
 window.L = L;
-// *********************************************** leaflet
 ```
 
 
