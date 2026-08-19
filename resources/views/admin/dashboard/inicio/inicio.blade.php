@@ -341,18 +341,22 @@
         padding: 0;
         margin: 0 0 12px 0;
         display: flex;
-        flex-direction: column;
-        gap: 8px;
+        flex-wrap: wrap;
+        gap: 6px 10px;
     }
 
     .bullet-item {
-        display: flex;
-        align-items: flex-start;
-        gap: 8px;
-        font-size: 0.85rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.84rem;
         color: #334155;
         font-weight: 600;
         line-height: 1.3;
+        background: #f8fafc;
+        padding: 4px 10px;
+        border-radius: 6px;
+        border: 1px solid #f1f5f9;
     }
 
     .bullet-item i {
@@ -397,6 +401,45 @@
     .btn-edit-shortcut:hover {
         background: #E2E8F0;
         color: #0F172A;
+    }
+
+    .btn-show-more-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 4px 10px;
+        font-size: 0.78rem;
+        font-weight: 700;
+        color: #4f46e5;
+        background-color: #eef2ff;
+        border: 1px solid #c7d2fe;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    .btn-show-more-pill:hover {
+        background-color: #e0e7ff;
+        color: #4338ca;
+    }
+
+    .btn-show-more-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: none;
+        border: none;
+        color: #4f46e5;
+        font-size: 0.82rem;
+        font-weight: 700;
+        cursor: pointer;
+        padding: 4px 0;
+        margin-top: 6px;
+        margin-bottom: 8px;
+        transition: color 0.2s ease;
+    }
+    .btn-show-more-link:hover {
+        color: #3730a3;
+        text-decoration: underline;
     }
 
     /* Modal Estilos Custom Portada */
@@ -803,11 +846,16 @@
             <div class="info-item__label" style="margin-bottom: 8px;">Categorías del Sitio</div>
             @if($sitio->perfil && count($sitio->perfil->categorias) > 0)
                 <div class="item-badge-list">
-                    @foreach($sitio->perfil->categorias as $categoria)
+                    @foreach($sitio->perfil->categorias->take(3) as $categoria)
                         <span class="custom-pill" style="background-color: {{ $categoria->color ?? '#CBD5E1' }}22; color: {{ $categoria->color ?? '#475569' }}; border: 1px solid {{ $categoria->color ?? '#CBD5E1' }}44;">
                             <i class="bi bi-tag-fill"></i> {{ $categoria->nombre }}
                         </span>
                     @endforeach
+                    @if(count($sitio->perfil->categorias) > 3)
+                        <button type="button" class="btn-show-more-pill" onclick="openPerfilModal('categorias')" title="Ver todas las categorías">
+                            <i class="bi bi-plus-lg"></i> {{ count($sitio->perfil->categorias) - 3 }} más
+                        </button>
+                    @endif
                 </div>
             @else
                 <div class="empty-state-text">Sin categorías asociadas.</div>
@@ -817,28 +865,38 @@
             <div class="info-item__label" style="margin-bottom: 10px;">Servicios Ofrecidos</div>
             @if($sitio->perfil && count($sitio->perfil->servicios) > 0)
                 <ul class="bullet-list">
-                    @foreach($sitio->perfil->servicios as $servicio)
+                    @foreach($sitio->perfil->servicios->take(3) as $servicio)
                         <li class="bullet-item success">
                             <i class="bi bi-check-circle-fill"></i>
                             <span>{{ $servicio->servicio }}</span>
                         </li>
                     @endforeach
                 </ul>
+                @if(count($sitio->perfil->servicios) > 3)
+                    <button type="button" class="btn-show-more-link" onclick="openPerfilModal('servicios')">
+                        <i class="bi bi-eye-fill"></i> Ver {{ count($sitio->perfil->servicios) - 3 }} servicios más...
+                    </button>
+                @endif
             @else
                 <div class="empty-state-text">No se han registrado servicios para este sitio turístico.</div>
             @endif
 
-            <!-- REglas -->
+            <!-- Reglas -->
             <div class="info-item__label" style="margin-bottom: 10px;">Reglas e Instrucciones del Sitio</div>
             @if($sitio->perfil && count($sitio->perfil->reglas) > 0)
                 <ul class="bullet-list">
-                    @foreach($sitio->perfil->reglas as $regla)                    
+                    @foreach($sitio->perfil->reglas->take(3) as $regla)                    
                         <li class="bullet-item {{ $regla->pivot->permitido ? 'success' : 'danger' }}">
                             <i class="bi {{ $regla->pivot->permitido ? 'bi-check-circle-fill' : 'bi-x-circle-fill' }}" style="color: {{ $regla->pivot->permitido ? '#10b981' : '#ef4444' }};"></i>
                             <span>{{ $regla->regla }}</span>
                         </li>
                     @endforeach
                 </ul>
+                @if(count($sitio->perfil->reglas) > 3)
+                    <button type="button" class="btn-show-more-link" onclick="openPerfilModal('reglas')">
+                        <i class="bi bi-eye-fill"></i> Ver {{ count($sitio->perfil->reglas) - 3 }} reglas más...
+                    </button>
+                @endif
             @else
                 <div class="empty-state-text">No se han especificado normas o reglas de seguridad.</div>
             @endif
@@ -1040,5 +1098,98 @@ function handlePortadaFileSelect(input) {
     };
     reader.readAsDataURL(file);
 }
+
+function openPerfilModal(type) {
+    const modalId = 'modal' + type.charAt(0).toUpperCase() + type.slice(1);
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closePerfilModal(type) {
+    const modalId = 'modal' + type.charAt(0).toUpperCase() + type.slice(1);
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+    }
+}
 </script>
+
+<!-- Modal Categorías Completo -->
+<div id="modalCategorias" class="portada-modal-backdrop" style="display: none;" onclick="if(event.target === this) closePerfilModal('categorias')">
+    <div class="portada-modal-dialog">
+        <div class="portada-modal-header">
+            <div class="d-flex align-items-center gap-2">
+                <i class="bi bi-tags-fill text-primary" style="font-size: 1.3rem;"></i>
+                <h5 class="m-0 fw-bold text-dark">Categorías del Sitio</h5>
+            </div>
+            <button type="button" class="portada-modal-close" onclick="closePerfilModal('categorias')">&times;</button>
+        </div>
+        <div class="portada-modal-body" style="padding: 20px; overflow-y: auto; max-height: 70vh;">
+            @if($sitio->perfil && count($sitio->perfil->categorias) > 0)
+                <div class="item-badge-list d-flex flex-wrap gap-2">
+                    @foreach($sitio->perfil->categorias as $categoria)
+                        <span class="custom-pill" style="background-color: {{ $categoria->color ?? '#CBD5E1' }}22; color: {{ $categoria->color ?? '#475569' }}; border: 1px solid {{ $categoria->color ?? '#CBD5E1' }}44; padding: 6px 12px; font-size: 0.9rem;">
+                            <i class="bi bi-tag-fill"></i> {{ $categoria->nombre }}
+                        </span>
+                    @endforeach
+                </div>
+            @endif
+        </div>
+    </div>
+</div>
+
+<!-- Modal Servicios Completo -->
+<div id="modalServicios" class="portada-modal-backdrop" style="display: none;" onclick="if(event.target === this) closePerfilModal('servicios')">
+    <div class="portada-modal-dialog">
+        <div class="portada-modal-header">
+            <div class="d-flex align-items-center gap-2">
+                <i class="bi bi-grid-fill text-primary" style="font-size: 1.3rem;"></i>
+                <h5 class="m-0 fw-bold text-dark">Servicios Ofrecidos</h5>
+            </div>
+            <button type="button" class="portada-modal-close" onclick="closePerfilModal('servicios')">&times;</button>
+        </div>
+        <div class="portada-modal-body" style="padding: 20px; overflow-y: auto; max-height: 70vh;">
+            @if($sitio->perfil && count($sitio->perfil->servicios) > 0)
+                <ul class="bullet-list" style="margin: 0;">
+                    @foreach($sitio->perfil->servicios as $servicio)
+                        <li class="bullet-item success" style="margin-bottom: 8px;">
+                            <i class="bi bi-check-circle-fill"></i>
+                            <span>{{ $servicio->servicio }}</span>
+                        </li>
+                    @endforeach
+                </ul>
+            @endif
+        </div>
+    </div>
+</div>
+
+<!-- Modal Reglas Completo -->
+<div id="modalReglas" class="portada-modal-backdrop" style="display: none;" onclick="if(event.target === this) closePerfilModal('reglas')">
+    <div class="portada-modal-dialog">
+        <div class="portada-modal-header">
+            <div class="d-flex align-items-center gap-2">
+                <i class="bi bi-shield-fill-check text-primary" style="font-size: 1.3rem;"></i>
+                <h5 class="m-0 fw-bold text-dark">Reglas e Instrucciones del Sitio</h5>
+            </div>
+            <button type="button" class="portada-modal-close" onclick="closePerfilModal('reglas')">&times;</button>
+        </div>
+        <div class="portada-modal-body" style="padding: 20px; overflow-y: auto; max-height: 70vh;">
+            @if($sitio->perfil && count($sitio->perfil->reglas) > 0)
+                <ul class="bullet-list" style="margin: 0;">
+                    @foreach($sitio->perfil->reglas as $regla)
+                        <li class="bullet-item {{ $regla->pivot->permitido ? 'success' : 'danger' }}" style="margin-bottom: 8px;">
+                            <i class="bi {{ $regla->pivot->permitido ? 'bi-check-circle-fill' : 'bi-x-circle-fill' }}" style="color: {{ $regla->pivot->permitido ? '#10b981' : '#ef4444' }};"></i>
+                            <span>{{ $regla->regla }}</span>
+                        </li>
+                    @endforeach
+                </ul>
+            @endif
+        </div>
+    </div>
+</div>
+
 @endsection
