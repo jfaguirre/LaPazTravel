@@ -13,6 +13,7 @@ use App\Http\Controllers\sitio\dashboardsitio\informacion\InformacionControlador
 use App\Http\Controllers\sitio\dashboardsitio\horarios\HorarioControlador;
 use App\Http\Controllers\sitio\dashboardsitio\precios\PrecioControlador;
 use App\Http\Controllers\sitio\dashboardsitio\portada\PortadaControlador;
+use App\Http\Controllers\sitio\dashboardsitio\redes\RedesControlador;
 use App\Http\Controllers\Sitio\DashboardSitio\reglas\ReglasControlador;
 use App\Http\Controllers\Sitio\DashboardSitio\servicios\ServiciosControlador;
 use App\Http\Controllers\sitio\dashboardsitio\ubicacion\UbicacionControlador;
@@ -91,6 +92,10 @@ Route::view('/lapaz/este', 'paginas.regiones.LaPazEste')->name('la-paz-este');
             // CRUD Portada            
             Route::put('dashboard/sitio/portada', [PortadaControlador::class, 'update'])->name('portada.update');
 
+            // CRUD Redes
+            Route::get('dashboard/sitio/redes', [RedesControlador::class, 'inicio'])->name('redes.inicio');
+            Route::put('dashboard/sitio/redes', [RedesControlador::class, 'update'])->name('redes.update');
+
         });
 
         // Dahsboard
@@ -130,12 +135,12 @@ Route::view('/lapaz/este', 'paginas.regiones.LaPazEste')->name('la-paz-este');
             Route::post('/dashboard/sitio/categoria', [CategoriaControlador::class, 'store'])->name('categoria.store');
 
             // Registro de Reglas (Admin o Configuración General)
-            Route::get('/dashboard/regla/create', [ReglaControlador::class, 'create'])->name('regla.create');
-            Route::post('/dashboard/regla/create', [ReglaControlador::class, 'store'])->name('regla.store');
+            Route::get('/dashboard/sitio/regla', [ReglaControlador::class, 'create'])->name('regla.create');
+            Route::post('/dashboard/sitio/regla', [ReglaControlador::class, 'store'])->name('regla.store');
 
             // Registro de Servicios (Admin o Configuración General)
-            Route::get('/dashboard/servicio/create', [ServicioControlador::class, 'create'])->name('servicio.create');
-            Route::post('/dashboard/servicio/create', [ServicioControlador::class, 'store'])->name('servicio.store');
+            Route::get('/dashboard/sitio/servicio', [ServicioControlador::class, 'create'])->name('servicio.create');
+            Route::post('/dashboard/sitio/servicio', [ServicioControlador::class, 'store'])->name('servicio.store');
     
         });
 

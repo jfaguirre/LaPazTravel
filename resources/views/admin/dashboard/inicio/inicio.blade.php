@@ -376,6 +376,8 @@
         border-top: 1px solid #F1F5F9;
         display: flex;
         justify-content: flex-end;
+        gap: 8px;
+        flex-wrap: wrap;
     }
 
     .btn-edit-shortcut {
@@ -782,6 +784,9 @@
             </div>
 
             <div class="panel-card__footer">
+                <a href="{{ route('redes.inicio') }}" class="btn-edit-shortcut">
+                    <i class="bi bi-pencil-fill"></i> Editar Redes
+                </a>
                 <a href="{{ route('gps.inicio') }}" class="btn-edit-shortcut">
                     <i class="bi bi-pencil-fill"></i> Editar Mapa
                 </a>

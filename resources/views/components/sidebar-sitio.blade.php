@@ -64,6 +64,11 @@
             Servicios del Sitio
         </a>
 
+        <a href="{{ route('redes.inicio') }}" class="sidebar__nav-item {{ request()->routeIs('redes.inicio') ? 'active' : '' }}">
+            <i class="bi bi-share-fill sidebar__nav-icon"></i>
+            Redes sociales
+        </a>
+
         <a href="{{ route('horario.inicio') }}" class="sidebar__nav-item {{ request()->routeIs('horario.inicio') ? 'active' : '' }}">            
             <i class="bi bi-calendar3 sidebar__nav-icon"></i>
             Horarios
