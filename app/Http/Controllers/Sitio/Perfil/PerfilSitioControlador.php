@@ -3,9 +3,6 @@
 namespace App\Http\Controllers\Sitio\Perfil;
 
 use App\Http\Controllers\Controller;
-use App\Models\Categoria;
-use App\Models\Regla;
-use App\Models\Servicio;
 use App\Models\Sitio;
 use App\Models\SitioPerfil;
 use Illuminate\Http\Request;
@@ -44,28 +41,30 @@ class PerfilSitioControlador extends Controller
         $hasCategoria = (bool) $sitio?->perfil?->categorias()->exists();
         $hasRegla = (bool) $sitio?->perfil?->reglas()->exists();
         $hasServicio = (bool) $sitio?->perfil?->servicios()->exists();
+        $hasHorario = (bool) (!empty($sitio?->perfil?->horarios));
+        $hasPrecio = (bool) $sitio?->perfil?->precios()->exists();
+        $hasGps = (bool) ($sitio?->perfil?->latitud !== null && $sitio?->perfil?->longitud !== null);
+        $hasPortada = (bool) (!empty($sitio?->perfil?->foto_portada));
+        $hasFotoPerfil = (bool) (!empty($sitio?->perfil?->foto_perfil));
         $hasUbicacion = SitioPerfil::where('id_sitio', session('id_sitio'))
             ->whereNotNull('id_departamento')
             ->whereNotNull('id_municipio')
             ->whereNotNull('id_distrito')
             ->exists();
 
-        $progreso = 0;
-        if ($hasSitio) {
-            if ($hasUbicacion) {
-                $progreso += 20;
-            }
-            $progreso += 20;
-            if ($hasCategoria) {
-                $progreso += 20;
-            }
-            if ($hasRegla) {
-                $progreso += 20;
-            }
-            if ($hasServicio) {
-                $progreso += 20;
-            }
-        }
+        $completedSteps = 0;
+        if ($hasSitio) $completedSteps++;
+        if ($hasUbicacion) $completedSteps++;
+        if ($hasCategoria) $completedSteps++;
+        if ($hasRegla) $completedSteps++;
+        if ($hasServicio) $completedSteps++;
+        if ($hasHorario) $completedSteps++;
+        if ($hasPrecio) $completedSteps++;
+        if ($hasGps) $completedSteps++;
+        if ($hasPortada) $completedSteps++;
+        if ($hasFotoPerfil) $completedSteps++;
+
+        $progreso = (int) round(($completedSteps / 10) * 100);
 
         return view('admin.perfil.create',
         compact(
@@ -74,141 +73,17 @@ class PerfilSitioControlador extends Controller
             'hasCategoria',
             'hasRegla',            
             'hasServicio',
+            'hasHorario',
+            'hasPrecio',
+            'hasGps',
+            'hasPortada',
+            'hasFotoPerfil',
             'progreso',
             'sitio'));
     }
 
-    // Funcion para agregar categorias al perfil del sitio.
-    public function agregarCategoria()
-    {
-        $user = Auth::user();
-        // $sitio = Sitio::where('id_user', $user->id)->first();
-        $sitio = Sitio::find(session('id_sitio')); // Obtener el sitio desde la sesión
-
-        if (!$sitio) {
-            return redirect()->route('perfil.create')->with('error', 'Primero debes completar el Paso 1: Sitio Turístico.');
-        }
-
-        $categorias = Categoria::where('estado', 'ACTIVO')->get();
-        $selectedCategorias = $sitio->perfil->categorias->pluck('id')->toArray();
-
-        return view('admin.categoria.agregar', compact('categorias', 'selectedCategorias', 'sitio'));
-    }
-
-    public function guardarCategoria(Request $request)
-    {                
-        $sitio = Sitio::find(session('id_sitio')); // Obtener el sitio desde la sesión
-
-        if (!$sitio) {
-            return redirect()->route('perfil.create')->with('error', 'Primero debes completar el Paso 1: Sitio Turístico.');
-        }
-
-        $request->validate([
-            'categorias' => 'nullable|array',
-            'categorias.*' => 'exists:categorias,id',
-        ]);        
-
-        $sitio->perfil->categorias()->sync($request->input('categorias', []));
-
-        return redirect()->route('perfil.create')->with('success', 'Categorías del perfil actualizadas correctamente.');
-    }
-
-    // Funcion para agregar reglas al perfil del sitio.
-    public function agregarRegla()
-    {
-        $user = Auth::user();        
-        $sitio = Sitio::find(session('id_sitio')); // Obtener el sitio desde la sesión
-
-        if (!$sitio) {
-            return redirect()->route('perfil.create')->with('error', 'Primero debes completar el Paso 1: Sitio Turístico.');
-        }
-
-        $reglas = Regla::where('estado', 'ACTIVO')->get();
-        
-        $selectedReglasMap = [];
-        if ($sitio->perfil) {
-            foreach ($sitio->perfil->reglas as $r) {
-                $selectedReglasMap[$r->id] = (bool) $r->pivot->permitido;
-            }
-        }
-        $selectedReglas = array_keys($selectedReglasMap);
-
-        return view('admin.regla.agregar', compact('reglas', 'selectedReglas', 'selectedReglasMap', 'sitio'));
-    }
-
-
-    public function guardarRegla(Request $request)
-    {
-        $user = Auth::user();
-        $sitio = Sitio::find(session('id_sitio')); // Obtener el sitio desde la sesión
-        
-        if (!$sitio) {
-            return redirect()->route('perfil.create')->with('error', 'Primero debes completar el Paso 1: Sitio Turístico.');
-        }
-
-        $request->validate([
-            'reglas' => 'nullable|array',
-            'reglas.*' => 'exists:reglas,id',
-            'permitido' => 'nullable|array',
-        ]);
-        
-        $selectedIds = $request->input('reglas', []);
-        $permitidosMap = $request->input('permitido', []);
-
-        $syncData = [];
-        foreach ($selectedIds as $reglaId) {
-            $isPermitido = isset($permitidosMap[$reglaId]) && (int)$permitidosMap[$reglaId] === 1;
-            $syncData[$reglaId] = [
-                'permitido' => $isPermitido,
-                'color'     => $isPermitido ? '#00b344' : '#e53e3e',
-            ];
-        }
-
-        $sitio->perfil->reglas()->sync($syncData);
-
-        return redirect()->route('perfil.create')->with('success', 'Reglas del perfil actualizadas correctamente.');
-    }
-
-
-    // Funcion para agregar servicios al perfil del sitio.
-    public function agregarServicio()
-    {
-        $user = Auth::user();
-        // $sitio = Sitio::where('id_user', $user->id)->first();
-        $sitio = Sitio::find(session('id_sitio')); // Obtener el sitio desde la sesión
-
-        if (!$sitio) {
-            return redirect()->route('perfil.create')->with('error', 'Primero debes completar el Paso 1: Sitio Turístico.');
-        }
-
-        $servicios = Servicio::where('estado', 'ACTIVO')->get();
-        $selectedServicios = $sitio->perfil->servicios->pluck('id')->toArray();
-
-        return view('admin.servicio.agregar', compact('servicios', 'selectedServicios', 'sitio'));
-    }
-
-
-    public function guardarServicio(Request $request)
-    {
-        $user = Auth::user();        
-        $sitio = Sitio::find(session('id_sitio')); // Obtener el sitio desde la sesión
-
-        if (!$sitio) {
-            return redirect()->route('perfil.create')->with('error', 'Primero debes completar el Paso 1: Sitio Turístico.');
-        }
-
-        $request->validate([
-            'servicios' => 'nullable|array',
-            'servicios.*' => 'exists:servicios,id',
-        ]);
-
-        $sitio->perfil->servicios()->sync($request->input('servicios', []));
-
-        return redirect()->route('perfil.create')->with('success', 'Servicios del perfil actualizados correctamente.');
-    }
-    
-
     public function ubicacion_sitio()
+
     {
         return view('admin.ubicacion.agregar');
     }

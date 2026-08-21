@@ -19,6 +19,16 @@ use App\Http\Controllers\Sitio\DashboardSitio\servicios\ServiciosControlador;
 use App\Http\Controllers\sitio\dashboardsitio\ubicacion\UbicacionControlador;
 use App\Http\Controllers\Sitio\Perfil\PerfilSitioControlador;
 use App\Http\Controllers\Sitio\Sitio\SitioSlugControlador;
+use App\Http\Controllers\sitio\solicitud\categorias\SolicitudCategoriaControlador;
+use App\Http\Controllers\sitio\solicitud\fotoperfil\SolicitudFotoPerfilControlador;
+use App\Http\Controllers\sitio\solicitud\gps\SolicitudGpsControlador;
+use App\Http\Controllers\sitio\solicitud\horarios\SolicitudHorarioControlador;
+use App\Http\Controllers\sitio\solicitud\informacion\SolicitudInformacionControlador;
+use App\Http\Controllers\sitio\solicitud\perfil\SolicitudPerfilControlador;
+use App\Http\Controllers\sitio\solicitud\portada\SolicitudPortadaControlador;
+use App\Http\Controllers\sitio\solicitud\precios\SolicitudPrecioControlador;
+use App\Http\Controllers\sitio\solicitud\reglas\SolicituReglaControlador;
+use App\Http\Controllers\sitio\solicitud\servicios\SolicitudServicioControlador;
 use App\Http\Controllers\Super\Sitio\Categoria\CategoriaControlador;
 use App\Http\Controllers\Super\Sitio\Regla\ReglaControlador;
 use App\Http\Controllers\Super\Sitio\Servicio\ServicioControlador;
@@ -34,25 +44,63 @@ Route::view('/lapaz/este', 'paginas.regiones.LaPazEste')->name('la-paz-este');
     // Grupo para rutas protegidas
     Route::middleware(['auth', 'verified'])->group(function () {
 
+        // Mantenimiento ******************************************************************************************
+        // Informacion del sitio
+        Route::get('dashboard/solicitud/informacion', [SolicitudInformacionControlador::class, 'create'])->name('informacion.create');
+        Route::post('dashboard/solicitud/informacion', [SolicitudInformacionControlador::class, 'store'])->name('informacion.store');
+
+        // Categoria
+        Route::get('dashboard/solicitud/categorias', [SolicitudCategoriaControlador::class, 'create'])->name('categoria.create');
+        Route::post('dashboard/solicitud/categorias', [SolicitudCategoriaControlador::class, 'store'])->name('categoria.store');
+
+        // Reglas
+        Route::get('dashboard/solicitud/reglas', [SolicituReglaControlador::class, 'create'])->name('regla.create');
+        Route::post('dashboard/solicitud/reglas', [SolicituReglaControlador::class, 'store'])->name('regla.store');
+
+        // Servicios
+        Route::get('dashboard/solicitud/servicios', [SolicitudServicioControlador::class, 'create'])->name('servicio.create');
+        Route::post('dashboard/solicitud/servicios', [SolicitudServicioControlador::class, 'store'])->name('servicio.store');
+
+        // Horarios
+        Route::get('dashboard/solicitud/horarios', [SolicitudHorarioControlador::class, 'create'])->name('horario.create');
+        Route::post('dashboard/solicitud/horarios', [SolicitudHorarioControlador::class, 'store'])->name('horario.store');
+
+        // Precios
+        Route::get('dashboard/solicitud/precios', [SolicitudPrecioControlador::class, 'create'])->name('precio.create');
+        Route::post('dashboard/solicitud/precios', [SolicitudPrecioControlador::class, 'store'])->name('precio.store');
+
+        // GPS / Mapa
+        Route::get('dashboard/solicitud/gps', [SolicitudGpsControlador::class, 'create'])->name('gps.create');
+        Route::post('dashboard/solicitud/gps', [SolicitudGpsControlador::class, 'store'])->name('gps.store');
+
+        // Portada
+        Route::get('dashboard/solicitud/portada', [SolicitudPortadaControlador::class, 'create'])->name('portada.create');
+        Route::post('dashboard/solicitud/portada', [SolicitudPortadaControlador::class, 'store'])->name('portada.store');
+
+        // Foto Perfil
+        Route::get('dashboard/solicitud/fotoperfil', [SolicitudFotoPerfilControlador::class, 'create'])->name('fotoperfil.create');
+        Route::post('dashboard/solicitud/fotoperfil', [SolicitudFotoPerfilControlador::class, 'store'])->name('fotoperfil.store');
+
+
+
+
+
+        
+
+
+        // Mantenimiento ******************************************************************************************
+
         Route::middleware(['acceso.sitio'])->group(function () {
             Route::get('/dashboard/sitio/create', [SitioControlador::class, 'create'])->name('sitio.create');
             Route::post('/dashboard/sitio/create', [SitioControlador::class, 'store'])->name('sitio.store');
             Route::get('/dashboard/sitio/edit', [SitioControlador::class, 'edit'])->name('sitio.edit');
             Route::put('/dashboard/sitio/edit', [SitioControlador::class, 'update'])->name('sitio.update');
 
-            // Rutas del Perfil del Sitio (Categorías, Reglas, Servicios y ubicacion para el sitio del Usuario)
+            // Rutas del Perfil del Sitio (Ubicacion para el sitio del Usuario)
             Route::get('/dashboard/perfil/ubicacion', [PerfilSitioControlador::class, 'ubicacion_sitio'])->name('perfil.ubicacion.agregar');            
             Route::post('/dashboard/perfil/ubicacion', [PerfilSitioControlador::class, 'guardar_ubicacion'])->name('perfil.ubicacion.store');
-
-            Route::get('/dashboard/perfil/categoria', [PerfilSitioControlador::class, 'agregarCategoria'])->name('perfil.categoria.agregar');
-            Route::post('/dashboard/perfil/categoria', [PerfilSitioControlador::class, 'guardarCategoria'])->name('perfil.categoria.guardar');
-
-            Route::get('/dashboard/perfil/regla', [PerfilSitioControlador::class, 'agregarRegla'])->name('perfil.regla.agregar');
-            Route::post('/dashboard/perfil/regla', [PerfilSitioControlador::class, 'guardarRegla'])->name('perfil.regla.guardar');
-
-            Route::get('/dashboard/perfil/servicio', [PerfilSitioControlador::class, 'agregarServicio'])->name('perfil.servicio.agregar');
-            Route::post('/dashboard/perfil/servicio', [PerfilSitioControlador::class, 'guardarServicio'])->name('perfil.servicio.guardar');
         });
+
 
         Route::middleware(['dashboardSitio'])->group(function () {
         

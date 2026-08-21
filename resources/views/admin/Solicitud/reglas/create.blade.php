@@ -206,7 +206,7 @@
         </div>
 
         <!-- Formulario -->
-        <form action="{{ route('perfil.regla.guardar') }}" method="POST">
+        <form action="{{ route('regla.store') }}" method="POST">
             @csrf
 
             @if($reglas->isEmpty())

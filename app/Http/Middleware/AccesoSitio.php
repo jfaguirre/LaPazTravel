@@ -28,9 +28,9 @@ class AccesoSitio
 
         $perfil = $sitio?->perfil;
 
-        // Si el sitio no exisre
+        // Si el sitio no existe
         if ($sitio === null) {
-            if ($request->routeIs('sitio.create') || $request->routeIs('sitio.store')) {
+            if ($request->routeIs('sitio.create') || $request->routeIs('sitio.store') || $request->routeIs('informacion.create') || $request->routeIs('informacion.store')) {
                 return $next($request);
             }
             return redirect()->route('dashboard');
@@ -40,14 +40,26 @@ class AccesoSitio
         if ($sitio->estado === 'PENDIENTE') {
             if ($request->routeIs('sitio.edit') || 
                 $request->routeIs('sitio.update') || 
+                $request->routeIs('informacion.create') ||
+                $request->routeIs('informacion.store') ||
                 $request->routeIs('perfil.ubicacion.agregar') || 
                 $request->routeIs('perfil.ubicacion.store') || 
-                $request->routeIs('perfil.categoria.agregar') || 
-                $request->routeIs('perfil.categoria.guardar') || 
-                $request->routeIs('perfil.regla.agregar') || 
-                $request->routeIs('perfil.regla.guardar') || 
-                $request->routeIs('perfil.servicio.agregar') || 
-                $request->routeIs('perfil.servicio.guardar')) {
+                $request->routeIs('categoria.create') || 
+                $request->routeIs('categoria.store') || 
+                $request->routeIs('regla.create') || 
+                $request->routeIs('regla.store') || 
+                $request->routeIs('servicio.create') || 
+                $request->routeIs('servicio.store') ||
+                $request->routeIs('horario.create') ||
+                $request->routeIs('horario.store') ||
+                $request->routeIs('precio.create') ||
+                $request->routeIs('precio.store') ||
+                $request->routeIs('gps.create') ||
+                $request->routeIs('gps.store') ||
+                $request->routeIs('portada.create') ||
+                $request->routeIs('portada.store') ||
+                $request->routeIs('fotoperfil.create') ||
+                $request->routeIs('fotoperfil.store')) {
                 
                 return redirect()->route('perfil.create')->with('error', 'No puedes editar la información de tu sitio mientras la solicitud está pendiente de aprobación.');
             }
@@ -56,27 +68,46 @@ class AccesoSitio
         $hasCategoria = (bool) $perfil?->categorias()->exists();
         $hasRegla = (bool) $perfil?->reglas()->exists();
         $hasServicio = (bool) $perfil?->servicios()->exists();
+        $hasHorario = (bool) (!empty($perfil?->horarios));
+        $hasPrecio = (bool) $perfil?->precios()->exists();
+        $hasGps = (bool) ($perfil?->latitud !== null && $perfil?->longitud !== null);
+        $hasPortada = (bool) (!empty($perfil?->foto_portada));
+        $hasFotoPerfil = (bool) (!empty($perfil?->foto_perfil));
 
         // Crear nuevo sitio
-        if ($request->routeIs('sitio.create') || $request->routeIs('sitio.store')) {
+        if ($request->routeIs('sitio.create') || $request->routeIs('sitio.store') || $request->routeIs('informacion.create') || $request->routeIs('informacion.store')) {
             return $next($request);
         }
 
         // Mientras sea BORRADOR
         if ($sitio->estado === 'BORRADOR') {
             if ($request->routeIs('sitio.edit') || $request->routeIs('sitio.update') ||
+                $request->routeIs('informacion.create') || $request->routeIs('informacion.store') ||
                 $request->routeIs('perfil.ubicacion.agregar') || $request->routeIs('perfil.ubicacion.store') ||
-                $request->routeIs('perfil.categoria.agregar') || $request->routeIs('perfil.categoria.guardar') ||
-                $request->routeIs('perfil.regla.agregar') || $request->routeIs('perfil.regla.guardar') ||
-                $request->routeIs('perfil.servicio.agregar') || $request->routeIs('perfil.servicio.guardar')) {
+                $request->routeIs('categoria.create') || $request->routeIs('categoria.store') ||
+                $request->routeIs('regla.create') || $request->routeIs('regla.store') ||
+                $request->routeIs('servicio.create') || $request->routeIs('servicio.store') ||
+                $request->routeIs('horario.create') || $request->routeIs('horario.store') ||
+                $request->routeIs('precio.create') || $request->routeIs('precio.store') ||
+                $request->routeIs('gps.create') || $request->routeIs('gps.store') ||
+                $request->routeIs('portada.create') || $request->routeIs('portada.store') ||
+                $request->routeIs('fotoperfil.create') || $request->routeIs('fotoperfil.store')) {
                 return $next($request);
             }
         }
 
+
+
+
         // Rutas en curso
-        if (!$perfil || !$hasCategoria || !$hasRegla || !$hasServicio) {
+        if (!$perfil || !$hasCategoria || !$hasRegla || !$hasServicio || !$hasHorario || !$hasPrecio || !$hasGps || !$hasPortada || !$hasFotoPerfil) {
             return redirect()->route('perfil.create');
         }
+
+
+
+
+
 
         if ($sitio->estado === 'BORRADOR') {
             return redirect()->route('perfil.create');

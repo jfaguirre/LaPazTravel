@@ -12,6 +12,11 @@ new class extends Component
     public bool $hasCategoria = false;
     public bool $hasRegla = false;
     public bool $hasServicio = false;
+    public bool $hasHorario = false;
+    public bool $hasPrecio = false;
+    public bool $hasGps = false;
+    public bool $hasPortada = false;
+    public bool $hasFotoPerfil = false;
 
     public function mount()
     {
@@ -30,7 +35,17 @@ new class extends Component
         $this->hasCategoria = (bool) $this->sitio?->perfil?->categorias()->exists();
         $this->hasRegla = (bool) $this->sitio?->perfil?->reglas()->exists();
         $this->hasServicio = (bool) $this->sitio?->perfil?->servicios()->exists();
+        $this->hasHorario = (bool) (!empty($this->sitio?->perfil?->horarios));
+        $this->hasPrecio = (bool) $this->sitio?->perfil?->precios()->exists();
+        $this->hasGps = (bool) ($this->sitio?->perfil?->latitud !== null && $this->sitio?->perfil?->longitud !== null);
+        $this->hasPortada = (bool) (!empty($this->sitio?->perfil?->foto_portada));
+        $this->hasFotoPerfil = (bool) (!empty($this->sitio?->perfil?->foto_perfil));
     }
+
+
+
+
+
 
         #[On('sitio-estado-cambiado')]
         public function actualizarEstado()
@@ -58,13 +73,14 @@ new class extends Component
                 <div class="step-actions">
                     @if($hasSitio)
                         <span class="badge badge-completed">Completado</span>
-                        <a href="{{ route('sitio.edit') }}" class="step-link">Editar <i class="bi bi-pencil-square"></i></a>
+                        <a href="{{ route('informacion.create') }}" class="step-link">Editar <i class="bi bi-pencil-square"></i></a>
                     @else
                         <span class="badge badge-pending">Pendiente</span>
-                        <a href="{{ route('sitio.create') }}" class="step-link">Completar <i class="bi bi-arrow-right-short"></i></a>
+                        <a href="{{ route('informacion.create') }}" class="step-link">Completar <i class="bi bi-arrow-right-short"></i></a>
                     @endif
                 </div>
             </div>
+
 
             <!-- Paso 3: Reglas -->
             <div class="step-item">
@@ -110,11 +126,12 @@ new class extends Component
                     @if($hasSitio)
                         @if($hasCategoria)
                             <span class="badge badge-completed">Completado</span>
-                            <a href="{{ route('perfil.categoria.agregar') }}" class="step-link">Editar <i class="bi bi-pencil-square"></i></a>
+                            <a href="{{ route('categoria.create') }}" class="step-link">Editar <i class="bi bi-pencil-square"></i></a>
                         @else
                             <span class="badge badge-pending">Pendiente</span>
-                            <a href="{{ route('perfil.categoria.agregar') }}" class="step-link">Completar <i class="bi bi-arrow-right-short"></i></a>
+                            <a href="{{ route('categoria.create') }}" class="step-link">Completar <i class="bi bi-arrow-right-short"></i></a>
                         @endif
+
                     @else
                         <span class="badge badge-pending" style="opacity: 0.6;">Pendiente</span>
                         <span style="color: var(--neutro-400); cursor: not-allowed; display: inline-flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 600; user-select: none;">
@@ -139,10 +156,10 @@ new class extends Component
                     @if($hasSitio)
                         @if($hasRegla)
                             <span class="badge badge-completed">Completado</span>
-                            <a href="{{ route('perfil.regla.agregar') }}" class="step-link">Editar <i class="bi bi-pencil-square"></i></a>
+                            <a href="{{ route('regla.create') }}" class="step-link">Editar <i class="bi bi-pencil-square"></i></a>
                         @else
                             <span class="badge badge-pending">Pendiente</span>
-                            <a href="{{ route('perfil.regla.agregar') }}" class="step-link">Completar <i class="bi bi-arrow-right-short"></i></a>
+                            <a href="{{ route('regla.create') }}" class="step-link">Completar <i class="bi bi-arrow-right-short"></i></a>
                         @endif
                     @else
                         <span class="badge badge-pending" style="opacity: 0.6;">Pendiente</span>
@@ -153,7 +170,7 @@ new class extends Component
                 </div>
             </div>
 
-            <!-- Paso 4: Servicios -->
+            <!-- Paso 5: Servicios -->
             <div class="step-item">
                 <div class="step-info">
                     <div class="step-icon">
@@ -168,10 +185,40 @@ new class extends Component
                     @if($hasSitio)
                         @if($hasServicio)
                             <span class="badge badge-completed">Completado</span>
-                            <a href="{{ route('perfil.servicio.agregar') }}" class="step-link">Editar <i class="bi bi-pencil-square"></i></a>
+                            <a href="{{ route('servicio.create') }}" class="step-link">Editar <i class="bi bi-pencil-square"></i></a>
                         @else
                             <span class="badge badge-pending">Pendiente</span>
-                            <a href="{{ route('perfil.servicio.agregar') }}" class="step-link">Completar <i class="bi bi-arrow-right-short"></i></a>
+                            <a href="{{ route('servicio.create') }}" class="step-link">Completar <i class="bi bi-arrow-right-short"></i></a>
+                        @endif
+
+                    @else
+                        <span class="badge badge-pending" style="opacity: 0.6;">Pendiente</span>
+                        <span style="color: var(--neutro-400); cursor: not-allowed; display: inline-flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 600; user-select: none;">
+                            Bloqueado <i class="bi bi-lock-fill"></i>
+                        </span>
+                    @endif
+                </div>
+            </div>
+
+            <!-- Paso 6: Horarios -->
+            <div class="step-item">
+                <div class="step-info">
+                    <div class="step-icon">
+                        <span style="font-weight: 700;">6</span>
+                    </div>
+                    <div class="step-details">
+                        <h4>Horarios</h4>
+                        <p>Horarios de atención y apertura.</p>
+                    </div>
+                </div>
+                <div class="step-actions">
+                    @if($hasSitio)
+                        @if($hasHorario)
+                            <span class="badge badge-completed">Completado</span>
+                            <a href="{{ route('horario.create') }}" class="step-link">Editar <i class="bi bi-pencil-square"></i></a>
+                        @else
+                            <span class="badge badge-pending">Pendiente</span>
+                            <a href="{{ route('horario.create') }}" class="step-link">Completar <i class="bi bi-arrow-right-short"></i></a>
                         @endif
                     @else
                         <span class="badge badge-pending" style="opacity: 0.6;">Pendiente</span>
@@ -181,6 +228,127 @@ new class extends Component
                     @endif
                 </div>
             </div>
+
+            <!-- Paso 7: Precios -->
+            <div class="step-item">
+                <div class="step-info">
+                    <div class="step-icon">
+                        <span style="font-weight: 700;">7</span>
+                    </div>
+                    <div class="step-details">
+                        <h4>Precios y Tarifas</h4>
+                        <p>Costos de entrada y boletaje.</p>
+                    </div>
+                </div>
+                <div class="step-actions">
+                    @if($hasSitio)
+                        @if($hasPrecio)
+                            <span class="badge badge-completed">Completado</span>
+                            <a href="{{ route('precio.create') }}" class="step-link">Editar <i class="bi bi-pencil-square"></i></a>
+                        @else
+                            <span class="badge badge-pending">Pendiente</span>
+                            <a href="{{ route('precio.create') }}" class="step-link">Completar <i class="bi bi-arrow-right-short"></i></a>
+                        @endif
+                    @else
+                        <span class="badge badge-pending" style="opacity: 0.6;">Pendiente</span>
+                        <span style="color: var(--neutro-400); cursor: not-allowed; display: inline-flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 600; user-select: none;">
+                            Bloqueado <i class="bi bi-lock-fill"></i>
+                        </span>
+                    @endif
+                </div>
+            </div>
+
+            <!-- Paso 8: GPS / Mapa -->
+            <div class="step-item">
+                <div class="step-info">
+                    <div class="step-icon">
+                        <span style="font-weight: 700;">8</span>
+                    </div>
+                    <div class="step-details">
+                        <h4>Mapa GPS</h4>
+                        <p>Ubicación y coordenadas en el mapa.</p>
+                    </div>
+                </div>
+                <div class="step-actions">
+                    @if($hasSitio)
+                        @if($hasGps)
+                            <span class="badge badge-completed">Completado</span>
+                            <a href="{{ route('gps.create') }}" class="step-link">Editar <i class="bi bi-pencil-square"></i></a>
+                        @else
+                            <span class="badge badge-pending">Pendiente</span>
+                            <a href="{{ route('gps.create') }}" class="step-link">Completar <i class="bi bi-arrow-right-short"></i></a>
+                        @endif
+                    @else
+                        <span class="badge badge-pending" style="opacity: 0.6;">Pendiente</span>
+                        <span style="color: var(--neutro-400); cursor: not-allowed; display: inline-flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 600; user-select: none;">
+                            Bloqueado <i class="bi bi-lock-fill"></i>
+                        </span>
+                    @endif
+                </div>
+            </div>
+
+            <!-- Paso 9: Portada -->
+            <div class="step-item">
+                <div class="step-info">
+                    <div class="step-icon">
+                        <span style="font-weight: 700;">9</span>
+                    </div>
+                    <div class="step-details">
+                        <h4>Imagen de Portada</h4>
+                        <p>Imagen panorámica de cabecera.</p>
+                    </div>
+                </div>
+                <div class="step-actions">
+                    @if($hasSitio)
+                        @if($hasPortada)
+                            <span class="badge badge-completed">Completado</span>
+                            <a href="{{ route('portada.create') }}" class="step-link">Editar <i class="bi bi-pencil-square"></i></a>
+                        @else
+                            <span class="badge badge-pending">Pendiente</span>
+                            <a href="{{ route('portada.create') }}" class="step-link">Completar <i class="bi bi-arrow-right-short"></i></a>
+                        @endif
+                    @else
+                        <span class="badge badge-pending" style="opacity: 0.6;">Pendiente</span>
+                        <span style="color: var(--neutro-400); cursor: not-allowed; display: inline-flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 600; user-select: none;">
+                            Bloqueado <i class="bi bi-lock-fill"></i>
+                        </span>
+                    @endif
+                </div>
+            </div>
+
+            <!-- Paso 10: Foto de Perfil -->
+            <div class="step-item">
+                <div class="step-info">
+                    <div class="step-icon">
+                        <span style="font-weight: 700;">10</span>
+                    </div>
+                    <div class="step-details">
+                        <h4>Foto de Perfil / Logo</h4>
+                        <p>Logo o emblema distintivo del sitio.</p>
+                    </div>
+                </div>
+                <div class="step-actions">
+                    @if($hasSitio)
+                        @if($hasFotoPerfil)
+                            <span class="badge badge-completed">Completado</span>
+                            <a href="{{ route('fotoperfil.create') }}" class="step-link">Editar <i class="bi bi-pencil-square"></i></a>
+                        @else
+                            <span class="badge badge-pending">Pendiente</span>
+                            <a href="{{ route('fotoperfil.create') }}" class="step-link">Completar <i class="bi bi-arrow-right-short"></i></a>
+                        @endif
+                    @else
+                        <span class="badge badge-pending" style="opacity: 0.6;">Pendiente</span>
+                        <span style="color: var(--neutro-400); cursor: not-allowed; display: inline-flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 600; user-select: none;">
+                            Bloqueado <i class="bi bi-lock-fill"></i>
+                        </span>
+                    @endif
+                </div>
+            </div>
+
+
+
+
+
         @endif
 
         @if(isset($this->sitio))

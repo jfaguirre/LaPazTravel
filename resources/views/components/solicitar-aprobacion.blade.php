@@ -11,6 +11,11 @@ new class extends Component
     public bool $hasCategoria = false;
     public bool $hasRegla = false;
     public bool $hasServicio = false;
+    public bool $hasHorario = false;
+    public bool $hasPrecio = false;
+    public bool $hasGps = false;
+    public bool $hasPortada = false;
+    public bool $hasFotoPerfil = false;
 
     public function mount()
     {
@@ -29,6 +34,11 @@ new class extends Component
         $this->hasCategoria = (bool) $this->sitio?->perfil?->categorias()->exists();
         $this->hasRegla = (bool) $this->sitio?->perfil?->reglas()->exists();
         $this->hasServicio = (bool) $this->sitio?->perfil?->servicios()->exists();
+        $this->hasHorario = (bool) (!empty($this->sitio?->perfil?->horarios));
+        $this->hasPrecio = (bool) $this->sitio?->perfil?->precios()->exists();
+        $this->hasGps = (bool) ($this->sitio?->perfil?->latitud !== null && $this->sitio?->perfil?->longitud !== null);
+        $this->hasPortada = (bool) (!empty($this->sitio?->perfil?->foto_portada));
+        $this->hasFotoPerfil = (bool) (!empty($this->sitio?->perfil?->foto_perfil));
     }
 
     public function enviarSolicitud()
@@ -47,12 +57,22 @@ new class extends Component
         $hasUbicacion = (bool) ($perfil?->id_departamento !== null &&
                                 $perfil?->id_municipio !== null &&
                                 $perfil?->id_distrito !== null);
+        $hasHorario = (bool) (!empty($perfil?->horarios));
+        $hasPrecio = (bool) $perfil?->precios()->exists();
+        $hasGps = (bool) ($perfil?->latitud !== null && $perfil?->longitud !== null);
+        $hasPortada = (bool) (!empty($perfil?->foto_portada));
+        $hasFotoPerfil = (bool) (!empty($perfil?->foto_perfil));
 
         if (
             !$hasCategoria ||
             !$hasRegla ||
             !$hasServicio ||
-            !$hasUbicacion
+            !$hasUbicacion ||
+            !$hasHorario ||
+            !$hasPrecio ||
+            !$hasGps ||
+            !$hasPortada ||
+            !$hasFotoPerfil
         ) {
             return;
         }
@@ -80,7 +100,7 @@ new class extends Component
 
 <div>
     <div class="solicitud">
-        @if ($hasSitio && $hasCategoria && $hasRegla && $hasServicio && $hasUbicacion)
+        @if ($hasSitio && $hasCategoria && $hasRegla && $hasServicio && $hasUbicacion && $hasHorario && $hasPrecio && $hasGps && $hasPortada && $hasFotoPerfil)
             @if ($sitio->estado == 'BORRADOR')
                 <button type="button" class="btn btn-primary" wire:click="enviarSolicitud">
                     Enviar solicitud

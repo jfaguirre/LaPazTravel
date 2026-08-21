@@ -70,7 +70,8 @@ new class extends Component
 <div>
     <div class="ubicacion-grid">
         <div class="seleccion-ubicacion">
-            <span>Departamento:</span>
+            <label for="departamento">Departamento:</label>
+            <p class="hint">Ingresa el departamento al que pertenece el sitio</p>
             <select name="departamento" id="departamento" wire:model.live="departamentoSeleccionado" required>
                 <option value="">Selecciona un departamento</option>
                 @foreach($this->departamentos as $departamento)
@@ -80,7 +81,8 @@ new class extends Component
         </div>
 
         <div class="seleccion-ubicacion">
-            <span>Municipio:</span>
+            <label for="municipio">Municipio:</label>
+            <p class="hint">Ingresa el municipio al que pertenece el sitio</p>
             <select name="municipio" id="municipio" wire:model.live="municipioSeleccionado" required>
                     <option value="">Selecciona un municipio</option>
                 @foreach($this->municipios as $municipio)
@@ -89,8 +91,9 @@ new class extends Component
             </select>
         </div>
 
-        <div class="seleccion-ubicacion">
-            <span>Distrito:</span>
+        <div class="seleccion-ubicacion">            
+            <label for="departamento">Distrito:</label>
+            <p class="hint">Ingresa el distrito al que pertenece el sitio</p>
             <select name="distrito" id="distrito" wire:model="distritoSeleccionado" required>
                 <option value="">Selecciona un distrito</option>
                 @foreach($this->distritos as $distrito)

@@ -634,6 +634,14 @@
                 ? asset($path) 
                 : asset('storage/' . $path);
         }
+
+        $perfilFotoUrl = null;
+        if ($sitio->perfil && $sitio->perfil->foto_perfil) {
+            $pPath = $sitio->perfil->foto_perfil;
+            $perfilFotoUrl = \Illuminate\Support\Str::startsWith($pPath, ['http://', 'https://', 'uploads/']) 
+                ? asset($pPath) 
+                : asset('storage/' . $pPath);
+        }
     @endphp
     
     <div class="hero-card" style="background: {{ $portadaUrl ? 'linear-gradient(rgba(15, 82, 186, 0.45), rgba(15, 82, 186, 0.75)), url(' . $portadaUrl . ')' : 'linear-gradient(135deg, #0F52BA 0%, #1E6FE0 100%)' }}; background-size: cover; background-position: center;">
@@ -655,7 +663,12 @@
             </div>
         </div>
 
-        <h1 class="hero-card__title">{{ $sitio->nombre }}</h1>
+        <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 8px;">
+            @if($perfilFotoUrl)
+                <img src="{{ $perfilFotoUrl }}" alt="Logo / Foto de Perfil" style="width: 68px; height: 68px; border-radius: 50%; object-fit: cover; border: 3px solid #ffffff; box-shadow: 0 4px 12px rgba(0,0,0,0.25); flex-shrink: 0;">
+            @endif
+            <h1 class="hero-card__title" style="margin: 0;">{{ $sitio->nombre }}</h1>
+        </div>
         <p class="hero-card__desc">{{ $sitio->descripcion_corta ?? 'No se ha agregado una descripción corta del sitio todavía. Puedes configurarla en el botón de edición.' }}</p>
     </div>
 

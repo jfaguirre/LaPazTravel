@@ -13,7 +13,7 @@
             <img src="{{asset("assets/images/sin-sitio.svg")}}" alt="Aun no tiene un sitio" style="width: 250px">
             <h4>¿Aun no tienes tu sitio?</h4>
             <p>Crea tu primer sitio para que los usuarios lo conozcan.</p>
-            <a href="{{ route('sitio.create') }}" class="btn btn-primary">Crear mi sitio turistico</a>
+            <a href="{{ route('informacion.create') }}" class="btn btn-primary">Crear mi sitio turistico</a>
         </section>
     </div>
     @else

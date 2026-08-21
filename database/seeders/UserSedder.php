@@ -18,6 +18,7 @@ class UserSedder extends Seeder
         $su = User::create([
                 'name' => 'Caleb',
                 'lastName' => 'Chicas',
+                'telefono' => '72210102',
                 'email' => 'cchicas@gmail.com',
                 'password' => Hash::make('User2026')            
             ]);
@@ -26,6 +27,7 @@ class UserSedder extends Seeder
         $admin = User::create([
                 'name' => 'Juan Francisco',
                 'lastName' => 'Aguirre',
+                'telefono' => '76340101',
                 'email' => 'jfaguirre@gmail.com',
                 'password' => Hash::make('User2026')            
             ]);
@@ -34,6 +36,7 @@ class UserSedder extends Seeder
         $admin = User::create([
                 'name' => 'Evelin Carolina',
                 'lastName' => 'Vasquez Umaña',
+                'telefono' => '78301215',
                 'email' => 'ecvasquez@gmail.com',
                 'password' => Hash::make('User2026')            
             ]);
