@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\sitio\solicitud\fotoperfil;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\FotoPerfilRequest;
 use App\Models\Sitio;
 use Illuminate\Http\Request;
 
@@ -21,27 +22,13 @@ class SolicitudFotoPerfilControlador extends Controller
         return view('admin.solicitud.fotoperfil.create', compact('sitio', 'perfil'));
     }
 
-    public function store(Request $request)
+    public function store(FotoPerfilRequest $request)
     {
         $sitio = Sitio::find(session('id_sitio'));
 
         if (!$sitio || !$sitio->perfil) {
             return redirect()->route('perfil.create')->with('error', 'Primero debes completar el Paso 1: Sitio Turístico.');
         }
-
-        $request->validate([
-            'foto_perfil' => [
-                'required',
-                'image',
-                'mimes:jpeg,png,jpg,webp',
-                'max:2048', // Máximo 2MB
-            ],
-        ], [
-            'foto_perfil.required' => 'Debes seleccionar una foto de perfil.',
-            'foto_perfil.image'    => 'El archivo seleccionado debe ser una imagen válida.',
-            'foto_perfil.mimes'    => 'La imagen debe ser de formato JPG, JPEG, PNG o WEBP.',
-            'foto_perfil.max'      => 'La foto de perfil no debe pesar más de 2 MB.',
-        ]);
 
         $file = $request->file('foto_perfil');
         $extension = $file->getClientOriginalExtension();
